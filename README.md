@@ -1,3 +1,3 @@
 
 # MongoDB images
-## [mongod](docker-mongod/README.md)
+## [mongod](docker-mongod)
