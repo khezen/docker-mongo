@@ -44,7 +44,5 @@ None! Use as you want and like.
 
 ---
 
-By [Guillaume Simonneau](https://fr.linkedin.com/in/simonneaug)
-
 Inspired by [mongo-rocks](https://github.com/jadsonlourenco/docker-mongo-rocks) from [jadsonlourenco](https://twitter.com/jadsonlourenco)
 and  [mongo-rocks](https://github.com/structuresound/docker-mongo-rocks) from [Chroma](https://github.com/structuresound)
