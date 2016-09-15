@@ -39,9 +39,6 @@ Define the name of the replica set on which you want this server to be attached
 #### STORAGE_ENGINE
 Define the storage engine you want to plug to your mongod server. [mmapv1](https://docs.mongodb.com/manual/core/mmapv1/), [wiredTiger](http://www.wiredtiger.com/) and [rocksdb](http://rocksdb.org/) are currently available.
 
-## License
-None! Use as you want and like.
-
 ---
 
 Inspired by [mongo-rocks](https://github.com/jadsonlourenco/docker-mongo-rocks) from [jadsonlourenco](https://twitter.com/jadsonlourenco)
