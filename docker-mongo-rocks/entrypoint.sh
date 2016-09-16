@@ -2,28 +2,28 @@
 
 set -m
 
-mongodb_cmd="mongod --storageEngine $STORAGE_ENGINE"
+mongodb_cmd="mongod --storageEngine $storage_engine"
 cmd="$mongodb_cmd --httpinterface --rest --master"
 
 if [ "$SHARD" == "yes" ]; then
   cmd="$cmd --shardsvr"
 fi
 
-if [ "$REPLICA_SET_NAME" != "" ]; then
-  cmd="$cmd --replSet $REPLICA_SET_NAME"
+if [ "$rs_name" != "" ]; then
+  cmd="$cmd --replSet $rs_name"
 fi
 
-if [ "$AUTH" == "yes" ]; then
+if [ "$auth" == "yes" ]; then
   cmd="$cmd --auth"
 fi
 
-if [ "$DBPATH" != "" ]; then
-  mkdir -p "$DBPATH"
-  cmd="$cmd --dbpath $DBPATH"
+if [ "$dbpath" != "" ]; then
+  mkdir -p "$dbpath"
+  cmd="$cmd --dbpath $dbpath"
 fi
 
-if [ "$OPLOG_SIZE" != "" ]; then
-  cmd="$cmd --oplogSize $OPLOG_SIZE"
+if [ "$oplog_size" != "" ]; then
+  cmd="$cmd --oplogSize $oplog_size"
 fi
 
 $cmd &
@@ -39,7 +39,7 @@ done
 mongo admin --eval "db.getSiblingDB('admin').runCommand({setParameter: 1, internalQueryExecYieldPeriodMS: 1000});"
 mongo admin --eval "db.getSiblingDB('admin').runCommand({setParameter: 1, internalQueryExecYieldIterations: 100000});"
 
-if [ ! -f "$DBPATH"/.mongodb_password_set ]; then
+if [ ! -f "$dbpath"/.mongodb_password_set ]; then
   /set_auth.sh
 fi
 

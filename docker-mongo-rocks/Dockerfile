@@ -1,14 +1,14 @@
 FROM chromapdx/mongo-rocks-dist
 
-ENV AUTH="no" \
-    ADMIN_USER="admin" \
-    ADMIN_PASS="admin" \
-    DBPATH="/data/db" \
-    DB_USER="user" \
-    DB_PASS="password" \
-    REPLICA_SET_NAME="rs" \
-    STORAGE_ENGINE="rocksdb" \
-    SHARD="no"
+ENV auth="no" \
+    admin_user="admin" \
+    admin_pwd="admin" \
+    dbpath="/data/db" \
+    db_user="user" \
+    db_pwd="password" \
+    rs_name="rs" \
+    storage_engine="rocksdb" \
+    shard="no"
 
 VOLUME /data/db
 EXPOSE 27017
