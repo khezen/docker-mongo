@@ -2,10 +2,10 @@ FROM chromapdx/mongo-rocks-dist
 
 ENV auth="no" \
     admin_user="admin" \
-    admin_pwd="admin" \
+    admin_pwd="changeme" \
     dbpath="/data/db" \
     db_user="user" \
-    db_pwd="password" \
+    db_pwd="changeme" \
     rs_name="rs" \
     storage_engine="rocksdb" \
     shard="no"
