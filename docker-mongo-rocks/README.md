@@ -4,11 +4,9 @@ supported storage engines:
 
 ## How To Use
 ```
-docker run -d -p 27017:27017 -e db_user=test -e db_pwd=test -e DATABASE=mongo Khezen/mongo-rocks:latest
-```
-
-<br/>
-
+docker run -d -p 27017:27017 -e db_user=test -e db_pwd=test -e DATABASE=mongo Khezen/mongo-rocks:latest   
+```   
+    
 ## Environment Variables
 
 ##### auth | *yes*
