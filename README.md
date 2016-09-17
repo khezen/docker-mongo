@@ -1,6 +1,6 @@
 ## mongod server
 supported storage engines:
-[mmapv1](https://docs.mongodb.com/manual/core/mmapv1/), [wiredTiger](http://www.wiredtiger.com/) and [rocksdb](http://rocksdb.org/)
+[mmapv1](https://docs.mongodb.com/manual/core/mmapv1/), [WiredTiger](http://www.WiredTiger.com/) and [RocksDB](http://RocksDB.org/)
 
 #
 
@@ -17,7 +17,7 @@ services:
         image: khezen/mongo-rocks:3.2
         environment:
             - "rs_name:rs"
-            - "storage_engine:rocksdb"
+            - "storage_engine:RocksDB"
         volumes:
              - /srv/mongo/mogod1:/data/db
         ports:
@@ -58,7 +58,7 @@ Define the size of [Oplog](https://docs.mongodb.org/manual/tutorial/change-oplog
 Define the name of the replica set on which you want this server to be attached
 
 ##### storage_engine | *rocksdb*
-Define the storage engine you want to plug to your mongod server. [mmapv1](https://docs.mongodb.com/manual/core/mmapv1/), [wiredTiger](http://www.wiredtiger.com/) and [rocksdb](http://rocksdb.org/) are currently available.
+Define the storage engine you want to plug to your mongod server. [mmapv1](https://docs.mongodb.com/manual/core/mmapv1/), [WiredTiger](http://www.WiredTiger.com/) or [RocksDB](http://RocksDB.org/).
 
 ---
 
