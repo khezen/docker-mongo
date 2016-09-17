@@ -2,7 +2,7 @@
 
 set -m
 
-mongodb_cmd="mongod --storageEngine $storage_engine"
+mongodb_cmd="mongod --slave --storageEngine $storage_engine"
 cmd="$mongodb_cmd --httpinterface --rest --master"
 
 if [ "$SHARD" == "yes" ]; then
