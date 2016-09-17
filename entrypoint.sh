@@ -5,7 +5,7 @@ set -m
 mongodb_cmd="mongod --storageEngine $storage_engine"
 cmd="$mongodb_cmd --httpinterface --rest"
 
-if [ "$SHARD" == "yes" ]; then
+if [ "$shard" == "yes" ]; then
   cmd="$cmd --shardsvr"
 fi
 

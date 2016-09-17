@@ -57,6 +57,9 @@ Define the size of [Oplog](https://docs.mongodb.org/manual/tutorial/change-oplog
 ##### rs_name | *rs*
 Define the name of the replica set on which you want this server to be attached
 
+##### shard | *no*
+*yes* means --shardsvr option added to mongod. 
+
 ##### storage_engine | *rocksdb*
 Define the storage engine you want to plug to your mongod server. [mmapv1](https://docs.mongodb.com/manual/core/mmapv1/), [WiredTiger](http://www.WiredTiger.com/) or [RocksDB](http://RocksDB.org/).
 
