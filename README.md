@@ -17,7 +17,7 @@ services:
         image: khezen/mongo-rocks:3.2
         environment:
             - "rs_name:rs"
-            - "storage_engine:RocksDB"
+            - "storage_engine:rocksdb"
         volumes:
              - /srv/mongo/mogod1:/data/db
         ports:
