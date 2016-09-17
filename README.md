@@ -5,11 +5,11 @@ supported storage engines:
 #
 
 ### How To Use
-#### docker engine
+##### docker engine
 ```
 docker run -d -p 27017:27017 -e db_user=test -e db_pwd=test -e database=mongo Khezen/mongo-rocks:latest   
 ```   
-#### docker-compose
+##### docker-compose
 ```
 version: '2'
 services:
@@ -19,7 +19,7 @@ services:
             - "rs_name:rs"
             - "storage_engine:rocksdb"
         volumes:
-             - /srv/mongo-rocks/rs1:/data/db
+             - /srv/mongo/mogod1:/data/db
         ports:
              - "27017:27017"
         network_mode: bridge
