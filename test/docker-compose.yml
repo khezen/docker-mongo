@@ -1,8 +1,8 @@
 version: '2'
 services:
 
-    rs1:
-        build: ./                # khezen/mongo-rocks
+    mongod1:
+        build: ../                # khezen/mongo-rocks
         environment:
             - "rs_name:rs"
             - "storage_engine:rocksdb"
@@ -10,29 +10,5 @@ services:
              - /srv/mongo-rocks/rs1:/data/db
         ports:
              - "27017:27017"
-        network_mode: bridge
-        restart: always
-
-    rs2:
-        image: khezen/mongo-rocks
-        environment:
-            - "rs_name:rs"
-            - "storage_engine:rocksdb"
-        volumes:
-            - /srv/mongo-rocks/rs2:/data/db
-        ports:
-            - "27018:27017"
-        network_mode: bridge
-        restart: always
-
-    rs3:
-        image: khezen/mongo-rocks
-        environment:
-            - "rs_name:rs"
-            - "storage_engine:rocksdb"
-        volumes:
-            - /srv/mongo-rocks/rs3:/data/db
-        ports:
-            - "27019:27017"
         network_mode: bridge
         restart: always

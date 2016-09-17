@@ -2,8 +2,8 @@
 
 set -m
 
-mongodb_cmd="mongod --slave --storageEngine $storage_engine"
-cmd="$mongodb_cmd --httpinterface --rest --master"
+mongodb_cmd="mongod --storageEngine $storage_engine"
+cmd="$mongodb_cmd --httpinterface --rest"
 
 if [ "$SHARD" == "yes" ]; then
   cmd="$cmd --shardsvr"
@@ -26,15 +26,9 @@ if [ "$oplog_size" != "" ]; then
   cmd="$cmd --oplogSize $oplog_size"
 fi
 
-$cmd &
+echo $cmd
 
-RET=1
-while [[ RET -ne 0 ]]; do
-    echo "=> Waiting for confirmation of MongoDB service startup"
-    sleep 5
-    mongo admin --eval "help" >/dev/null 2>&1
-    RET=$?
-done
+$cmd &
 
 mongo admin --eval "db.getSiblingDB('admin').runCommand({setParameter: 1, internalQueryExecYieldPeriodMS: 1000});"
 mongo admin --eval "db.getSiblingDB('admin').runCommand({setParameter: 1, internalQueryExecYieldIterations: 100000});"
@@ -42,7 +36,5 @@ mongo admin --eval "db.getSiblingDB('admin').runCommand({setParameter: 1, intern
 if [ ! -f "$dbpath"/.mongodb_password_set ]; then
   /set_auth.sh
 fi
-
-echo "MongoDB is running!"
 
 fg
