@@ -1,5 +1,7 @@
 FROM chromapdx/mongo-rocks-dist
 
+MAINTAINER Guillaume Simonneau <simonneaug@gmail.com>
+
 ENV auth="no" \
     admin_user="admin" \
     admin_pwd="changeme" \
