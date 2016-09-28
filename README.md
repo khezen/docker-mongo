@@ -2,13 +2,14 @@
 supported storage engines:
 [mmapv1](https://docs.mongodb.com/manual/core/mmapv1/), [WiredTiger](http://www.WiredTiger.com/) and [RocksDB](http://RocksDB.org/)
 
-#
+* `3.2.9`, `3.2`, `latest` [(3.2/Dockerfile)](https://github.com/Khezen/docker-mongo-rocks/blob/v3.2/Dockerfile)
 
 ### How To Use
 ##### docker engine
 ```
 docker run -d -p 27017:27017 -e db_user=test -e db_pwd=test -e database=mongo Khezen/mongo-rocks:latest   
 ```   
+
 ##### docker-compose
 ```
 version: '2'
@@ -16,8 +17,8 @@ services:
     mongod1:
         image: khezen/mongo-rocks:3.2
         environment:
-            - "rs_name:rs"
-            - "storage_engine:rocksdb"
+            - rs_name=rs
+            - storage_engine=rocksdb
         volumes:
              - /srv/mongo/mogod1:/data/db
         ports:
@@ -26,7 +27,6 @@ services:
         restart: always
 
 ```
-#
 
 ### Environment Variables
 
@@ -54,8 +54,10 @@ The path that store all data, this setting is useful for *Docker volumes*
 ##### oplog_size
 Define the size of [Oplog](https://docs.mongodb.org/manual/tutorial/change-oplog-size/), in megabytes, for example, set **50** to be *50MB*.
 
-##### rs_name | *rs*
-Define the name of the replica set on which you want this server to be attached
+##### rs_name
+Define the name of the replica set on which you want this server to be attached.
+*mongod is not launched in replSet mode by default. Set this variable if you want to toggle it.*
+
 
 ##### shard | *no*
 *yes* means --shardsvr option added to mongod. 
