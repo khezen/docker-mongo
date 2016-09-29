@@ -1,26 +1,24 @@
-## mongod server
-supported storage engines:
-[mmapv1](https://docs.mongodb.com/manual/core/mmapv1/), [WiredTiger](http://www.WiredTiger.com/) and [RocksDB](http://RocksDB.org/)
+# Supported tags and respective `Dockerfile` links
 
-* `3.2.9`, `3.2`, `latest` [(3.2/Dockerfile)](https://github.com/Khezen/docker-mongo-rocks/blob/v3.2/Dockerfile)
+* `3.2.9`, `3.2`, `3`, `latest` [(3.2/Dockerfile)](https://github.com/Khezen/docker-mongo-rocks/blob/v3.2/Dockerfile)
 
-### How To Use
-##### docker engine
+# How To Use
+## docker engine
 ```
 docker run -d -p 27017:27017 -e db_user=test -e db_pwd=test -e database=mongo Khezen/mongo-rocks:latest   
 ```   
 
-##### docker-compose
+## docker-compose
 ```
 version: '2'
 services:
     mongod1:
         image: khezen/mongo-rocks:3.2
         environment:
-            - rs_name=rs
-            - storage_engine=rocksdb
+            rs_name: rs
+            storage_engine: rocksdb
         volumes:
-             - /srv/mongo/mogod1:/data/db
+             - /srv/mongo-rocks/rs1:/data/db
         ports:
              - "27017:27017"
         network_mode: bridge
@@ -28,7 +26,7 @@ services:
 
 ```
 
-### Environment Variables
+# Environment Variables
 
 ##### auth | *yes*
 To disable authentication, set to **no**.
