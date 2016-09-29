@@ -2,7 +2,7 @@
 supported storage engines:
 [mmapv1](https://docs.mongodb.com/manual/core/mmapv1/), [WiredTiger](http://www.WiredTiger.com/) and [RocksDB](http://RocksDB.org/)
 
-* `3.2.9`, `3.2`, `latest` [(3.2/Dockerfile)](https://github.com/Khezen/docker-mongo-rocks/blob/v3.2/Dockerfile)
+* `3.2.9`, `3.2`, `3`, `latest` [(3.2/Dockerfile)](https://github.com/Khezen/docker-mongo-rocks/blob/v3.2/Dockerfile)
 
 ### How To Use
 ##### docker engine
