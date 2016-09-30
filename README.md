@@ -1,12 +1,12 @@
-[![](https://images.microbadger.com/badges/image/khezen/mongo-rocks.svg)](https://microbadger.com/images/khezen/mongo-rocks "Get your own image badge on microbadger.com")
+[![](https://images.microbadger.com/badges/image/khezen/mongo.svg)](https://microbadger.com/images/khezen/mongo "Get your own image badge on microbadger.com")
 # Supported tags and respective `Dockerfile` links
 
-* `3.2.9`, `3.2`, `3`, `latest` [(3.2/Dockerfile)](https://github.com/Khezen/docker-mongo-rocks/blob/v3.2/Dockerfile)
+* `3.2.9`, `3.2`, `3`, `latest` [(3.2/Dockerfile)](https://github.com/Khezen/docker-mongo/blob/v3.2/Dockerfile)
 
 # How To Use
 ## docker engine
 ```
-docker run -d -p 27017:27017 -e db_user=test -e db_pwd=test -e database=mongo khezen/mongo-rocks:latest   
+docker run -d -p 27017:27017 -e db_user=test -e db_pwd=test -e database=mongo khezen/mongo:latest   
 ```   
 
 ## docker-compose
@@ -14,12 +14,12 @@ docker run -d -p 27017:27017 -e db_user=test -e db_pwd=test -e database=mongo kh
 version: '2'
 services:
     mongod1:
-        image: khezen/mongo-rocks:3.2
+        image: khezen/mongo:3.2
         environment:
             rs_name: rs
             storage_engine: rocksdb
         volumes:
-             - /srv/mongo-rocks/rs1:/data/db
+             - /srv/mongo/rs1:/data/db
         ports:
              - "27017:27017"
         network_mode: bridge
