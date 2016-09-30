@@ -6,7 +6,7 @@
 # How To Use
 ## docker engine
 ```
-docker run -d -p 27017:27017 -e db_user=test -e db_pwd=test -e database=mongo Khezen/mongo-rocks:latest   
+docker run -d -p 27017:27017 -e db_user=test -e db_pwd=test -e database=mongo khezen/mongo-rocks:latest   
 ```   
 
 ## docker-compose
