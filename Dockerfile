@@ -1,7 +1,7 @@
 FROM debian:jessie
 
 MAINTAINER Guillaume Simonneau <simonneaug@gmail.com>
-LABEL Descritpion="mongodb roccksdb mongo mongod mongos"
+LABEL Descritpion="mongodb roccksdb mongo mongod mongos mongotools bsondump mongodump mongorestore mongoimport mongoexport mongostat mongofiles mongooplog mongotop"
 
 COPY install_mongoserver.sh /install_mongoserver.sh
 RUN chmod +x /install_mongoserver.sh \
@@ -13,7 +13,6 @@ RUN chmod +x /install_mongotools.sh \
 &&  sh /install_mongotools.sh \
 &&  rm /install_mongotools.sh
 
-RUN cd /usr/bin && du -sh * | grep M
 # configuration and startup
 ENV auth="no" \
     admin_user="admin" \
