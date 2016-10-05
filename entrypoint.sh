@@ -40,6 +40,8 @@ done
 mongo admin --eval "db.getSiblingDB('admin').runCommand({setParameter: 1, internalQueryExecYieldPeriodMS: 1000});"
 mongo admin --eval "db.getSiblingDB('admin').runCommand({setParameter: 1, internalQueryExecYieldIterations: 100000});"
 
+/configure_rs.sh
+
 if [ ! -f "$dbpath"/.mongodb_password_set ]; then
   /set_auth.sh
 fi
