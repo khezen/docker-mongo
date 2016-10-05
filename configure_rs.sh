@@ -1,6 +1,5 @@
 if [ "$rs_name" != "" ] && [ "$slaves" != "" ]; then
   mongo --quiet --eval "rs.initiate()"
-  mongo --quiet --eval "rs.conf()"
   for slave in $slaves; do
     mongo --quiet --eval "rs.add(\"$slave\")"
   done
