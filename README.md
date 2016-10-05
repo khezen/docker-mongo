@@ -20,7 +20,7 @@ services:
             rs_name: rs
             storage_engine: rocksdb
         volumes:
-             - /srv/mongo/rs1:/data/db
+             - /srv/mongo/mongod1:/data/db
         ports:
              - "27017:27017"
         network_mode: bridge
