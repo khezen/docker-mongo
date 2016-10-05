@@ -30,6 +30,9 @@ services:
 ---
 # Environment Variables
 
+##### storage_engine | *rocksdb*
+Define the storage engine you want to plug to your mongod server. [mmapv1](https://docs.mongodb.com/manual/core/mmapv1/), [WiredTiger](http://www.WiredTiger.com/) or [RocksDB](http://RocksDB.org/).
+
 ##### auth | *no*
 To enable authentication, set to **yes**.
 
@@ -58,12 +61,61 @@ Define the size of [Oplog](https://docs.mongodb.org/manual/tutorial/change-oplog
 Define the name of the replica set on which you want this server to be attached.
 *mongod is not launched in replSet mode by default. Set this variable if you want to toggle it.*
 
+##### slaves
+Define the host:port members you wants to add to a replica set from its master. See example below:
+```
+version: '2'
+services:
+
+    mongod1:
+        build: khezen/mongo:3.2
+        environment:
+            rs_name: rs
+            storage_engine: rocksdb
+        volumes:
+             - /srv/mongo/mongod1:/data/db
+        ports:
+             - "27017:27017"
+        network_mode: bridge
+        restart: always
+
+    mongod2:
+        build: khezen/mongo:3.2
+        environment:
+            rs_name: rs
+            storage_engine: rocksdb
+        volumes:
+             - /srv/mongo/mongod2:/data/db
+        ports:
+             - "27018:27017"
+        network_mode: bridge
+        restart: always
+
+    mongod3:
+        build: khezen/mongo:3.2
+        links:
+            - "mongod1:mongod1"
+            - "mongod2:mongod2"
+        environment:
+            rs_name: rs
+            storage_engine: rocksdb
+            slaves: mongod1:27017 mongod2:27017    
+        volumes:
+             - /srv/mongo/mongod3:/data/db
+        ports:
+             - "27019:27017"
+        network_mode: bridge
+        restart: always
+```
+
+##### arbitrers
+Define the host:port members you wants to add to a replica set as arbitrer from its master. It works the same way as slaves environment variable.
+
+##### slaveOk | *yes*
+*yes* means you can read from slaves.
 
 ##### shard | *no*
 *yes* means --shardsvr option added to mongod. 
-
-##### storage_engine | *rocksdb*
-Define the storage engine you want to plug to your mongod server. [mmapv1](https://docs.mongodb.com/manual/core/mmapv1/), [WiredTiger](http://www.WiredTiger.com/) or [RocksDB](http://RocksDB.org/).
 
 ---
 

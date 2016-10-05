@@ -22,10 +22,14 @@ ENV auth="no" \
     db_pwd="changeme" \
     rs_name="" \
     storage_engine="rocksdb" \
-    shard="no"
+    shard="no" \ 
+    slaves="" \
+    arbitrers="" \
+    slaveOk="yes"
 
 COPY ./set_auth.sh /
 COPY ./entrypoint.sh /
-RUN chmod +x /entrypoint.sh && chmod +x /set_auth.sh
+COPY ./configure_rs.sh /
+RUN chmod +x /entrypoint.sh && chmod +x /set_auth.sh && chmod +x /configure_rs.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
