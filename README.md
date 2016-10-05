@@ -59,7 +59,6 @@ Define the size of [Oplog](https://docs.mongodb.org/manual/tutorial/change-oplog
 
 ##### rs_name
 Define the name of the replica set on which you want this server to be attached.
-*mongod is not launched in replSet mode by default. Set this variable if you want to toggle it.*
 
 ##### slaves
 Define the host:port members you wants to add to a replica set from its master. See example below:
