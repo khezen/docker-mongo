@@ -67,7 +67,7 @@ version: '2'
 services:
 
     mongod1:
-        build: khezen/mongo:3.2
+        image: khezen/mongo:3.2
         environment:
             rs_name: rs
             storage_engine: rocksdb
@@ -79,7 +79,7 @@ services:
         restart: always
 
     mongod2:
-        build: khezen/mongo:3.2
+        image: khezen/mongo:3.2
         environment:
             rs_name: rs
             storage_engine: rocksdb
@@ -91,7 +91,7 @@ services:
         restart: always
 
     mongod3:
-        build: khezen/mongo:3.2
+        image: khezen/mongo:3.2
         links:
             - "mongod1:mongod1"
             - "mongod2:mongod2"
@@ -114,7 +114,7 @@ version: '2'
 services:
 
     mongod1:
-        build: khezen/mongo:3.2
+        image: khezen/mongo:3.2
         environment:
             rs_name: rs
             storage_engine: rocksdb
@@ -126,7 +126,7 @@ services:
         restart: always
 
     mongod2:
-        build: khezen/mongo:3.2
+        image: khezen/mongo:3.2
         environment:
             rs_name: rs
             storage_engine: rocksdb
@@ -138,7 +138,7 @@ services:
         restart: always
 
     mongod3:
-        build: khezen/mongo:3.2
+        image: khezen/mongo:3.2
         links:
             - "mongod1:mongod1"
             - "mongod2:mongod2"
