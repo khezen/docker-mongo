@@ -61,7 +61,7 @@ Define the size of [Oplog](https://docs.mongodb.org/manual/tutorial/change-oplog
 Define the name of the replica set on which you want this server to be attached.
 
 ##### slaves
-Define the host:port members you wants to add to a replica set from its master. See example below:
+Define the host:port members you want to add to a replica set from its master. See example below:
 ```
 version: '2'
 services:
@@ -108,7 +108,7 @@ services:
 ```
 
 ##### arbitrers
-Define the host:port arbitrers you wants to add to a replica set from its master. See example below:
+Define the host:port arbitrers you want to add to a replica set from its master. See example below:
 ```
 version: '2'
 services:
