@@ -109,7 +109,52 @@ services:
 ```
 
 ##### arbitrers
-Define the host:port members you wants to add to a replica set as arbitrer from its master. It works the same way as slaves environment variable.
+Define the host:port arbitrers you wants to add to a replica set from its master. See example below:
+```
+version: '2'
+services:
+
+    mongod1:
+        build: khezen/mongo:3.2
+        environment:
+            rs_name: rs
+            storage_engine: rocksdb
+        volumes:
+             - /srv/mongo/mongod1:/data/db
+        ports:
+             - "27017:27017"
+        network_mode: bridge
+        restart: always
+
+    mongod2:
+        build: khezen/mongo:3.2
+        environment:
+            rs_name: rs
+            storage_engine: rocksdb
+        volumes:
+             - /srv/mongo/mongod2:/data/db
+        ports:
+             - "27018:27017"
+        network_mode: bridge
+        restart: always
+
+    mongod3:
+        build: khezen/mongo:3.2
+        links:
+            - "mongod1:mongod1"
+            - "mongod2:mongod2"
+        environment:
+            rs_name: rs
+            storage_engine: rocksdb
+            slaves: mongod1:27017
+            arbitrers: mongod2:27017  
+        volumes:
+             - /srv/mongo/mongod3:/data/db
+        ports:
+             - "27019:27017"
+        network_mode: bridge
+        restart: always
+```
 
 ##### slaveOk | *yes*
 *yes* means you can read from slaves.
