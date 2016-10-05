@@ -30,7 +30,7 @@ services:
 ---
 # Environment Variables
 
-##### storage_engine | *rocksdb*
+##### storage_engine | *wiredTiger*
 Define the storage engine you want to plug to your mongod server. [mmapv1](https://docs.mongodb.com/manual/core/mmapv1/), [WiredTiger](http://www.WiredTiger.com/) or [RocksDB](http://RocksDB.org/).
 
 ##### auth | *no*
