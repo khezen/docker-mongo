@@ -1,5 +1,5 @@
 if [ "$slaves" != "" ]; then
-  mongo --quiet --eval "rs.initiate(); var conf = rs.conf(); conf.members[0].host=\"$ip\"; rs.reconfig(conf)"
+  mongo --quiet --eval "rs.initiate(); var conf = rs.conf(); conf.members[0].host=\"$master\"; rs.reconfig(conf)"
   for slave in $slaves; do
     mongo --quiet --eval "rs.add(\"$slave\")"
   done

@@ -60,6 +60,9 @@ Define the size of [Oplog](https://docs.mongodb.org/manual/tutorial/change-oplog
 ##### rs_name
 Define the name of the replica set on which you want this server to be attached.
 
+##### master
+Define the host of the master during replica set init.
+
 ##### slaves
 Define the host:port members you want to add to a replica set from its master. See example below:
 ```
@@ -99,7 +102,7 @@ services:
         environment:
             rs_name: rs
             storage_engine: rocksdb
-            ip: 172.16.238.13
+            master: 172.16.238.13
             slaves: 172.16.238.11 172.16.238.12    
         volumes:
              - /srv/mongo/mongod3:/data/db
@@ -159,7 +162,7 @@ services:
         environment:
             rs_name: rs
             storage_engine: rocksdb
-            ip: 172.16.238.13
+            master: 172.16.238.13
             slaves: 172.16.238.11
             arbitrers: 172.16.238.12
         volumes:

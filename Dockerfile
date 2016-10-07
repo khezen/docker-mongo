@@ -23,6 +23,7 @@ ENV auth="n" \
     rs_name="" \
     storage_engine="wiredTiger" \
     shard="n" \ 
+    master=$HOSTNAME \
     slaves="" \
     arbitrers="" \
     slaveOk="y"
