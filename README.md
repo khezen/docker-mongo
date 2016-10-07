@@ -100,7 +100,7 @@ services:
             rs_name: rs
             storage_engine: rocksdb
             ip: 172.16.238.13
-            slaves: 172.16.238.11:27017 172.16.238.12:27017    
+            slaves: 172.16.238.11 172.16.238.12    
         volumes:
              - /srv/mongo/mongod3:/data/db
         ports:
@@ -160,8 +160,8 @@ services:
             rs_name: rs
             storage_engine: rocksdb
             ip: 172.16.238.13
-            slaves: 172.16.238.11:27017
-            arbitrers: 172.16.238.12:27017
+            slaves: 172.16.238.11
+            arbitrers: 172.16.238.12
         volumes:
              - /srv/mongo/mongod3:/data/db
         ports:
