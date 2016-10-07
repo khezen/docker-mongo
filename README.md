@@ -60,7 +60,7 @@ Define the size of [Oplog](https://docs.mongodb.org/manual/tutorial/change-oplog
 ##### rs_name
 Define the name of the replica set on which you want this server to be attached.
 
-##### master
+##### master | *$HOSTNAME*
 Define the host of the master during replica set init.
 
 ##### slaves
