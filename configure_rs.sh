@@ -1,21 +1,19 @@
-if [ "$rs_name" != "" ] && [ "$slaves" != "" ]; then
-  mongo --quiet --eval "rs.initiate()"
+if [ "$slaves" != "" ]; then
+  mongo --quiet --eval "rs.initiate(); var conf = rs.conf(); conf.members[0].host=\"$ip\"; rs.reconfig(conf)"
   for slave in $slaves; do
     mongo --quiet --eval "rs.add(\"$slave\")"
   done
 fi
 
-if [ "$rs_name" != "" ] && [ "$slaves" != "" ] && [ "$arbitrers" != "" ]; then
+if [ "$slaves" != "" ] && [ "$arbitrers" != "" ]; then
   for arbitrer in $arbitrers; do
     mongo --quiet --eval "rs.addArb(\"$arbitrer\")"
   done
-  
 fi
 
-if [ "$rs_name" != "" ] && [ "$slaves" != "" ] && [ "$slaveOk" == "yes" ]; then
+if [ "$slaves" != "" ] && [ "$slaveOk" == "y" ]; then
   mongo --quiet --eval "rs.slaveOk()"  
 fi
 
-if [ "$rs_name" != "" ]; then
-  mongo --quiet --eval "rs.conf()"
-fi
+mongo --quiet --eval "rs.status()"
+touch "$dbpath"/.mongodb_replSet_set

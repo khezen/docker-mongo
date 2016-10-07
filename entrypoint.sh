@@ -4,7 +4,7 @@ set -m
 
 cmd="mongod --storageEngine $storage_engine"
 
-if [ "$shard" == "yes" ]; then
+if [ "$shard" == "y" ]; then
   cmd="$cmd --shardsvr"
 fi
 
@@ -12,7 +12,7 @@ if [ "$rs_name" != "" ]; then
   cmd="$cmd --replSet $rs_name"
 fi
 
-if [ "$auth" == "yes" ]; then
+if [ "$auth" == "y" ]; then
   cmd="$cmd --auth"
 fi
 
@@ -40,9 +40,11 @@ done
 mongo admin --eval "db.getSiblingDB('admin').runCommand({setParameter: 1, internalQueryExecYieldPeriodMS: 1000});"
 mongo admin --eval "db.getSiblingDB('admin').runCommand({setParameter: 1, internalQueryExecYieldIterations: 100000});"
 
-/configure_rs.sh
+if [ ! -f "$dbpath"/.mongodb_replSet_set ] && [ "$rs_name" != "" ]; then
+  /configure_rs.sh
+fi
 
-if [ ! -f "$dbpath"/.mongodb_password_set ]; then
+if [ ! -f "$dbpath"/.mongodb_password_set ] && [ "$auth" == "yes" ]; then
   /set_auth.sh
 fi
 

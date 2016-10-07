@@ -14,7 +14,7 @@ RUN chmod +x /install_mongotools.sh \
 &&  rm /install_mongotools.sh
 
 # configuration and startup
-ENV auth="no" \
+ENV auth="n" \
     admin_user="admin" \
     admin_pwd="changeme" \
     dbpath="/data/db" \
@@ -22,10 +22,10 @@ ENV auth="no" \
     db_pwd="changeme" \
     rs_name="" \
     storage_engine="wiredTiger" \
-    shard="no" \ 
+    shard="n" \ 
     slaves="" \
     arbitrers="" \
-    slaveOk="yes"
+    slaveOk="y"
 
 COPY ./set_auth.sh /
 COPY ./entrypoint.sh /

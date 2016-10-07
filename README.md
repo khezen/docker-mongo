@@ -67,7 +67,7 @@ version: '2'
 services:
 
     mongod1:
-        image: khezen/mongo:3.2
+        image: khezen/mongo:3
         environment:
             rs_name: rs
             storage_engine: rocksdb
@@ -75,11 +75,13 @@ services:
              - /srv/mongo/mongod1:/data/db
         ports:
              - "27017:27017"
-        network_mode: bridge
+        networks:
+            rs_net:
+                ipv4_address: 172.16.238.11
         restart: always
 
     mongod2:
-        image: khezen/mongo:3.2
+        image: khezen/mongo:3
         environment:
             rs_name: rs
             storage_engine: rocksdb
@@ -87,24 +89,35 @@ services:
              - /srv/mongo/mongod2:/data/db
         ports:
              - "27018:27017"
-        network_mode: bridge
+        networks:
+            rs_net:
+                ipv4_address: 172.16.238.12
         restart: always
 
     mongod3:
-        image: khezen/mongo:3.2
-        links:
-            - "mongod1:mongod1"
-            - "mongod2:mongod2"
+        image: khezen/mongo:3
         environment:
             rs_name: rs
             storage_engine: rocksdb
-            slaves: mongod1:27017 mongod2:27017    
+            ip: 172.16.238.13
+            slaves: 172.16.238.11:27017 172.16.238.12:27017    
         volumes:
              - /srv/mongo/mongod3:/data/db
         ports:
              - "27019:27017"
-        network_mode: bridge
+        networks:
+            rs_net:
+                ipv4_address: 172.16.238.13
         restart: always
+
+networks:
+  rs_net:
+    driver: bridge
+    ipam:
+        driver: default
+        config:
+        - subnet: 172.16.238.0/24
+          gateway: 172.16.238.1
 ```
 
 ##### arbitrers
@@ -114,7 +127,7 @@ version: '2'
 services:
 
     mongod1:
-        image: khezen/mongo:3.2
+        image: khezen/mongo:3
         environment:
             rs_name: rs
             storage_engine: rocksdb
@@ -122,11 +135,13 @@ services:
              - /srv/mongo/mongod1:/data/db
         ports:
              - "27017:27017"
-        network_mode: bridge
+        networks:
+            rs_net:
+                ipv4_address: 172.16.238.11
         restart: always
 
     mongod2:
-        image: khezen/mongo:3.2
+        image: khezen/mongo:3
         environment:
             rs_name: rs
             storage_engine: rocksdb
@@ -134,25 +149,36 @@ services:
              - /srv/mongo/mongod2:/data/db
         ports:
              - "27018:27017"
-        network_mode: bridge
+        networks:
+            rs_net:
+                ipv4_address: 172.16.238.12
         restart: always
 
     mongod3:
-        image: khezen/mongo:3.2
-        links:
-            - "mongod1:mongod1"
-            - "mongod2:mongod2"
+        image: khezen/mongo:3
         environment:
             rs_name: rs
             storage_engine: rocksdb
-            slaves: mongod1:27017
-            arbitrers: mongod2:27017  
+            ip: 172.16.238.13
+            slaves: 172.16.238.11:27017
+            arbitrers: 172.16.238.12:27017
         volumes:
              - /srv/mongo/mongod3:/data/db
         ports:
              - "27019:27017"
-        network_mode: bridge
+        networks:
+            rs_net:
+                ipv4_address: 172.16.238.13
         restart: always
+
+networks:
+  rs_net:
+    driver: bridge
+    ipam:
+        driver: default
+        config:
+        - subnet: 172.16.238.0/24
+          gateway: 172.16.238.1
 ```
 
 ##### slaveOk | *yes*
