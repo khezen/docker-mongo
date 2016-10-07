@@ -33,8 +33,8 @@ services:
 ##### storage_engine | *wiredTiger*
 Define the storage engine you want to plug to your mongod server. [mmapv1](https://docs.mongodb.com/manual/core/mmapv1/), [WiredTiger](http://www.WiredTiger.com/) or [RocksDB](http://RocksDB.org/).
 
-##### auth | *no*
-To enable authentication, set to **yes**.
+##### auth | *n*
+To enable authentication, set to **y**.
 
 ##### admin_user | *admin*
 You need have a user with **root** permissions, manager of the **admin** database ever present.
@@ -184,11 +184,11 @@ networks:
           gateway: 172.16.238.1
 ```
 
-##### slaveOk | *yes*
-*yes* means you can read from slaves.
+##### slaveOk | *y*
+*y* means you can read from slaves.
 
-##### shard | *no*
-*yes* means --shardsvr option added to mongod. 
+##### shard | *n*
+*y* means --shardsvr option added to mongod. 
 
 ---
 
