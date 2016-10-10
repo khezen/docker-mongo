@@ -1,4 +1,4 @@
-#!/bin/sh 
+#!/bin/bash 
 
 if [ "$slaves" != "" ]; then
   mongo --quiet --eval "rs.initiate(); var conf = rs.conf(); conf.members[0].host=\"$master\"; rs.reconfig(conf)"
@@ -18,4 +18,5 @@ if [ "$slaves" != "" ] && [ "$slaveOk" == "y" ]; then
 fi
 
 mongo --quiet --eval "rs.status()"
+
 touch "$dbpath"/.mongodb_replSet_set

@@ -3,12 +3,12 @@ FROM debian:jessie
 MAINTAINER Guillaume Simonneau <simonneaug@gmail.com>
 LABEL Descritpion="mongodb roccksdb mongo mongod mongos mongotools bsondump mongodump mongorestore mongoimport mongoexport mongostat mongofiles mongooplog mongotop"
 
-COPY install_mongoserver.sh /install_mongoserver.sh
+COPY ./setup/install_mongoserver.sh /install_mongoserver.sh
 RUN chmod +x /install_mongoserver.sh \
 &&  sh /install_mongoserver.sh \
 &&  rm /install_mongoserver.sh
 
-COPY install_mongotools.sh /install_mongotools.sh
+COPY ./setup/install_mongotools.sh /install_mongotools.sh
 RUN chmod +x /install_mongotools.sh \
 &&  sh /install_mongotools.sh \
 &&  rm /install_mongotools.sh
@@ -22,15 +22,23 @@ ENV auth="n" \
     db_pwd="changeme" \
     rs_name="" \
     storage_engine="wiredTiger" \
-    shard="n" \ 
     master=$HOSTNAME \
     slaves="" \
     arbitrers="" \
-    slaveOk="y"
+    slaveOk="y" \
+    shardsvr="n" \
+    configsvr="n" \
+    config_servers="" \
+    shards=""
+    
 
-COPY ./set_auth.sh /
 COPY ./entrypoint.sh /
 COPY ./configure_rs.sh /
-RUN chmod +x /entrypoint.sh && chmod +x /set_auth.sh && chmod +x /configure_rs.sh
+COPY ./set_auth.sh /
+COPY ./configure_cluster.sh /
+RUN chmod +x /entrypoint.sh  \
+&&  chmod +x /configure_rs.sh \
+&&  chmod +x /set_auth.sh \
+&&  chmod +x /configure_cluster.sh 
 
 ENTRYPOINT ["/entrypoint.sh"]
