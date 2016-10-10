@@ -213,7 +213,7 @@ services:
         image: khezen/mongo:3
         environment:
             rs_name: shard1
-            storage_engine: rocksdb
+            shardsvr: y
         volumes:
              - /srv/mongo/shard1_replica1:/data/db
         ports:
@@ -227,7 +227,7 @@ services:
         image: khezen/mongo:3
         environment:
             rs_name: shard1
-            storage_engine: rocksdb
+            shardsvr: y
         volumes:
              - /srv/mongo/shard1_replica2:/data/db
         ports:
@@ -241,7 +241,7 @@ services:
         image: khezen/mongo:3
         environment:
             rs_name: shard1
-            storage_engine: rocksdb
+            shardsvr: y
             master: 172.16.239.13
             slaves: 172.16.239.11 172.16.239.12    
         volumes:
@@ -259,7 +259,7 @@ services:
         image: khezen/mongo:3
         environment:
             rs_name: shard2
-            storage_engine: rocksdb
+            shardsvr: y
         volumes:
              - /srv/mongo/shard2_replica1:/data/db
         ports:
@@ -273,7 +273,7 @@ services:
         image: khezen/mongo:3
         environment:
             rs_name: shard2
-            storage_engine: rocksdb
+            shardsvr: y
         volumes:
              - /srv/mongo/shard2_replica2:/data/db
         ports:
@@ -287,7 +287,7 @@ services:
         image: khezen/mongo:3
         environment:
             rs_name: shard2
-            storage_engine: rocksdb
+            shardsvr: y
             master: 172.16.239.23
             slaves: 172.16.239.21 172.16.239.22    
         volumes:
