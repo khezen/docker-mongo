@@ -1,55 +1,159 @@
 version: '2'
 services:
-
-    mongod1:
-        build: ../
+    # SHARD 1
+    shard1_replica1:
+        build: ..
         environment:
-            rs_name: rs
+            rs_name: shard1
             storage_engine: rocksdb
         volumes:
-             - /srv/mongo/mongod1:/data/db
+             - /srv/mongo/shard1_replica1:/data/db
         ports:
-             - "27017:27017"
+             - "27011:27017"
         networks:
-            rs_net:
-                ipv4_address: 172.16.238.11
+            mongo_cluster_net:
+                ipv4_address: 172.16.239.11
         restart: always
-
-    mongod2:
-        build: ../
+    shard1_replica2:
+        build: ..
         environment:
-            rs_name: rs
+            rs_name: shard1
             storage_engine: rocksdb
         volumes:
-             - /srv/mongo/mongod2:/data/db
+             - /srv/mongo/shard1_replica2:/data/db
         ports:
-             - "27018:27017"
+             - "27012:27017"
         networks:
-            rs_net:
-                ipv4_address: 172.16.238.12
+            mongo_cluster_net:
+                ipv4_address: 172.16.239.12
         restart: always
-
-    mongod3:
-        build: ../
+    shard1_replica3:
+        build: ..
         environment:
-            rs_name: rs
+            rs_name: shard1
             storage_engine: rocksdb
-            master: 172.16.238.13
-            slaves: 172.16.238.11 172.16.238.12    
+            master: 172.16.239.13
+            slaves: 172.16.239.11 172.16.239.12    
         volumes:
-             - /srv/mongo/mongod3:/data/db
+             - /srv/mongo/shard1_replica3:/data/db
         ports:
-             - "27019:27017"
+             - "27013:27017"
         networks:
-            rs_net:
-                ipv4_address: 172.16.238.13
+            mongo_cluster_net:
+                ipv4_address: 172.16.239.13
+        restart: always
+    # SHARD 2
+    shard2_replica1:
+        build: ..
+        environment:
+            rs_name: shard2
+            storage_engine: rocksdb
+        volumes:
+             - /srv/mongo/shard2_replica1:/data/db
+        ports:
+             - "27021:27017"
+        networks:
+            mongo_cluster_net:
+                ipv4_address: 172.16.239.21
+        restart: always
+    shard2_replica2:
+        build: ..
+        environment:
+            rs_name: shard2
+            storage_engine: rocksdb
+        volumes:
+             - /srv/mongo/shard2_replica2:/data/db
+        ports:
+             - "27022:27017"
+        networks:
+            mongo_cluster_net:
+                ipv4_address: 172.16.239.22
+        restart: always
+    shard2_replica3:
+        build: ..
+        environment:
+            rs_name: shard2
+            storage_engine: rocksdb
+            master: 172.16.239.23
+            slaves: 172.16.239.21 172.16.239.22    
+        volumes:
+             - /srv/mongo/shard2_replica3:/data/db
+        ports:
+             - "27023:27017"
+        networks:
+            mongo_cluster_net:
+                ipv4_address: 172.16.239.23
+        restart: always
+    # CONFIG RS
+    configsvr1:
+        build: ..
+        environment:
+            rs_name: configsvr
+            configsvr: y 
+        volumes:
+             - /srv/mongo/cnfigsvr1:/data/db
+        ports:
+             - "27101:27017"
+        networks:
+            mongo_cluster_net:
+                ipv4_address: 172.16.239.101
+        restart: always
+    configsvr2:
+        build: ..
+        environment:
+            rs_name: configsvr
+            configsvr: y   
+        volumes:
+             - /srv/mongo/cnfigsvr2:/data/db
+        ports:
+             - "27102:27017"
+        networks:
+            mongo_cluster_net:
+                ipv4_address: 172.16.239.102
+        restart: always
+    configsvr3:
+        build: ..
+        environment:
+            rs_name: configsvr
+            configsvr: y
+            master: 172.16.239.103
+            slaves: 172.16.239.101 172.16.239.102
+        volumes:
+             - /srv/mongo/cnfigsvr3:/data/db
+        ports:
+             - "27103:27017"
+        networks:
+            mongo_cluster_net:
+                ipv4_address: 172.16.239.103
+        restart: always
+    # MONGOS
+    mongos1:
+        build: ..
+        environment:
+            config_servers: 172.16.239.101:27017 172.16.239.102:27017 172.16.239.103:27017
+            shards: shard1/172.16.239.13 shard2/172.16.239.23
+        ports:
+             - "27201:27017"
+        networks:
+            mongo_cluster_net:
+                ipv4_address: 172.16.239.201
+        restart: always
+    mongos2:
+        build: ..
+        environment:
+            config_servers: 172.16.239.101:27017 172.16.239.102:27017 172.16.239.103:27017
+        ports:
+             - "27202:27017"
+        networks:
+            mongo_cluster_net:
+                ipv4_address: 172.16.239.202
         restart: always
 
 networks:
-  rs_net:
+  mongo_cluster_net:
     driver: bridge
     ipam:
         driver: default
         config:
-        - subnet: 172.16.238.0/24
-          gateway: 172.16.238.1
+        - subnet: 172.16.239.0/24
+          gateway: 172.16.239.1
