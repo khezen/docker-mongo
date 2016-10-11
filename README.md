@@ -356,7 +356,7 @@ services:
     mongos1:
         image: khezen/mongo:3
         environment:
-            config_servers: 172.16.239.101:27017 172.16.239.102:27017 172.16.239.103:27017
+            config_servers: configsvr/172.16.239.103:27017
             shards: shard1/172.16.239.13 shard2/172.16.239.23
         ports:
              - "27201:27017"
@@ -368,7 +368,7 @@ services:
     mongos2:
         image: khezen/mongo:3
         environment:
-            config_servers: 172.16.239.101:27017 172.16.239.102:27017 172.16.239.103:27017
+            config_servers: configsvr/172.16.239.103:27017
         ports:
              - "27202:27017"
         networks:
