@@ -68,6 +68,8 @@ Define the host of the master during replica set init.
 
 ##### slaves
 Define the host:port members you want to add to a replica set from its master. See example below:
+
+*(I am using ip adresses in this example but usually you want to use logical names instead)*
 ```
 version: '2'
 services:
@@ -128,6 +130,8 @@ networks:
 
 ##### arbitrers
 Define the host:port arbitrers you want to add to a replica set from its master. See example below:
+
+*(I am using ip adresses in this example but usually you want to use logical names instead)*
 ```
 version: '2'
 services:
@@ -203,6 +207,8 @@ Start a mongos instance instead of a mongod and define the host:port configsrv a
 
 ##### shards
 Define the rsname/host:port shards you want to add to a cluster. See example below:
+
+*(I am using ip adresses in this example but usually you want to use logical names instead)*
 ```
 version: '2'
 services:

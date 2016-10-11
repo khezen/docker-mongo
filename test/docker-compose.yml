@@ -1,6 +1,7 @@
 version: '2'
 services:
     # SHARD 1
+
     shard1_replica1:
         build: ..
         environment:
@@ -14,6 +15,7 @@ services:
             mongo_cluster_net:
                 ipv4_address: 172.16.239.11
         restart: always
+
     shard1_replica2:
         build: ..
         environment:
@@ -27,6 +29,7 @@ services:
             mongo_cluster_net:
                 ipv4_address: 172.16.239.12
         restart: always
+
     shard1_replica3:
         build: ..
         environment:
@@ -42,6 +45,7 @@ services:
             mongo_cluster_net:
                 ipv4_address: 172.16.239.13
         restart: always
+
     # SHARD 2
     shard2_replica1:
         build: ..
@@ -56,6 +60,7 @@ services:
             mongo_cluster_net:
                 ipv4_address: 172.16.239.21
         restart: always
+
     shard2_replica2:
         build: ..
         environment:
@@ -69,6 +74,7 @@ services:
             mongo_cluster_net:
                 ipv4_address: 172.16.239.22
         restart: always
+
     shard2_replica3:
         build: ..
         environment:
@@ -84,7 +90,9 @@ services:
             mongo_cluster_net:
                 ipv4_address: 172.16.239.23
         restart: always
-    # CONFIG RS
+
+    # CONFIG SVRS
+
     configsvr1:
         build: ..
         environment:
@@ -111,6 +119,7 @@ services:
             mongo_cluster_net:
                 ipv4_address: 172.16.239.102
         restart: always
+
     configsvr3:
         build: ..
         environment:
@@ -126,7 +135,9 @@ services:
             mongo_cluster_net:
                 ipv4_address: 172.16.239.103
         restart: always
+
     # MONGOS
+
     mongos1:
         build: ..
         environment:
@@ -138,6 +149,7 @@ services:
             mongo_cluster_net:
                 ipv4_address: 172.16.239.201
         restart: always
+        
     mongos2:
         build: ..
         environment:
