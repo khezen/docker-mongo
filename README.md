@@ -206,7 +206,8 @@ networks:
 Start a mongos instance instead of a mongod and define the *rsname/host:port* configsrv attached to it.
 
 ##### shards
-Define the *rsname/host:port* shards you want to add to a cluster. See example below:
+Define the *rsname/host:port* shards you want to add to a cluster. if *database* env variable is specified then sharding is automatically enabled for it.
+See example below:
 
 *(I am using ip adresses in this example but usually you want to use logical names instead)*
 ```
