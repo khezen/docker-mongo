@@ -67,7 +67,7 @@ Define the name of the replica set on which you want this server to be attached.
 Define the host of the master during replica set init.
 
 ##### slaves
-Define the host:port members you want to add to a replica set from its master. See example below:
+Define the *host:port* members you want to add to a replica set from its master. See example below:
 
 *(I am using ip adresses in this example but usually you want to use logical names instead)*
 ```
@@ -129,7 +129,7 @@ networks:
 ```
 
 ##### arbitrers
-Define the host:port arbitrers you want to add to a replica set from its master. See example below:
+Define the *host:port* arbitrers you want to add to a replica set from its master. See example below:
 
 *(I am using ip adresses in this example but usually you want to use logical names instead)*
 ```
@@ -203,10 +203,10 @@ networks:
 *y* means mongod is launched as a config server by adding --configsvr option.
 
 ##### config_servers
-Start a mongos instance instead of a mongod and define the host:port configsrv attached to it.
+Start a mongos instance instead of a mongod and define the *rsname/host:port* configsrv attached to it.
 
 ##### shards
-Define the rsname/host:port shards you want to add to a cluster. See example below:
+Define the *rsname/host:port* shards you want to add to a cluster. See example below:
 
 *(I am using ip adresses in this example but usually you want to use logical names instead)*
 ```
