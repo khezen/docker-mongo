@@ -365,17 +365,6 @@ services:
                 ipv4_address: 172.16.239.201
         restart: always
 
-    mongos2:
-        image: khezen/mongo:3
-        environment:
-            config_servers: configsvr/172.16.239.103:27017
-        ports:
-             - "27202:27017"
-        networks:
-            mongo_cluster_net:
-                ipv4_address: 172.16.239.202
-        restart: always
-
 networks:
   mongo_cluster_net:
     driver: bridge
