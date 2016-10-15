@@ -1,5 +1,4 @@
 #!/bin/bash
-
 echo "Creating user in MongoDB..."
 mongo admin --eval "db.createUser({user: '$admin_user', pwd: '$admin_pwd', roles:[{role: 'root', db: 'admin'}]});"
 if [ "$database" != "" ]; then

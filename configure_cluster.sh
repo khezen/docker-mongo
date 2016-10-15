@@ -1,5 +1,4 @@
 #!/bin/bash
-
 if [ "$shards" != "" ]; then
     for shard in $shards; do
         mongo --quiet --eval "sh.addShard(\"$shard\")"

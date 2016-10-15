@@ -8,7 +8,7 @@ if [ "$config_servers" != "" ]; then
   cmd="mongos --port 27017 --configdb"
 
   concat_servers=""
-  for config_server in $config_servers; do
+for config_server in $config_servers; do
       if [ "$concat_servers" == "" ]; then
           concat_servers="$config_server"
       else
@@ -29,10 +29,6 @@ else
     cmd="$cmd --replSet $rs_name"
   fi
 
-  if [ "$auth" == "y" ]; then
-    cmd="$cmd --auth"
-  fi
-
   if [ "$dbpath" != "" ]; then
     mkdir -p "$dbpath"
     cmd="$cmd --dbpath $dbpath"
@@ -47,7 +43,6 @@ else
   fi
 fi
 
-echo $cmd
 $cmd &
 
 RET=1
@@ -58,19 +53,25 @@ while [[ RET -ne 0 ]]; do
     RET=$?
 done
 
-mongo admin  --eval "db.getSiblingDB('admin').runCommand({setParameter: 1, internalQueryExecYieldPeriodMS: 1000});"
-mongo admin  --eval "db.getSiblingDB('admin').runCommand({setParameter: 1, internalQueryExecYieldIterations: 100000});"
-
 if [ ! -f "$dbpath"/.mongodb_replSet_set ] && [ "$rs_name" != "" ]; then
   /configure_rs.sh
-fi
+fi 
 
-if [ ! -f "$dbpath"/.mongodb_password_set ] && [ "$auth" == "y" ]; then
-  /set_auth.sh
-fi
-
-if [ ! -f /.mongodb_cluster_set ] && [ "$config_servers" != "" ]; then 
+if [ ! -f /.mongodb_cluster_set ] && [ "$config_servers" != "" ]; then
   /configure_cluster.sh
 fi
 
-fg
+mongo --eval "db.getSibling)bnDB('admin').runCommand({setParameter: 1, internalQueryExecYieldPeriodMS: 1000});"
+mongo --eval "db.getSiblingDB('admin').runCommand({setParameter: 1, internalQueryExecYieldIterations: 100000});"
+
+if [ "$auth" == "y" ]; then
+  if [ ! -f "$dbpath"/.mongodb_password_set ]; then
+    /set_auth.sh
+  fi
+  cmd="$cmd --auth"
+  #Smongod --shutdown
+  #mongo --eval "db.getSiblingDB('admin').shutdownServer()"
+  #cmd &
+fi
+
+fg   
