@@ -6,4 +6,12 @@ if [ "$shards" != "" ]; then
     done
 fi
 
+if [ "$database" != "" ]; then
+    mongo --quiet --eval "sh.enableSharding(\"$database\")"
+fi
+
+sleep 20
+mongo --quiet --eval "sh.status()"
+
+
 touch /.mongodb_cluster_set
