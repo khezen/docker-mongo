@@ -67,7 +67,7 @@ Define the name of the replica set on which you want this server to be attached.
 Define the host of the master during replica set init.
 
 ##### slaves
-Define the host:port members you want to add to a replica set from its master. See example below:
+Define the *host:port* members you want to add to a replica set from its master. See example below:
 
 *(I am using ip adresses in this example but usually you want to use logical names instead)*
 ```
@@ -129,7 +129,7 @@ networks:
 ```
 
 ##### arbitrers
-Define the host:port arbitrers you want to add to a replica set from its master. See example below:
+Define the *host:port* arbitrers you want to add to a replica set from its master. See example below:
 
 *(I am using ip adresses in this example but usually you want to use logical names instead)*
 ```
@@ -203,10 +203,11 @@ networks:
 *y* means mongod is launched as a config server by adding --configsvr option.
 
 ##### config_servers
-Start a mongos instance instead of a mongod and define the host:port configsrv attached to it.
+Start a mongos instance instead of a mongod and define the *rsname/host:port* configsrv attached to it.
 
 ##### shards
-Define the rsname/host:port shards you want to add to a cluster. See example below:
+Define the *rsname/host:port* shards you want to add to a cluster. if *database* env variable is specified then sharding is automatically enabled for it.
+See example below:
 
 *(I am using ip adresses in this example but usually you want to use logical names instead)*
 ```
@@ -356,24 +357,13 @@ services:
     mongos1:
         image: khezen/mongo:3
         environment:
-            config_servers: 172.16.239.101:27017 172.16.239.102:27017 172.16.239.103:27017
+            config_servers: configsvr/172.16.239.103:27017
             shards: shard1/172.16.239.13 shard2/172.16.239.23
         ports:
              - "27201:27017"
         networks:
             mongo_cluster_net:
                 ipv4_address: 172.16.239.201
-        restart: always
-
-    mongos2:
-        image: khezen/mongo:3
-        environment:
-            config_servers: 172.16.239.101:27017 172.16.239.102:27017 172.16.239.103:27017
-        ports:
-             - "27202:27017"
-        networks:
-            mongo_cluster_net:
-                ipv4_address: 172.16.239.202
         restart: always
 
 networks:

@@ -65,7 +65,7 @@ if [ ! -f "$dbpath"/.mongodb_replSet_set ] && [ "$rs_name" != "" ]; then
   /configure_rs.sh
 fi
 
-if [ ! -f "$dbpath"/.mongodb_password_set ] && [ "$auth" == "yes" ]; then
+if [ ! -f "$dbpath"/.mongodb_password_set ] && [ "$auth" == "y" ]; then
   /set_auth.sh
 fi
 
