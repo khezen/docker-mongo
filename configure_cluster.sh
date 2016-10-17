@@ -1,16 +1,21 @@
 #!/bin/bash
+mongoshell="mongo";
+if [ "$auth" == "y" ];then
+    mongoshell="$mongoshell -u $admin_user -p $admin_pwd --authenticationDatabase admin"
+fi
+
+
 if [ "$shards" != "" ]; then
     for shard in $shards; do
-        mongo --quiet --eval "sh.addShard(\"$shard\")"
+        echo $mongoshell --quiet --eval "sh.addShard('$shard')"
+        $mongoshell --quiet --eval "sh.addShard('$shard')"
     done
 fi
 
 if [ "$database" != "" ]; then
-    mongo --quiet --eval "sh.enableSharding(\"$database\")"
+    echo $mongoshell --quiet --eval "sh.addShard('$shard')"
+    $mongoshell --quiet --eval "sh.enableSharding('$database')"
 fi
 
-sleep 20
-mongo --quiet --eval "sh.status()"
 
-
-touch /.mongodb_cluster_set
+touch "$dbpath"/.mongodb_cluster_set
