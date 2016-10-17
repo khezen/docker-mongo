@@ -41,10 +41,16 @@ else
   if [ "$configsvr" == "y" ]; then
     cmd="$cmd --configsvr"
   fi
+
+  if [ "$auth" == "y" ] && [ -f "$dbpath"/.mongodb_password_set ]; then
+    cmd="$cmd --keyFile /data/db/config/key"
+  fi
 fi
 
+echo $cmd
 $cmd &
 
+# WAINTING FOR STARTUP
 RET=1
 while [[ RET -ne 0 ]]; do
     echo "=> Waiting for confirmation of MongoDB service startup"
@@ -53,25 +59,32 @@ while [[ RET -ne 0 ]]; do
     RET=$?
 done
 
+# CONFIGURE REPLICA SET
 if [ ! -f "$dbpath"/.mongodb_replSet_set ] && [ "$rs_name" != "" ]; then
   /configure_rs.sh
+  sleep 5
 fi 
 
+# CONFIGURE SHARDED CLUSTER
 if [ ! -f /.mongodb_cluster_set ] && [ "$config_servers" != "" ]; then
   /configure_cluster.sh
 fi
 
-mongo --eval "db.getSibling)bnDB('admin').runCommand({setParameter: 1, internalQueryExecYieldPeriodMS: 1000});"
-mongo --eval "db.getSiblingDB('admin').runCommand({setParameter: 1, internalQueryExecYieldIterations: 100000});"
+# PERF TRICKS
+if [ ! -f "$dbpath"/.perf_tricks_set ]; then
+  mongo --eval "db.getSiblingDB('admin').runCommand({setParameter: 1, internalQueryExecYieldPeriodMS: 1000});"
+  mongo --eval "db.getSiblingDB('admin').runCommand({setParameter: 1, internalQueryExecYieldIterations: 100000});"
+  touch "$dbpath"/.perf_tricks_set
+fi
 
-if [ "$auth" == "y" ]; then
-  if [ ! -f "$dbpath"/.mongodb_password_set ]; then
-    /set_auth.sh
-  fi
-  cmd="$cmd --auth"
-  #Smongod --shutdown
-  #mongo --eval "db.getSiblingDB('admin').shutdownServer()"
-  #cmd &
+# CONFIGURE AUTHENTICATION
+if [ "$auth" == "y" ] && [ ! -f "$dbpath"/.mongodb_password_set ]; then
+  /set_auth.sh
+  mongod --shutdown
+  sleep 5
+  cmd="$cmd --keyFile /data/db/config/key"
+  echo $cmd
+  $cmd &
 fi
 
 fg   

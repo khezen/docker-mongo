@@ -7,6 +7,10 @@ use $database
 db.createUser({user: '$db_user', pwd: '$db_pwd', roles:[{role: 'dbOwner', db: '$database'}]})
 EOF
 fi
+mkdir -p /data/db/config
+touch /data/db/config/key
+echo $admin_pwd > /data/db/config/key
+chmod 600 /data/db/config/key
 
 echo "MongoDB configured."
 touch "$dbpath"/.mongodb_password_set
