@@ -19,10 +19,7 @@ if [ "$config_servers" != "" ]; then
   cmd="$cmd $concat_servers"
 
   if [ "$auth" == "y" ]; then
-    mkdir -p /data/db/config
-    touch /data/db/config/key
-    echo $admin_pwd > /data/db/config/key
-    chmod 600 /data/db/config/key
+    /run/create_keyfile.sh
     cmd="$cmd --keyFile /data/db/config/key"
   fi
 
@@ -59,53 +56,41 @@ fi
 echo $cmd
 $cmd &
 
-# WAINTING FOR STARTUP
-RET=1
-while [[ RET -ne 0 ]]; do
-    echo "=> Waiting for confirmation of MongoDB service startup"
-    sleep 5
-    mongo admin --eval "help" >/dev/null 2>&1
-    RET=$?
-done
+/run/wait_until_started.sh
 
 # CONFIGURE REPLICA SET
-if [ ! -f "$dbpath"/.mongodb_replSet_set ] && [ "$rs_name" != "" ]; then
-  sleep 5
-  /configure_rs.sh
+if [ "$rs_name" != "" ]; then
+  /run/set_master.sh
+  if [ "$auth" != "y" ]; then
+    slepp 5
+    /run/add_members.sh
+  fi
 fi 
 
-# PERF TRICKS
-if [ ! -f "$dbpath"/.perf_tricks_set ] && [ "$config_servers" == "" ]; then
-  sleep 5
-  mongo --eval "db.getSiblingDB('admin').runCommand({setParameter: 1, internalQueryExecYieldPeriodMS: 1000});"
-  mongo --eval "db.getSiblingDB('admin').runCommand({setParameter: 1, internalQueryExecYieldIterations: 100000});"
-  touch "$dbpath"/.perf_tricks_set
-fi
+/run/perf.sh
 
 # CONFIGURE AUTHENTICATION
-if [ "$auth" == "y" ] && [ ! -f "$dbpath"/.mongodb_password_set ] && [ "$config_servers" == "" ]; then
-  /set_auth.sh
+if [ "$auth" == "y" ] && [ "$config_servers" == "" ] && [ ! -f "$dbpath"/.auth_set ]; then
+  /run/set_auth.sh
+  /run/create_keyfile.sh
   mongod --shutdown
   sleep 5
   cmd="$cmd --keyFile /data/db/config/key"
   echo $cmd
   $cmd &
+  /run/wait_until_started.sh
+  if [ "$rs_name" != "" ]; then
+    sleep 5
+    /run/add_members.sh
+  fi
 fi
 
 # CONFIGURE SHARDED CLUSTER
-if [ ! -f "$dbpath"/.mongodb_cluster_set ] && [ "$config_servers" != "" ]; then
-  /configure_cluster.sh
-fi
-
-# LOG STATUS
-if [ "$rs_name" != "" ]; then
-  sleep 5
-  mongo --quiet --eval "rs.status()"
-fi
-
 if [ "$config_servers" != "" ]; then
-  sleep 5
-  mongo --quiet --eval "sh.status()"
+  sleep 20
+  /run/add_shards.sh
 fi
+
+/run/status.sh
 
 fg   
