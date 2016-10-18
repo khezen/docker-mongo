@@ -6,8 +6,8 @@ cmd=""
 
 # MONGOS
 if [ "$config_servers" != "" ]; then 
+  mkdir -p $dbpath
   cmd="mongos --port 27017 --configdb"
-
   concat_servers=""
   for config_server in $config_servers; do
       if [ "$concat_servers" == "" ]; then
@@ -17,11 +17,6 @@ if [ "$config_servers" != "" ]; then
       fi
   done
   cmd="$cmd $concat_servers"
-
-  if [ "$auth" == "y" ]; then
-    /run/create_keyfile.sh
-    cmd="$cmd --keyFile /data/db/config/key"
-  fi
 
 # MONGOD
 else
@@ -48,9 +43,10 @@ else
     cmd="$cmd --configsvr"
   fi
 
-  if [ "$auth" == "y" ] && [ -f "$dbpath"/.mongodb_password_set ]; then
-    cmd="$cmd --keyFile /data/db/config/key"
-  fi
+fi
+
+if [ "$auth" == "y" ] && [ -f "$dbpath"/.mongodb_password_set ]; then
+  cmd="$cmd --keyFile /data/db/config/key"
 fi
 
 echo $cmd
@@ -70,18 +66,26 @@ fi
 /run/perf.sh
 
 # CONFIGURE AUTHENTICATION
-if [ "$auth" == "y" ] && [ "$config_servers" == "" ] && [ ! -f "$dbpath"/.auth_set ]; then
+if [ "$auth" == "y" ] && [ ! -f "$dbpath"/.auth_set ]; then
   /run/set_auth.sh
   /run/create_keyfile.sh
-  mongod --shutdown
-  sleep 5
-  cmd="$cmd --keyFile /data/db/config/key"
-  echo $cmd
-  $cmd &
-  /run/wait_until_started.sh
-  if [ "$rs_name" != "" ]; then
+  if [ "$config_servers" == "" ]; then
+    mongod --shutdown
     sleep 5
-    /run/add_members.sh
+    cmd="$cmd --keyFile /data/db/config/key"
+    echo $cmd
+    $cmd &
+    /run/wait_until_started.sh
+    if [ "$rs_name" != "" ]; then
+      sleep 5
+      /run/add_members.sh
+    fi
+  else
+    mongo -u $admin_user -p $admin_pwd admin --eval "db.shutdownServer()"
+    sleep 5
+    cmd="$cmd --keyFile /data/db/config/key"
+    echo $cmd
+    $cmd &
   fi
 fi
 
