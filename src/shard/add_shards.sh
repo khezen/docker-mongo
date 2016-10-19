@@ -14,7 +14,7 @@ if [ ! -f "$dbpath"/.shards_added ]; then
     fi
 
     if [ "$database" != "" ]; then
-        echo $mongoshell --quiet --eval "sh.addShard('$shard')"
+        echo $mongoshell --quiet --eval "sh.enableSharding('$database')"
         $mongoshell --quiet --eval "sh.enableSharding('$database')"
     fi
 
