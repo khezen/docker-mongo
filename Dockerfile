@@ -3,11 +3,16 @@ FROM debian:jessie
 MAINTAINER Guillaume Simonneau <simonneaug@gmail.com>
 LABEL Descritpion="mongodb roccksdb mongo mongod mongos mongotools bsondump mongodump mongorestore mongoimport mongoexport mongostat mongofiles mongooplog mongotop"
 
+COPY ./src/setup/install_mongoserver.sh /run/setup/install_mongoserver.sh
+RUN chmod +x -R /run
+RUN sh /run/setup/install_mongoserver.sh 
+
+COPY ./src/setup/install_mongotools.sh /run/setup/install_mongotools.sh
+RUN chmod +x -R /run
+RUN sh /run/setup/install_mongotools.sh
+
 COPY ./src /run
 RUN chmod +x -R /run
-
-RUN sh /run/setup/install_mongoserver.sh 
-RUN sh /run/setup/install_mongotools.sh
 
 # configuration and startup
 ENV auth="n" \
