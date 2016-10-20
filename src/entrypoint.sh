@@ -2,6 +2,8 @@
 
 set -m
 
+cmd=""
+
 # BUILD CMD FROM ENV VARIABLES
 cmd=$(/run/cmd/generate_cmd.sh)
 echo $cmd
@@ -22,23 +24,29 @@ fi
 /run/miscellaneous/perf.sh
 
 # CONFIGURE AUTHENTICATION
-if [ "$auth" == "y" ] && [ ! -f "$dbpath"/.auth_set ]; then
+if [ "$auth" == "y" ] && [ ! -f "$dbpath"/.admin_created ]; then
 
   /run/auth/create_admin.sh
   /run/auth/create_keyfile.sh
 
-  mongo -u $admin_user -p $admin_pwd admin --eval "db.shutdownServer()"
-  sleep 5
-  cmd="$cmd --keyFile /data/db/config/key"
-  echo $cmd
-  $cmd &
-
   if [ "$config_servers" == "" ]; then
-    /run/miscellaneous/wait_until_started.sh
     /run/auth/create_db_owner.sh
+    mongod --shutdown
+    sleep 5
+    cmd="$cmd --keyFile /data/db/config/key"
+    echo $cmd
+    $cmd &
+    /run/miscellaneous/wait_until_started.sh
     if [ "$rs_name" != "" ]; then
+      sleep 5
       /run/replSet/add_members.sh
     fi
+  else
+    mongo -u $admin_user -p $admin_pwd admin --eval "db.shutdownServer()"
+    sleep 5
+    cmd="$cmd --keyFile /data/db/config/key"
+    echo $cmd
+    $cmd &
   fi
 fi
 
@@ -48,6 +56,7 @@ if [ "$config_servers" != "" ]; then
   /run/shard/add_shards.sh
 fi
 
+sleep 2
 /run/miscellaneous/status.sh
 
-fg   
+fg
