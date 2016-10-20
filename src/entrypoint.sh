@@ -56,7 +56,6 @@ if [ "$config_servers" != "" ]; then
   /run/shard/add_shards.sh
 fi
 
-sleep 2
 /run/miscellaneous/status.sh
 
 fg

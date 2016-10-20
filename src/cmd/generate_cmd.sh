@@ -6,7 +6,7 @@ else
   cmd=$(/run/cmd/mongod.sh)
 fi
 
-if [ "$auth" == "y" ] && [ -f "$dbpath"/.mongodb_password_set ]; then
+if [ "$auth" == "y" ] && [ ! -f /data/db/config/key ]; then
   cmd="$cmd --keyFile /data/db/config/key"
 fi
 
