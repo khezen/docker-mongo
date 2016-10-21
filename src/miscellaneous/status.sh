@@ -1,9 +1,6 @@
 #!/bin/bash
 
-mongoshell="mongo"
-if [ "$auth" == "y" ];then
-  mongoshell="$mongoshell -u $admin_user -p $admin_pwd --authenticationDatabase admin"
-fi
+mongoshell=$(/run/cmd/mongoshell.sh)
 
 if [ "$rs_name" != "" ]; then
   sleep 5

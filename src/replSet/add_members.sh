@@ -1,10 +1,7 @@
 #!/bin/bash
 if [ ! -f "$dbpath"/.members_added ] && [ "$slaves" != "" ]; then
     
-    mongoshell="mongo"
-    if [ "$auth" == "y" ];then
-    mongoshell="$mongoshell -u $admin_user -p $admin_pwd --authenticationDatabase admin"
-    fi
+   mongoshell=$(/run/cmd/mongoshell.sh)
 
     if [ "$slaves" != "" ]; then
     for slave in $slaves; do
