@@ -32,7 +32,7 @@ if [ "$auth" == "y" ] && [ ! -f "$dbpath"/.admin_created ]; then
   if [ "$config_servers" == "" ]; then
     /run/auth/create_db_owner.sh
     mongod --shutdown
-    sleep 5
+    /run/miscellaneous/wait_until_stopped.sh
     cmd="$cmd --keyFile /data/db/config/key"
     echo $cmd
     $cmd &
@@ -43,7 +43,7 @@ if [ "$auth" == "y" ] && [ ! -f "$dbpath"/.admin_created ]; then
     fi
   else
     mongo -u $admin_user -p $admin_pwd admin --eval "db.shutdownServer()"
-    sleep 5
+    /run/miscellaneous/wait_until_stopped.sh
     cmd="$cmd --keyFile /data/db/config/key"
     echo $cmd
     $cmd &
