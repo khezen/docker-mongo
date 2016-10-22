@@ -15,7 +15,7 @@ $cmd &
 if [ "$rs_name" != "" ]; then
   /run/replSet/set_master.sh
   if [ "$auth" != "y" ]; then
-    slepp 5
+    /run/replSet/wait_until_rs_configured.sh
     /run/replSet/add_members.sh
   fi
 fi 
@@ -32,18 +32,18 @@ if [ "$auth" == "y" ] && [ ! -f "$dbpath"/.admin_created ]; then
   if [ "$config_servers" == "" ]; then
     /run/auth/create_db_owner.sh
     mongod --shutdown
-    sleep 5
+    /run/miscellaneous/wait_until_stopped.sh
     cmd="$cmd --keyFile /data/db/config/key"
     echo $cmd
     $cmd &
     /run/miscellaneous/wait_until_started.sh
     if [ "$rs_name" != "" ]; then
-      sleep 5
+      /run/replSet/wait_until_rs_configured.sh
       /run/replSet/add_members.sh
     fi
   else
     mongo -u $admin_user -p $admin_pwd admin --eval "db.shutdownServer()"
-    sleep 5
+    /run/miscellaneous/wait_until_stopped.sh
     cmd="$cmd --keyFile /data/db/config/key"
     echo $cmd
     $cmd &
