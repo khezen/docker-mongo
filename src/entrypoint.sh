@@ -15,7 +15,7 @@ $cmd &
 if [ "$rs_name" != "" ]; then
   /run/replSet/set_master.sh
   if [ "$auth" != "y" ]; then
-    slepp 5
+    /run/replSet/wait_until_rs_configured.sh
     /run/replSet/add_members.sh
   fi
 fi 
@@ -38,7 +38,7 @@ if [ "$auth" == "y" ] && [ ! -f "$dbpath"/.admin_created ]; then
     $cmd &
     /run/miscellaneous/wait_until_started.sh
     if [ "$rs_name" != "" ]; then
-      sleep 5
+      /run/replSet/wait_until_rs_configured.sh
       /run/replSet/add_members.sh
     fi
   else
