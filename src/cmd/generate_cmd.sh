@@ -6,8 +6,8 @@ else
   cmd=$(/run/cmd/mongod.sh)
 fi
 
-if [ "$auth" == "y" ] && [ -f /data/db/config/key ]; then
-  cmd="$cmd --keyFile /data/db/config/key"
+if [ "$auth" == "y" ] && [ -f /config/key ]; then
+  cmd="$cmd --keyFile /config/key"
 fi
 
 echo $cmd

@@ -24,7 +24,7 @@ fi
 /run/miscellaneous/perf.sh
 
 # CONFIGURE AUTHENTICATION
-if [ "$auth" == "y" ] && [ ! -f "$dbpath"/.admin_created ]; then
+if [ "$auth" == "y" ] && [ ! -f /config/.admin_created ]; then
 
   /run/auth/create_admin.sh
   /run/auth/create_keyfile.sh
@@ -33,7 +33,7 @@ if [ "$auth" == "y" ] && [ ! -f "$dbpath"/.admin_created ]; then
     /run/auth/create_db_owner.sh
     mongod --shutdown
     /run/miscellaneous/wait_until_stopped.sh
-    cmd="$cmd --keyFile /data/db/config/key"
+    cmd="$cmd --keyFile /config/key"
     echo $cmd
     $cmd &
     /run/miscellaneous/wait_until_started.sh
@@ -44,7 +44,7 @@ if [ "$auth" == "y" ] && [ ! -f "$dbpath"/.admin_created ]; then
   else
     mongo -u $admin_user -p $admin_pwd admin --eval "db.shutdownServer()"
     /run/miscellaneous/wait_until_stopped.sh
-    cmd="$cmd --keyFile /data/db/config/key"
+    cmd="$cmd --keyFile /config/key"
     echo $cmd
     $cmd &
   fi
