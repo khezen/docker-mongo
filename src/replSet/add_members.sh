@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ ! -f "$dbpath"/.members_added ] && [ "$slaves" != "" ]; then
+if [ ! -f /config/.members_added ] && [ "$slaves" != "" ]; then
     
    mongoshell=$(/run/cmd/mongoshell.sh)
 
@@ -21,5 +21,5 @@ if [ ! -f "$dbpath"/.members_added ] && [ "$slaves" != "" ]; then
     echo $mongoshell --quiet --eval "rs.slaveOk()"
     $mongoshell --quiet --eval "rs.slaveOk()"  
     fi
-    touch "$dbpath"/.members_added
+    touch /config/.members_added
 fi

@@ -7,6 +7,7 @@ fi
 if [ "$rs_name" != "" ]; then
     cmd="$cmd --replSet $rs_name"
 fi
+mkdir -p $dbpath
 if [ "$dbpath" != "" ]; then
     mkdir -p "$dbpath"
     cmd="$cmd --dbpath $dbpath"

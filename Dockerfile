@@ -12,7 +12,9 @@ RUN chmod +x -R /run
 RUN sh /run/setup/install_mongotools.sh
 
 COPY ./src /run
-RUN chmod +x -R /run
+RUN chmod +x -R /run \
+&&  mkdir -p /config
+
 
 # configuration and startup
 ENV auth="n" \
