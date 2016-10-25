@@ -39,42 +39,42 @@ services:
 
 ## General
 
-##### storage_engine | *wiredTiger*
+##### storage_engine | `wiredTiger`
 Define the storage engine you want to plug to your mongod server. [mmapv1](https://docs.mongodb.com/manual/core/mmapv1/), [WiredTiger](http://www.WiredTiger.com/) or [RocksDB](http://RocksDB.org/).
 
-##### auth | *n*
-To enable authentication, set to **y**.
+##### auth | `n`
+To enable authentication, set to `y`.
 
-##### admin_user | *admin*
-User with **root** permissions on the **admin** database. (**auth** has to be set to *y*).
+##### admin_user | `admin`
+User with *root* permissions on the *admin* database. (**auth** has to be set to `y`).
 
-##### admin_pwd | *changeme*
-The password of the **admin_user** above. (**auth** has to be set to *y*).
+##### admin_pwd | `changeme`
+The password of the **admin_user** above. (**auth** has to be set to `y`).
 
-##### database | *(empty by default)*
+##### database | `(empty by default)`
 Create a new database with this name.
 
-##### db_user | *user*
-User with **owner** permissions on the **database** above. (**auth** has to be set to *y*, **database** has to be specified).
+##### db_user | `user`
+User with *owner* permissions on the **database** above. (**auth** has to be set to `y`, **database** has to be specified).
 
-##### db_pwd | *changeme*
-The password of the **db_user** above. (**auth** has to be set to *y*, **database** has to be specified).
+##### db_pwd | `changeme`
+The password of the **db_user** above. (**auth** has to be set to `y`, **database** has to be specified).
 
-##### dbpath | */data/db*
+##### dbpath | `/data/db`
 The path to data storing floder.
 
-##### oplog_size | 50
+##### oplog_size | `50`
 Define the size of [Oplog](https://docs.mongodb.org/manual/tutorial/change-oplog-size/), in megabytes.
 
 ## Replica Set
-##### rs_name | *(empty by default)*
+##### rs_name | `(empty by default)`
 Define the name of the replica set on which you want this server to be attached.
 
-##### master | *$HOSTNAME*
-Define the host of the master during replica set init. (**rs_name** has to be specified).
+##### master | `$HOSTNAME`
+Define the `host:port` of the master during replica set init. (**rs_name** has to be specified).
 
-##### slaves | *(empty by default)*
-Define the *host:port* members you want to add to a replica set from its master. (**rs_name** has to be specified, **master** has to be specified).
+##### slaves | `(empty by default)`
+Define the `host:port` members you want to add to a replica set from its master. (**rs_name** has to be specified, **master** has to be specified).
 
 See example below:
 
@@ -137,9 +137,8 @@ networks:
           gateway: 172.16.238.1
 ```
 
-##### arbitrers | *(empty by default)*
-Define the *host:port* arbitrers you want to add to a replica set from its master.
-(**rs_name** has to be specified, **master** has to be specified, **slaves** has to be specified).
+##### arbitrers | `(empty by default)`
+Define the `host:port` arbitrers you want to add to a replica set from its master. (**rs_name** has to be specified, **master** has to be specified, **slaves** has to be specified).
 
 See example below:
 
@@ -203,23 +202,22 @@ networks:
           gateway: 172.16.238.1
 ```
 
-##### slaveOk | *y*
-*y* means you can read from slaves.
+##### slaveOk | `y`
+`y` means you can read from slaves.
 
 ## Sharded Cluster
 
-##### shardsvr | *n*
-*y* means mongod is a shard by adding --shardsvr option. 
+##### shardsvr | `n`
+`y` means mongod is a shard by adding --shardsvr option. 
 
-##### configsvr | *n*
-*y* means mongod is launched as a config server by adding --configsvr option.
+##### configsvr | `n`
+`y` means mongod is launched as a config server by adding --configsvr option.
 
-##### config_servers | *(empty by default)*
-Start a mongos instance instead of a mongod and define the *rsname/host:port* configsrv attached to it.
+##### config_servers | `(empty by default)`
+Start a mongos instance instead of a mongod and define the `rsname/host:port` configsrv attached to it.
 
-##### shards | *(empty by default)*
-Define the *rsname/host:port* shards you want to add to a cluster. if *database* env variable is specified then sharding is automatically enabled for it.
-(**config_servers** has to be specified).
+##### shards | `(empty by default)`
+Define the `rsname/host:port` shards you want to add to a cluster. if **database** env variable is specified then sharding is automatically enabled for it. (**config_servers** has to be specified).
 
 See example below:
 
