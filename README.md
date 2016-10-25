@@ -71,10 +71,10 @@ Define the size of [Oplog](https://docs.mongodb.org/manual/tutorial/change-oplog
 Define the name of the replica set on which you want this server to be attached.
 
 ##### master | *$HOSTNAME*
-Define the host of the master during replica set init. (**rs_name** has to be sspecified).
+Define the host of the master during replica set init. (**rs_name** has to be specified).
 
 ##### slaves | *(empty by default)*
-Define the *host:port* members you want to add to a replica set from its master. (**rs_name** has to be sspecified, **master** has to be sspecified).
+Define the *host:port* members you want to add to a replica set from its master. (**rs_name** has to be specified, **master** has to be specified).
 
 See example below:
 
@@ -139,7 +139,7 @@ networks:
 
 ##### arbitrers | *(empty by default)*
 Define the *host:port* arbitrers you want to add to a replica set from its master.
-(**rs_name** has to be sspecified, **master** has to be sspecified, **slaves** has to be specified).
+(**rs_name** has to be specified, **master** has to be specified, **slaves** has to be specified).
 
 See example below:
 
@@ -219,7 +219,7 @@ Start a mongos instance instead of a mongod and define the *rsname/host:port* co
 
 ##### shards | *(empty by default)*
 Define the *rsname/host:port* shards you want to add to a cluster. if *database* env variable is specified then sharding is automatically enabled for it.
-(**config_servers** has to be sspecified).
+(**config_servers** has to be specified).
 
 See example below:
 
