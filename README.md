@@ -46,35 +46,37 @@ Define the storage engine you want to plug to your mongod server. [mmapv1](https
 To enable authentication, set to **y**.
 
 ##### admin_user | *admin*
-You need have a user with **root** permissions, manager of the **admin** database ever present.
+User with **root** permissions on the **admin** database. (**auth** has to be set to *y*).
 
 ##### admin_pwd | *changeme*
-The password of the **admin_user** above.
+The password of the **admin_user** above. (**auth** has to be set to *y*).
 
-##### database
-Create a new database with this name, the **db_user** and **db_pwd** will be the owner of this database.
+##### database | *(empty by default)*
+Create a new database with this name.
 
 ##### db_user | *user*
-The user that manage the **database** above - don't have admin permissions.
+User with **owner** permissions on the **database** above. (**auth** has to be set to *y*, **database** has to be specified).
 
 ##### db_pwd | *changeme*
-The password of the **db_user** above.
+The password of the **db_user** above. (**auth** has to be set to *y*, **database** has to be specified).
 
 ##### dbpath | */data/db*
-The path that store all data, this setting is useful for *Docker volumes*
+The path to data storing floder.
 
-##### oplog_size
-Define the size of [Oplog](https://docs.mongodb.org/manual/tutorial/change-oplog-size/), in megabytes, for example, set **50** to be *50MB*.
+##### oplog_size | 50
+Define the size of [Oplog](https://docs.mongodb.org/manual/tutorial/change-oplog-size/), in megabytes.
 
 ## Replica Set
-##### rs_name
+##### rs_name | *(empty by default)*
 Define the name of the replica set on which you want this server to be attached.
 
 ##### master | *$HOSTNAME*
-Define the host of the master during replica set init.
+Define the host of the master during replica set init. (**rs_name** has to be sspecified).
 
-##### slaves
-Define the *host:port* members you want to add to a replica set from its master. See example below:
+##### slaves | *(empty by default)*
+Define the *host:port* members you want to add to a replica set from its master. (**rs_name** has to be sspecified, **master** has to be sspecified).
+
+See example below:
 
 *(I am using ip adresses in this example but usually you want to use logical names instead)*
 ```
@@ -135,8 +137,11 @@ networks:
           gateway: 172.16.238.1
 ```
 
-##### arbitrers
-Define the *host:port* arbitrers you want to add to a replica set from its master. See example below:
+##### arbitrers | *(empty by default)*
+Define the *host:port* arbitrers you want to add to a replica set from its master.
+(**rs_name** has to be sspecified, **master** has to be sspecified, **slaves** has to be specified).
+
+See example below:
 
 *(I am using ip adresses in this example but usually you want to use logical names instead)*
 ```
@@ -209,11 +214,13 @@ networks:
 ##### configsvr | *n*
 *y* means mongod is launched as a config server by adding --configsvr option.
 
-##### config_servers
+##### config_servers | *(empty by default)*
 Start a mongos instance instead of a mongod and define the *rsname/host:port* configsrv attached to it.
 
-##### shards
+##### shards | *(empty by default)*
 Define the *rsname/host:port* shards you want to add to a cluster. if *database* env variable is specified then sharding is automatically enabled for it.
+(**config_servers** has to be sspecified).
+
 See example below:
 
 *(I am using ip adresses in this example but usually you want to use logical names instead)*
