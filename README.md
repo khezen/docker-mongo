@@ -208,10 +208,10 @@ networks:
 ## Sharded Cluster
 
 ##### shardsvr | `n`
-`y` means mongod is a shard by adding --shardsvr option. 
+`y` means mongod is a shard by adding `--shardsvr` option. 
 
 ##### configsvr | `n`
-`y` means mongod is launched as a config server by adding --configsvr option.
+`y` means mongod is launched as a config server by adding `--configsvr` option.
 
 ##### config_servers | `(empty by default)`
 Start a mongos instance instead of a mongod and define the `rsname/host:port` configsrv attached to it.
