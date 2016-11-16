@@ -5,10 +5,10 @@ services:
     shard1_replica1:
         build: ..
         environment:
-            rs_name: shard1
-            shardsvr: y
-            database: example
-            auth: y
+            RS_NAME: shard1
+            SHARD_SVR: y
+            DB_NAME: example
+            AUTH: y
         volumes:
              - /srv/mongo/shard1/replica1:/data/db
         ports:
@@ -21,10 +21,10 @@ services:
     shard1_replica2:
         build: ..
         environment:
-            rs_name: shard1
-            shardsvr: y
-            database: example
-            auth: y
+            RS_NAME: shard1
+            SHARD_SVR: y
+            DB_NAME: example
+            AUTH: y
         volumes:
              - /srv/mongo/shard1/replica2:/data/db
         ports:
@@ -37,12 +37,12 @@ services:
     shard1_replica3:
         build: ..
         environment:
-            rs_name: shard1
-            shardsvr: y
-            master: 172.16.239.13
-            slaves: 172.16.239.11 172.16.239.12    
-            database: example
-            auth: y
+            RS_NAME: shard1
+            SHARD_SVR: y
+            MASTER: 172.16.239.13
+            SLAVES: 172.16.239.11 172.16.239.12    
+            DB_NAME: example
+            AUTH: y
         volumes:
              - /srv/mongo/shard1/replica3:/data/db
         ports:
@@ -56,10 +56,10 @@ services:
     shard2_replica1:
         build: ..
         environment:
-            rs_name: shard2
-            shardsvr: y
-            database: example
-            auth: y
+            RS_NAME: shard2
+            SHARD_SVR: y
+            DB_NAME: example
+            AUTH: y
         volumes:
              - /srv/mongo/shard2/replica1:/data/db
         ports:
@@ -72,10 +72,10 @@ services:
     shard2_replica2:
         build: ..
         environment:
-            rs_name: shard2
-            shardsvr: y
-            database: example
-            auth: y
+            RS_NAME: shard2
+            SHARD_SVR: y
+            DB_NAME: example
+            AUTH: y
         volumes:
              - /srv/mongo/shard2/replica2:/data/db
         ports:
@@ -88,12 +88,12 @@ services:
     shard2_replica3:
         build: ..
         environment:
-            rs_name: shard2
-            shardsvr: y
-            master: 172.16.239.23
-            slaves: 172.16.239.21 172.16.239.22
-            database: example 
-            auth: y
+            RS_NAME: shard2
+            SHARD_SVR: y
+            MASTER: 172.16.239.23
+            SLAVES: 172.16.239.21 172.16.239.22
+            DB_NAME: example 
+            AUTH: y
         volumes:
              - /srv/mongo/shard2/replica3:/data/db
         ports:
@@ -108,12 +108,12 @@ services:
     configsvr1:
         build: ..
         environment:
-            rs_name: configsvr
-            configsvr: y
-            database: example
-            auth: y
+            RS_NAME: configsvr
+            CONFIG_SVR: y
+            DB_NAME: example
+            AUTH: y
         volumes:
-             - /srv/mongo/configsvr/replica1:/data/db
+             - /srv/mongo/CONFIG_SVR/replica1:/data/db
         ports:
              - "27101:27017"
         networks:
@@ -123,12 +123,12 @@ services:
     configsvr2:
         build: ..
         environment:
-            rs_name: configsvr
-            configsvr: y
-            database: example
-            auth: y
+            RS_NAME: configsvr
+            CONFIG_SVR: y
+            DB_NAME: example
+            AUTH: y
         volumes:
-             - /srv/mongo/configsvr/replica2:/data/db
+             - /srv/mongo/CONFIG_SVR/replica2:/data/db
         ports:
              - "27102:27017"
         networks:
@@ -139,15 +139,15 @@ services:
     configsvr3:
         build: ..
         environment:
-            rs_name: configsvr
-            configsvr: y
-            database: example
-            master: 172.16.239.103
-            slaves: 172.16.239.101 172.16.239.102
-            database: example
-            auth: y
+            RS_NAME: configsvr
+            CONFIG_SVR: y
+            DB_NAME: example
+            MASTER: 172.16.239.103
+            SLAVES: 172.16.239.101 172.16.239.102
+            DB_NAME: example
+            AUTH: y
         volumes:
-             - /srv/mongo/configsvr/replica3:/data/db
+             - /srv/mongo/CONFIG_SVR/replica3:/data/db
         ports:
              - "27103:27017"
         networks:
@@ -160,10 +160,10 @@ services:
     mongos1:
         build: ..
         environment:
-            config_servers: configsvr/172.16.239.103:27017
-            shards: shard1/172.16.239.13 shard2/172.16.239.23
-            database: example
-            auth: y
+            CONFIG_SERVERS:  configsvr/172.16.239.103:27017
+            SHARDS: shard1/172.16.239.13 shard2/172.16.239.23
+            DB_NAME: example
+            AUTH: y
         ports:
              - "27201:27017"
         networks:
@@ -174,9 +174,9 @@ services:
     mongos2:
         build: ..
         environment:
-            config_servers: configsvr/172.16.239.103:27017
-            database: example
-            auth: y
+            CONFIG_SERVERS:  configsvr/172.16.239.103:27017
+            DB_NAME: example
+            AUTH: y
         ports:
              - "27202:27017"
         networks:

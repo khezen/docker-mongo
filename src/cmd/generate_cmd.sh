@@ -1,12 +1,12 @@
 #!/bin/bash
 
-if [ "$config_servers" != "" ]; then 
+if [ "$CONFIG_SERVERS" != "" ]; then 
   cmd=$(/run/cmd/mongos.sh)
 else
   cmd=$(/run/cmd/mongod.sh)
 fi
 
-if [ "$auth" == "y" ] && [ -f /config/key ]; then
+if [ "$AUTH" == "y" ] && [ -f /config/key ]; then
   cmd="$cmd --keyFile /config/key"
 fi
 

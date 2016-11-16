@@ -1,23 +1,23 @@
 #!/bin/bash
-if [ ! -f /config/.members_added ] && [ "$slaves" != "" ]; then
+if [ ! -f /config/.members_added ] && [ "$SLAVES" != "" ]; then
     
    mongoshell=$(/run/cmd/mongoshell.sh)
 
-    if [ "$slaves" != "" ]; then
-    for slave in $slaves; do
+    if [ "$SLAVES" != "" ]; then
+    for slave in $SLAVES; do
         echo $mongoshell --quiet --eval "rs.add('$slave')"
         $mongoshell --quiet --eval "rs.add('$slave')"
     done
     fi
 
-    if [ "$slaves" != "" ] && [ "$arbitrers" != "" ]; then
-    for arbitrer in $arbitrers; do
+    if [ "$SLAVES" != "" ] && [ "$ARBITRERS" != "" ]; then
+    for arbitrer in $ARBITRERS; do
         echo $mongoshell --quiet --eval "rs.addArb('$arbitrer')"
         $mongoshell --quiet --eval "rs.addArb('$arbitrer')"
     done
     fi
 
-    if [ "$slaves" != "" ] && [ "$slaveOk" == "y" ]; then
+    if [ "$SLAVES" != "" ] && [ "$SLAVE_OK" == "y" ]; then
     echo $mongoshell --quiet --eval "rs.slaveOk()"
     $mongoshell --quiet --eval "rs.slaveOk()"  
     fi

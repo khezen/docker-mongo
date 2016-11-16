@@ -14,7 +14,7 @@ MongoDB (from "humongous") is a cross-platform document-oriented database. Class
 # How To Use
 ## docker engine
 ```
-docker run -d -p 27017:27017 -e db_user=test -e db_pwd=test -e database=mongo khezen/mongo:latest   
+docker run -d -p 27017:27017 -e DB_USER=test -e DB_PWD=test -e DB_NAME=mongo khezen/mongo:latest   
 ```   
 
 ## docker-compose
@@ -24,8 +24,8 @@ services:
     mongod1:
         image: khezen/mongo:3.2
         environment:
-            rs_name: rs
-            storage_engine: rocksdb
+            RS_NAME: rs
+            STORAGE_ENGINE: rocksdb
         volumes:
              - /srv/mongo/mongod1:/data/db
         ports:
@@ -39,42 +39,42 @@ services:
 
 ## General
 
-##### storage_engine | `wiredTiger`
+##### STORAGE_ENGINE | `wiredTiger`
 Define the storage engine you want to plug to your mongod server. [mmapv1](https://docs.mongodb.com/manual/core/mmapv1/), [WiredTiger](http://www.WiredTiger.com/) or [RocksDB](http://RocksDB.org/).
 
-##### auth | `n`
-To enable authentication, set to `y`.
+##### AUTH | `n`
+To enable AUTHentication, set to `y`.
 
-##### admin_user | `admin`
-User with *root* permissions on the *admin* database. (**auth** has to be set to `y`).
+##### ADMIN_USER | `admin`
+User with *root* permissions on the *admin* DB_NAME. (**AUTH** has to be set to `y`).
 
-##### admin_pwd | `changeme`
-The password of the **admin_user** above. (**auth** has to be set to `y`).
+##### ADMIN_PWD | `changeme`
+The password of the **ADMIN_USER** above. (**AUTH** has to be set to `y`).
 
-##### database | `(empty by default)`
-Create a new database with this name.
+##### DB_NAME | `(empty by default)`
+Create a new DB_NAME with this name.
 
-##### db_user | `user`
-User with *owner* permissions on the **database** above. (**auth** has to be set to `y`, **database** has to be specified).
+##### DB_USER | `user`
+User with *owner* permissions on the **DB_NAME** above. (**AUTH** has to be set to `y`, **DB_NAME** has to be specified).
 
-##### db_pwd | `changeme`
-The password of the **db_user** above. (**auth** has to be set to `y`, **database** has to be specified).
+##### DB_PWD | `changeme`
+The password of the **DB_USER** above. (**AUTH** has to be set to `y`, **DB_NAME** has to be specified).
 
-##### dbpath | `/data/db`
+##### DATA_PATH | `/data/db`
 The path to data storing floder.
 
-##### oplog_size | `50`
+##### OPLOG_SIZE | `50`
 Define the size of [Oplog](https://docs.mongodb.org/manual/tutorial/change-oplog-size/), in megabytes.
 
 ## Replica Set
-##### rs_name | `(empty by default)`
+##### RS_NAME | `(empty by default)`
 Define the name of the replica set on which you want this server to be attached.
 
-##### master | `$HOSTNAME`
-Define the `host:port` of the master during replica set init. (**rs_name** has to be specified).
+##### MASTER | `$HOSTNAME`
+Define the `host:port` of the master during replica set init. (**RS_NAME** has to be specified).
 
-##### slaves | `(empty by default)`
-Define the `host:port` members you want to add to a replica set from its master. (**rs_name** has to be specified, **master** has to be specified).
+##### SLAVES | `(empty by default)`
+Define the `host:port` members you want to add to a replica set from its master. (**RS_NAME** has to be specified, **MASTER** has to be specified).
 
 See example below:
 
@@ -86,8 +86,8 @@ services:
     mongod1:
         image: khezen/mongo:3
         environment:
-            rs_name: rs
-            storage_engine: rocksdb
+            RS_NAME: rs
+            STORAGE_ENGINE: rocksdb
         volumes:
              - /srv/mongo/mongod1:/data/db
         ports:
@@ -100,8 +100,8 @@ services:
     mongod2:
         image: khezen/mongo:3
         environment:
-            rs_name: rs
-            storage_engine: rocksdb
+            RS_NAME: rs
+            STORAGE_ENGINE: rocksdb
         volumes:
              - /srv/mongo/mongod2:/data/db
         ports:
@@ -114,10 +114,10 @@ services:
     mongod3:
         image: khezen/mongo:3
         environment:
-            rs_name: rs
-            storage_engine: rocksdb
-            master: 172.16.238.13
-            slaves: 172.16.238.11 172.16.238.12    
+            RS_NAME: rs
+            STORAGE_ENGINE: rocksdb
+            MASTER: 172.16.238.13
+            SLAVES: 172.16.238.11 172.16.238.12    
         volumes:
              - /srv/mongo/mongod3:/data/db
         ports:
@@ -137,8 +137,8 @@ networks:
           gateway: 172.16.238.1
 ```
 
-##### arbitrers | `(empty by default)`
-Define the `host:port` arbitrers you want to add to a replica set from its master. (**rs_name** has to be specified, **master** has to be specified, **slaves** has to be specified).
+##### ARBITRERS | `(empty by default)`
+Define the `host:port` arbitrers you want to add to a replica set from its master. (**RS_NAME** has to be specified, **MASTER** has to be specified, **SLAVES** has to be specified).
 
 See example below:
 
@@ -150,8 +150,8 @@ services:
     mongod1:
         image: khezen/mongo:3
         environment:
-            rs_name: rs
-            storage_engine: rocksdb
+            RS_NAME: rs
+            STORAGE_ENGINE: rocksdb
         volumes:
              - /srv/mongo/mongod1:/data/db
         ports:
@@ -164,8 +164,8 @@ services:
     mongod2:
         image: khezen/mongo:3
         environment:
-            rs_name: rs
-            storage_engine: rocksdb
+            RS_NAME: rs
+            STORAGE_ENGINE: rocksdb
         volumes:
              - /srv/mongo/mongod2:/data/db
         ports:
@@ -178,11 +178,11 @@ services:
     mongod3:
         image: khezen/mongo:3
         environment:
-            rs_name: rs
-            storage_engine: rocksdb
-            master: 172.16.238.13
-            slaves: 172.16.238.11
-            arbitrers: 172.16.238.12
+            RS_NAME: rs
+            STORAGE_ENGINE: rocksdb
+            MASTER: 172.16.238.13
+            SLAVES: 172.16.238.11
+            ARBITRERS: 172.16.238.12
         volumes:
              - /srv/mongo/mongod3:/data/db
         ports:
@@ -202,22 +202,22 @@ networks:
           gateway: 172.16.238.1
 ```
 
-##### slaveOk | `y`
+##### SLAVE_OK | `y`
 `y` means you can read from slaves.
 
 ## Sharded Cluster
 
-##### shardsvr | `n`
+##### SHARD_SVR | `n`
 `y` means mongod is a shard by adding --shardsvr option. 
 
-##### configsvr | `n`
+##### CONFIG_SVR | `n`
 `y` means mongod is launched as a config server by adding --configsvr option.
 
-##### config_servers | `(empty by default)`
-Start a mongos instance instead of a mongod and define the `rsname/host:port` configsrv attached to it.
+##### CONFIG_SERVERS | `(empty by default)`
+Start a mongos instance instead of a mongod and define the `rsname/host:port` config servers attached to it.
 
-##### shards | `(empty by default)`
-Define the `rsname/host:port` shards you want to add to a cluster. if **database** env variable is specified then sharding is automatically enabled for it. (**config_servers** has to be specified).
+##### SHARDS | `(empty by default)`
+Define the `rsname/host:port` SHARDS you want to add to a cluster. if **DB_NAME** env variable is specified then sharding is automatically enabled for it. (**CONFIG_SERVERS** has to be specified).
 
 See example below:
 
@@ -231,8 +231,8 @@ services:
     shard1_replica1:
         image: khezen/mongo:3
         environment:
-            rs_name: shard1
-            shardsvr: y
+            RS_NAME: shard1
+            SHARD_SVR: y
         volumes:
              - /srv/mongo/shard1/replica1:/data/db
         ports:
@@ -245,8 +245,8 @@ services:
     shard1_replica2:
         image: khezen/mongo:3
         environment:
-            rs_name: shard1
-            shardsvr: y
+            RS_NAME: shard1
+            SHARD_SVR: y
         volumes:
              - /srv/mongo/shard1/replica2:/data/db
         ports:
@@ -259,10 +259,10 @@ services:
     shard1_replica3:
         image: khezen/mongo:3
         environment:
-            rs_name: shard1
-            shardsvr: y
-            master: 172.16.239.13
-            slaves: 172.16.239.11 172.16.239.12    
+            RS_NAME: shard1
+            SHARD_SVR: y
+            MASTER: 172.16.239.13
+            SLAVES: 172.16.239.11 172.16.239.12    
         volumes:
              - /srv/mongo/shard1/replica3:/data/db
         ports:
@@ -277,8 +277,8 @@ services:
     shard2_replica1:
         image: khezen/mongo:3
         environment:
-            rs_name: shard2
-            shardsvr: y
+            RS_NAME: shard2
+            SHARD_SVR: y
         volumes:
              - /srv/mongo/shard2/replica1:/data/db
         ports:
@@ -291,8 +291,8 @@ services:
     shard2_replica2:
         image: khezen/mongo:3
         environment:
-            rs_name: shard2
-            shardsvr: y
+            RS_NAME: shard2
+            SHARD_SVR: y
         volumes:
              - /srv/mongo/shard2/replica2:/data/db
         ports:
@@ -305,10 +305,10 @@ services:
     shard2_replica3:
         image: khezen/mongo:3
         environment:
-            rs_name: shard2
-            shardsvr: y
-            master: 172.16.239.23
-            slaves: 172.16.239.21 172.16.239.22    
+            RS_NAME: shard2
+            SHARD_SVR: y
+            MASTER: 172.16.239.23
+            SLAVES: 172.16.239.21 172.16.239.22    
         volumes:
              - /srv/mongo/shard2/replica3:/data/db
         ports:
@@ -323,10 +323,10 @@ services:
     configsvr1:
         image: khezen/mongo:3
         environment:
-            rs_name: configsvr
-            configsvr: y 
+            RS_NAME: configsvr
+            CONFIG_SVR: y 
         volumes:
-             - /srv/mongo/configsvr/replica1:/data/db
+             - /srv/mongo/CONFIG_SVR/replica1:/data/db
         ports:
              - "27101:27017"
         networks:
@@ -337,10 +337,10 @@ services:
     configsvr2:
         image: khezen/mongo:3
         environment:
-            rs_name: configsvr
-            configsvr: y   
+            RS_NAME: configsvr
+            CONFIG_SVR: y   
         volumes:
-             - /srv/mongo/configsvr/replica2:/data/db
+             - /srv/mongo/CONFIG_SVR/replica2:/data/db
         ports:
              - "27102:27017"
         networks:
@@ -351,12 +351,12 @@ services:
     configsvr3:
         image: khezen/mongo:3
         environment:
-            rs_name: configsvr
-            configsvr: y
-            master: 172.16.239.103
-            slaves: 172.16.239.101 172.16.239.102
+            RS_NAME: configsvr
+            CONFIG_SVR: y
+            MASTER: 172.16.239.103
+            SLAVES: 172.16.239.101 172.16.239.102
         volumes:
-             - /srv/mongo/configsvr/replica3:/data/db
+             - /srv/mongo/CONFIG_SVR/replica3:/data/db
         ports:
              - "27103:27017"
         networks:
@@ -369,8 +369,8 @@ services:
     mongos1:
         image: khezen/mongo:3
         environment:
-            config_servers: configsvr/172.16.239.103:27017
-            shards: shard1/172.16.239.13 shard2/172.16.239.23
+            CONFIG_SERVERS: configsvr/172.16.239.103:27017
+            SHARDS: shard1/172.16.239.13 shard2/172.16.239.23
         ports:
              - "27201:27017"
         networks:
