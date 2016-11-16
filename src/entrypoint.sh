@@ -12,9 +12,9 @@ $cmd &
 /run/miscellaneous/wait_until_started.sh
 
 # CONFIGURE REPLICA SET
-if [ "$rs_name" != "" ]; then
+if [ "$RS_NAME" != "" ]; then
   /run/replSet/set_master.sh
-  if [ "$auth" != "y" ]; then
+  if [ "$AUTH" != "y" ]; then
     /run/replSet/wait_until_rs_configured.sh
     /run/replSet/add_members.sh
   fi
@@ -24,12 +24,12 @@ fi
 /run/miscellaneous/perf.sh
 
 # CONFIGURE AUTHENTICATION
-if [ "$auth" == "y" ] && [ ! -f /config/.admin_created ]; then
+if [ "$AUTH" == "y" ] && [ ! -f /config/.admin_created ]; then
 
   /run/auth/create_admin.sh
   /run/auth/create_keyfile.sh
 
-  if [ "$config_servers" == "" ]; then
+  if [ "$CONFIG_SERVERS" == "" ]; then
     /run/auth/create_db_owner.sh
     mongod --shutdown
     /run/miscellaneous/wait_until_stopped.sh
@@ -37,12 +37,12 @@ if [ "$auth" == "y" ] && [ ! -f /config/.admin_created ]; then
     echo $cmd
     $cmd &
     /run/miscellaneous/wait_until_started.sh
-    if [ "$rs_name" != "" ]; then
+    if [ "$RS_NAME" != "" ]; then
       /run/replSet/wait_until_rs_configured.sh
       /run/replSet/add_members.sh
     fi
   else
-    mongo -u $admin_user -p $admin_pwd admin --eval "db.shutdownServer()"
+    mongo -u $ADMIN_USER -p $ADMIN_PWD admin --eval "db.shutdownServer()"
     /run/miscellaneous/wait_until_stopped.sh
     cmd="$cmd --keyFile /config/key"
     echo $cmd
@@ -51,7 +51,7 @@ if [ "$auth" == "y" ] && [ ! -f /config/.admin_created ]; then
 fi
 
 # CONFIGURE SHARDED CLUSTER
-if [ "$config_servers" != "" ]; then
+if [ "$CONFIG_SERVERS" != "" ]; then
   /run/miscellaneous/wait_until_started.sh
   /run/shard/add_shards.sh
 fi

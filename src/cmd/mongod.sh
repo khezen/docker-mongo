@@ -1,21 +1,21 @@
 #!/bin/bash
 
-cmd="mongod --storageEngine $storage_engine --port 27017"
-if [ "$shardsvr" == "y" ]; then
+cmd="mongod --storageEngine $STORAGE_ENGINE --port 27017"
+if [ "$SHARD_SVR" == "y" ]; then
     cmd="$cmd --shardsvr"
 fi
-if [ "$rs_name" != "" ]; then
-    cmd="$cmd --replSet $rs_name"
+if [ "$RS_NAME" != "" ]; then
+    cmd="$cmd --replSet $RS_NAME"
 fi
-mkdir -p $dbpath
-if [ "$dbpath" != "" ]; then
-    mkdir -p "$dbpath"
-    cmd="$cmd --dbpath $dbpath"
+
+if [ "$DATA_PATH" != "" ]; then
+    mkdir -p $DATA_PATH
+    cmd="$cmd --dbpath $DATA_PATH"
 fi
-if [ "$oplog_size" != "" ]; then
-    cmd="$cmd --oplogSize $oplog_size"
+if [ "$OPLOG_SIZE" != "" ]; then
+    cmd="$cmd --oplogSize $OPLOG_SIZE"
 fi
-if [ "$configsvr" == "y" ]; then
+if [ "$CONFIG_SVR" == "y" ]; then
     cmd="$cmd --configsvr"
 fi
 
