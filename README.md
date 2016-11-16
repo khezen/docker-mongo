@@ -1,4 +1,4 @@
-[![](https://images.microbadger.com/badges/image/khezen/mongo.svg)](https://microbadger.com/images/khezen/mongo "Get your own image badge on microbadger.com")
+[![](https://images.microbadger.com/badges/image/khezen/mongo.svg)](https://hub.docker.com/r/khezen/mongo/)
 # Supported tags and respective `Dockerfile` links
 
 * `3.2.9`, `3.2`, `3`, `latest` [(3.2/Dockerfile)](https://github.com/Khezen/docker-mongo/blob/v3.2/Dockerfile)
