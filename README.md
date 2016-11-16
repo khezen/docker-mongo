@@ -1,4 +1,4 @@
-[![](https://images.microbadger.com/badges/image/khezen/mongo.svg)](https://microbadger.com/images/khezen/mongo "Get your own image badge on microbadger.com")
+[![](https://images.microbadger.com/badges/image/khezen/mongo.svg)](https://hub.docker.com/r/khezen/mongo/)
 # Supported tags and respective `Dockerfile` links
 
 * `3.2.9`, `3.2`, `3`, `latest` [(3.2/Dockerfile)](https://github.com/Khezen/docker-mongo/blob/v3.2/Dockerfile)
@@ -217,7 +217,7 @@ networks:
 Start a mongos instance instead of a mongod and define the `rsname/host:port` config servers attached to it.
 
 ##### SHARDS | `(empty by default)`
-Define the `rsname/host:port` SHARDS you want to add to a cluster. if **DB_NAME** env variable is specified then sharding is automatically enabled for it. (**CONFIG_SERVERS** has to be specified).
+Define the `rsname/host:port` shards you want to add to a cluster. if **DB_NAME** env variable is specified then sharding is automatically enabled for it. (**CONFIG_SERVERS** has to be specified).
 
 See example below:
 
