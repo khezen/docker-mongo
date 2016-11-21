@@ -10,7 +10,7 @@ services:
             DB_NAME: example
             AUTH: y
         volumes:
-             - /srv/mongo/shard1/replica1:/data/db
+             - /data/mongo/shard1/replica1:/data/db
         ports:
              - "27011:27017"
         networks:
@@ -26,7 +26,7 @@ services:
             DB_NAME: example
             AUTH: y
         volumes:
-             - /srv/mongo/shard1/replica2:/data/db
+             - /data/mongo/shard1/replica2:/data/db
         ports:
              - "27012:27017"
         networks:
@@ -44,7 +44,7 @@ services:
             DB_NAME: example
             AUTH: y
         volumes:
-             - /srv/mongo/shard1/replica3:/data/db
+             - /data/mongo/shard1/replica3:/data/db
         ports:
              - "27013:27017"
         networks:
@@ -61,7 +61,7 @@ services:
             DB_NAME: example
             AUTH: y
         volumes:
-             - /srv/mongo/shard2/replica1:/data/db
+             - /data/mongo/shard2/replica1:/data/db
         ports:
              - "27021:27017"
         networks:
@@ -77,7 +77,7 @@ services:
             DB_NAME: example
             AUTH: y
         volumes:
-             - /srv/mongo/shard2/replica2:/data/db
+             - /data/mongo/shard2/replica2:/data/db
         ports:
              - "27022:27017"
         networks:
@@ -95,7 +95,7 @@ services:
             DB_NAME: example 
             AUTH: y
         volumes:
-             - /srv/mongo/shard2/replica3:/data/db
+             - /data/mongo/shard2/replica3:/data/db
         ports:
              - "27023:27017"
         networks:
@@ -113,7 +113,7 @@ services:
             DB_NAME: example
             AUTH: y
         volumes:
-             - /srv/mongo/CONFIG_SVR/replica1:/data/db
+             - /data/mongo/CONFIG_SVR/replica1:/data/db
         ports:
              - "27101:27017"
         networks:
@@ -128,7 +128,7 @@ services:
             DB_NAME: example
             AUTH: y
         volumes:
-             - /srv/mongo/CONFIG_SVR/replica2:/data/db
+             - /data/mongo/CONFIG_SVR/replica2:/data/db
         ports:
              - "27102:27017"
         networks:
@@ -147,7 +147,7 @@ services:
             DB_NAME: example
             AUTH: y
         volumes:
-             - /srv/mongo/CONFIG_SVR/replica3:/data/db
+             - /data/mongo/CONFIG_SVR/replica3:/data/db
         ports:
              - "27103:27017"
         networks:

@@ -27,7 +27,7 @@ services:
             RS_NAME: rs
             STORAGE_ENGINE: rocksdb
         volumes:
-             - /srv/mongo/mongod1:/data/db
+             - /data/mongo/mongod1:/data/db
         ports:
              - "27017:27017"
         network_mode: bridge
@@ -89,7 +89,7 @@ services:
             RS_NAME: rs
             STORAGE_ENGINE: rocksdb
         volumes:
-             - /srv/mongo/mongod1:/data/db
+             - /data/mongo/mongod1:/data/db
         ports:
              - "27017:27017"
         networks:
@@ -103,7 +103,7 @@ services:
             RS_NAME: rs
             STORAGE_ENGINE: rocksdb
         volumes:
-             - /srv/mongo/mongod2:/data/db
+             - /data/mongo/mongod2:/data/db
         ports:
              - "27018:27017"
         networks:
@@ -119,7 +119,7 @@ services:
             MASTER: 172.16.238.13
             SLAVES: 172.16.238.11 172.16.238.12    
         volumes:
-             - /srv/mongo/mongod3:/data/db
+             - /data/mongo/mongod3:/data/db
         ports:
              - "27019:27017"
         networks:
@@ -153,7 +153,7 @@ services:
             RS_NAME: rs
             STORAGE_ENGINE: rocksdb
         volumes:
-             - /srv/mongo/mongod1:/data/db
+             - /data/mongo/mongod1:/data/db
         ports:
              - "27017:27017"
         networks:
@@ -167,7 +167,7 @@ services:
             RS_NAME: rs
             STORAGE_ENGINE: rocksdb
         volumes:
-             - /srv/mongo/mongod2:/data/db
+             - /data/mongo/mongod2:/data/db
         ports:
              - "27018:27017"
         networks:
@@ -184,7 +184,7 @@ services:
             SLAVES: 172.16.238.11
             ARBITRERS: 172.16.238.12
         volumes:
-             - /srv/mongo/mongod3:/data/db
+             - /data/mongo/mongod3:/data/db
         ports:
              - "27019:27017"
         networks:
@@ -236,7 +236,7 @@ services:
             RS_NAME: shard1
             SHARD_SVR: y
         volumes:
-             - /srv/mongo/shard1/replica1:/data/db
+             - /data/mongo/shard1/replica1:/data/db
         ports:
              - "27011:27017"
         networks:
@@ -250,7 +250,7 @@ services:
             RS_NAME: shard1
             SHARD_SVR: y
         volumes:
-             - /srv/mongo/shard1/replica2:/data/db
+             - /data/mongo/shard1/replica2:/data/db
         ports:
              - "27012:27017"
         networks:
@@ -266,7 +266,7 @@ services:
             MASTER: 172.16.239.13
             SLAVES: 172.16.239.11 172.16.239.12    
         volumes:
-             - /srv/mongo/shard1/replica3:/data/db
+             - /data/mongo/shard1/replica3:/data/db
         ports:
              - "27013:27017"
         networks:
@@ -282,7 +282,7 @@ services:
             RS_NAME: shard2
             SHARD_SVR: y
         volumes:
-             - /srv/mongo/shard2/replica1:/data/db
+             - /data/mongo/shard2/replica1:/data/db
         ports:
              - "27021:27017"
         networks:
@@ -296,7 +296,7 @@ services:
             RS_NAME: shard2
             SHARD_SVR: y
         volumes:
-             - /srv/mongo/shard2/replica2:/data/db
+             - /data/mongo/shard2/replica2:/data/db
         ports:
              - "27022:27017"
         networks:
@@ -312,7 +312,7 @@ services:
             MASTER: 172.16.239.23
             SLAVES: 172.16.239.21 172.16.239.22    
         volumes:
-             - /srv/mongo/shard2/replica3:/data/db
+             - /data/mongo/shard2/replica3:/data/db
         ports:
              - "27023:27017"
         networks:
@@ -328,7 +328,7 @@ services:
             RS_NAME: configsvr
             CONFIG_SVR: y 
         volumes:
-             - /srv/mongo/CONFIG_SVR/replica1:/data/db
+             - /data/mongo/CONFIG_SVR/replica1:/data/db
         ports:
              - "27101:27017"
         networks:
@@ -342,7 +342,7 @@ services:
             RS_NAME: configsvr
             CONFIG_SVR: y   
         volumes:
-             - /srv/mongo/CONFIG_SVR/replica2:/data/db
+             - /data/mongo/CONFIG_SVR/replica2:/data/db
         ports:
              - "27102:27017"
         networks:
@@ -358,7 +358,7 @@ services:
             MASTER: 172.16.239.103
             SLAVES: 172.16.239.101 172.16.239.102
         volumes:
-             - /srv/mongo/CONFIG_SVR/replica3:/data/db
+             - /data/mongo/CONFIG_SVR/replica3:/data/db
         ports:
              - "27103:27017"
         networks:
