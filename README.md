@@ -46,6 +46,7 @@ Define the storage engine you want to plug to your mongod server.
   * In case you choose wiredTiger, make you have read [this reference](https://docs.mongodb.com/manual/core/wiredtiger/).
 * [rocksdb](http://RocksDB.org/)
   * In case you choose rocksdb, make sure you have read [this reference](https://github.com/mongodb-partners/mongo-rocks/wiki).
+  
 ##### AUTH | `n`
 To enable AUTHentication, set to `y`.
 
