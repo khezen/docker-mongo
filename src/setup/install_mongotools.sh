@@ -4,7 +4,7 @@
 apt-get update -y
 apt-get install wget git binutils -y
 wget https://storage.googleapis.com/golang/go1.7.3.linux-amd64.tar.gz -P /usr/local
-tar -C /usr/local -xzf /usr/local/go1.7.1.linux-amd64.tar.gz
+tar -C /usr/local -xzf /usr/local/go1.7.3.linux-amd64.tar.gz
 export PATH=$PATH:/usr/local/go/bin
 
 # mongotools
