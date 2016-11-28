@@ -2,12 +2,13 @@
 
 # miscellaneous
 apt-get update
-apt-get install -y build-essential git binutils
+apt-get install -y build-essential git binutils g++-5
+
+
 
 # RocksDB
 apt-get update
 apt-get install -y libbz2-dev libsnappy-dev zlib1g-dev libzlcore-dev
-
 git clone https://github.com/facebook/rocksdb.git
 cd rocksdb
 git checkout tags/v4.11.2
@@ -32,8 +33,9 @@ strip /usr/bin/mongo
 strip /usr/bin/mongod
 strip /usr/bin/mongos
 strip /usr/bin/mongoperf
-apt-get -y --purge autoremove build-essential git scons binutils
+apt-get -y --purge autoremove build-essential git scons binutils g++-5
 rm -rf /rocksdb
 rm -rf /mongo-rocks
 rm -rf /mongo
 rm -f /usr/local/lib/librocksdb.a
+rm -f /usr/bin/gcc
