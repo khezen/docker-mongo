@@ -10,7 +10,7 @@ export PATH=$PATH:/usr/local/go/bin
 # mongotools
 git clone https://github.com/mongodb/mongo-tools /mongo-tools
 cd /mongo-tools
-git checkout tags/r3.4.0
+git checkout v3.4
 TOOLS_PKG='github.com/mongodb/mongo-tools'
 rm -rf .gopath/
 mkdir -p .gopath/src/"$(dirname "${TOOLS_PKG}")"
@@ -27,6 +27,7 @@ go build -o /usr/bin/mongooplog mongooplog/main/mongooplog.go
 go build -o /usr/bin/mongotop mongotop/main/mongotop.go
 
 # purge
+#strip /usr/bin/mongosniff
 strip /usr/bin/bsondump
 strip /usr/bin/mongoimport
 strip /usr/bin/mongoexport
@@ -39,4 +40,4 @@ strip /usr/bin/mongotop
 apt-get -y --purge autoremove  wget git binutils
 rm -rf /mongo-tools
 rm -rf /usr/local/go
-rm -f /usr/local/go1.7.1.linux-amd64.tar.gz
+rm -f /usr/local/go1.7.3.linux-amd64.tar.gz
