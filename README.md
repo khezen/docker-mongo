@@ -23,7 +23,7 @@ docker run -d -p 27017:27017 -e DB_USER=test -e DB_PWD=test -e DB_NAME=mongo khe
 version: '2'
 services:
     mongod1:
-        image: khezen/mongo:3.2
+        image: khezen/mongo:3.4
         environment:
             RS_NAME: rs
             STORAGE_ENGINE: rocksdb
