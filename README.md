@@ -334,7 +334,7 @@ services:
             RS_NAME: configsvr
             CONFIG_SVR: y 
         volumes:
-             - /data/mongo/CONFIG_SVR/replica1:/data/db
+             - /data/mongo/configsvr/replica1:/data/db
         ports:
              - "27101:27017"
         networks:
@@ -348,7 +348,7 @@ services:
             RS_NAME: configsvr
             CONFIG_SVR: y   
         volumes:
-             - /data/mongo/CONFIG_SVR/replica2:/data/db
+             - /data/mongo/configsvr/replica2:/data/db
         ports:
              - "27102:27017"
         networks:
@@ -364,7 +364,7 @@ services:
             MASTER: 172.16.239.103
             SLAVES: 172.16.239.101 172.16.239.102
         volumes:
-             - /data/mongo/CONFIG_SVR/replica3:/data/db
+             - /data/mongo/configsvr/replica3:/data/db
         ports:
              - "27103:27017"
         networks:

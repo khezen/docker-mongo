@@ -34,3 +34,4 @@ rm -rf /rocksdb
 rm -rf /mongo-rocks
 rm -rf /mongo
 rm -f /usr/local/lib/librocksdb.a
+rm -f /usr/bin/gcc
