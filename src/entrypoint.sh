@@ -23,6 +23,9 @@ fi
 # PERF TWEAK
 /run/miscellaneous/perf.sh
 
+# CREATE DB IF SPECIFIED
+/run/auth/create_db.sh
+
 # CONFIGURE AUTHENTICATION
 if [ "$AUTH" == "y" ] && [ ! -f /config/.admin_created ]; then
 

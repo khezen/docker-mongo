@@ -1,9 +1,10 @@
 #!/bin/bash 
+mongoshell=$(/run/cmd/mongoshell.sh)
 if [ "$MASTER" != "" ] && [ ! -f /config/.master_set ]; then
-  echo mongo --quiet --eval "rs.initiate();"
-  mongo --quiet --eval "rs.initiate();"
+  echo $mongoshell admin --quiet --eval "rs.initiate();"
+  $mongoshell admin --quiet --eval "rs.initiate();"
   /run/replSet/wait_until_rs_configured.sh
-  echo mongo --quiet --eval "var conf = rs.conf(); conf.members[0].host='$MASTER'; rs.reconfig(conf)"
-  mongo --quiet --eval "var conf = rs.conf(); conf.members[0].host='$MASTER'; rs.reconfig(conf)"
+  echo $mongoshell admin --quiet --eval "var conf = rs.conf(); conf.members[0].host='$MASTER'; rs.reconfig(conf)"
+  $mongoshell admin --quiet --eval "var conf = rs.conf(); conf.members[0].host='$MASTER'; rs.reconfig(conf)"
   touch /config/.master_set
 fi
