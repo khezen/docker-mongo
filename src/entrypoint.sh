@@ -34,31 +34,23 @@ if [ "$AUTH" == "y" ] && [ ! -f /config/.admin_created ]; then
 
   if [ "$CONFIG_SERVERS" == "" ]; then
     /run/auth/create_db_owner.sh
-    mongod --shutdown
-    /run/miscellaneous/wait_until_stopped.sh
-    cmd="$cmd --keyFile /config/key"
-    echo $cmd
-    $cmd &
-    /run/miscellaneous/wait_until_started.sh
+    /run/miscellaneous/restart.sh "$cmd" &
     if [ "$RS_NAME" != "" ]; then
+      /run/miscellaneous/wait_until_started.sh
       /run/replSet/wait_until_rs_configured.sh
       /run/replSet/add_members.sh
     fi
   else
-    mongo -u $ADMIN_USER -p $ADMIN_PWD admin --eval "db.shutdownServer()"
-    /run/miscellaneous/wait_until_stopped.sh
-    cmd="$cmd --keyFile /config/key"
-    echo $cmd
-    $cmd &
+   /run/miscellaneous/restart.sh "$cmd" &
   fi
 fi
 
+/run/miscellaneous/wait_until_started.sh
+
 # CONFIGURE SHARDED CLUSTER
 if [ "$CONFIG_SERVERS" != "" ]; then
-  /run/miscellaneous/wait_until_started.sh
   /run/shard/add_shards.sh
 fi
-
 /run/miscellaneous/status.sh
 
 fg
