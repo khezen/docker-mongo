@@ -10,7 +10,7 @@ export PATH=$PATH:/usr/local/go/bin
 # mongotools
 git clone https://github.com/mongodb/mongo-tools /mongo-tools
 cd /mongo-tools
-git checkout tags/r3.4.0
+git checkout tags/r3.4.1
 TOOLS_PKG='github.com/mongodb/mongo-tools'
 rm -rf .gopath/
 mkdir -p .gopath/src/"$(dirname "${TOOLS_PKG}")"
