@@ -15,7 +15,7 @@ MongoDB (from "humongous") is a cross-platform document-oriented database. Class
 # How To Use
 ## docker engine
 ```
-docker run -d -p 27017:27017 -e DB_USER=test -e DB_PWD=test -e DB_NAME=mongo khezen/mongo:latest   
+docker run -d -p 27017:27017 -e DB_NAME=mongo khezen/mongo:latest   
 ```   
 
 ## docker-compose
