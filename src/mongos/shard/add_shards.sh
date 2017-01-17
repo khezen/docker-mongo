@@ -1,6 +1,6 @@
 #!/bin/bash
 if [ ! -f /config/.shards_added ]; then
-    mongoshell=$(/run/cmd/mongoshell.sh)
+    mongoshell=$(/run/misc/mongoshell.sh)
 
     if [ "$SHARDS" != "" ]; then
         for shard in $SHARDS; do

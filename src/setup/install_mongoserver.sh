@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# miscellaneous
+# misc
 apt-get update
 apt-get install -y build-essential git binutils python scons
 

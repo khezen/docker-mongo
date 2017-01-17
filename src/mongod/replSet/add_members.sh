@@ -1,7 +1,7 @@
 #!/bin/bash
 if [ ! -f /config/.members_added ] && [ "$SLAVES" != "" ]; then
     
-   mongoshell=$(/run/cmd/mongoshell.sh)
+   mongoshell=$(/run/misc/mongoshell.sh)
 
     if [ "$SLAVES" != "" ]; then
     for slave in $SLAVES; do

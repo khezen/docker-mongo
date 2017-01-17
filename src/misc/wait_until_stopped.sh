@@ -1,5 +1,5 @@
 #!/bin/bash
-mongoshell=$(/run/cmd/mongoshell.sh)
+mongoshell=$(/run/misc/mongoshell.sh)
 RET=0
 while [[ RET -eq 0 ]]; do
     echo "=> Waiting for confirmation of MongoDB service shutdown"
