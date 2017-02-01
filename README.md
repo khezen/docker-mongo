@@ -11,6 +11,7 @@ MongoDB (from "humongous") is a cross-platform document-oriented database. Class
 
 
 ![logo](https://raw.githubusercontent.com/docker-library/docs/01c12653951b2fe592c1f93a13b4e289ada0e3a1/mongo/logo.png)
+
 ---
 # How To Use
 ## docker engine
@@ -41,13 +42,13 @@ services:
 ## General
 
 ##### STORAGE_ENGINE | `wiredTiger`
-Define the storage engine you want to plug to your mongod server. 
+Define the storage engine you want to plug to your mongod server.
 * [mmapv1](https://docs.mongodb.com/manual/core/mmapv1/)
 * [wiredTiger](http://www.WiredTiger.com/)
   * In case you choose wiredTiger, make you have read [this reference](https://docs.mongodb.com/manual/core/wiredtiger/).
 * [rocksdb](http://RocksDB.org/)
   * In case you choose rocksdb, make sure you have read [this reference](https://github.com/mongodb-partners/mongo-rocks/wiki).
-  
+
 ##### AUTH | `n`
 To enable AUTHentication, set to `y`.
 
@@ -214,7 +215,7 @@ networks:
 ## Sharded Cluster
 
 ##### SHARD_SVR | `n`
-`y` means mongod is a shard by adding --shardsvr option. 
+`y` means mongod is a shard by adding --shardsvr option.
 
 ##### CONFIG_SVR | `n`
 `y` means mongod is launched as a config server by adding --configsvr option.
@@ -225,7 +226,7 @@ Start a mongos instance instead of a mongod and define the `rsname/host:port` co
 ##### SHARDS | `(empty by default)`
 Define the `rsname/host:port` shards you want to add to a cluster.(**CONFIG_SERVERS** has to be specified).
 
-*NOTE*: if **DB_NAME** is specified, then sharding is automatically enabled for the database named after it. 
+*NOTE*: if **DB_NAME** is specified, then sharding is automatically enabled for the database named after it.
 
 See example below:
 
@@ -332,7 +333,7 @@ services:
         image: khezen/mongo:3
         environment:
             RS_NAME: configsvr
-            CONFIG_SVR: y 
+            CONFIG_SVR: y
         volumes:
              - /data/mongo/configsvr/replica1:/data/db
         ports:
