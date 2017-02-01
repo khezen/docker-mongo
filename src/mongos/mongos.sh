@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ "$AUTH" == "y" ] && [ ! -f /config/key ]; then
+  /run/auth/create_keyfile.sh
+fi
+
 cmd="mongos --port 27017 --configdb"
 concat_servers=""
 for config_server in $CONFIG_SERVERS; do
@@ -10,5 +14,9 @@ for config_server in $CONFIG_SERVERS; do
     fi
 done
 cmd="$cmd $concat_servers"
+
+if [ "$AUTH" == "y" ] && [ -f /config/key ]; then
+  cmd="$cmd --keyFile /config/key"
+fi
 
 echo $cmd

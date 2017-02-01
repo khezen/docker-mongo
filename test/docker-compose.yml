@@ -40,7 +40,7 @@ services:
             RS_NAME: shard1
             SHARD_SVR: y
             MASTER: 172.16.239.13
-            SLAVES: 172.16.239.11 172.16.239.12    
+            SLAVES: 172.16.239.11 172.16.239.12
             DB_NAME: example
             AUTH: y
         volumes:
@@ -92,7 +92,7 @@ services:
             SHARD_SVR: y
             MASTER: 172.16.239.23
             SLAVES: 172.16.239.21 172.16.239.22
-            DB_NAME: example 
+            DB_NAME: example
             AUTH: y
         volumes:
              - /data/mongo/shard2/replica3:/data/db
@@ -169,19 +169,7 @@ services:
             mongo_cluster_net:
                 ipv4_address: 172.16.239.201
         restart: always
-        
-    mongos2:
-        build: ..
-        environment:
-            CONFIG_SERVERS:  configsvr/172.16.239.103:27017
-            DB_NAME: example
-            AUTH: y
-        ports:
-             - "27202:27017"
-        networks:
-            mongo_cluster_net:
-                ipv4_address: 172.16.239.202
-        restart: always
+
 
 networks:
   mongo_cluster_net:

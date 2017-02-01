@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ "$AUTH" == "y" ] && [ ! -f /config/key ]; then
+  /run/auth/create_keyfile.sh
+fi
+
 cmd="mongod --storageEngine $STORAGE_ENGINE --port 27017"
 if [ "$SHARD_SVR" == "y" ]; then
     cmd="$cmd --shardsvr"
@@ -17,6 +21,10 @@ if [ "$OPLOG_SIZE" != "" ]; then
 fi
 if [ "$CONFIG_SVR" == "y" ]; then
     cmd="$cmd --configsvr"
+fi
+
+if [ "$AUTH" == "y" ] && [ -f /config/key ]; then
+  cmd="$cmd --keyFile /config/key"
 fi
 
 echo $cmd
