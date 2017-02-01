@@ -1,4 +1,4 @@
-FROM debian:testing
+FROM debian:testing-slim
 
 MAINTAINER Guillaume Simonneau <simonneaug@gmail.com>
 LABEL Descritpion="mongodb roccksdb mongo mongod mongos mongotools bsondump mongodump mongorestore mongoimport mongoexport mongostat mongofiles mongooplog mongotop"
@@ -6,7 +6,7 @@ LABEL Descritpion="mongodb roccksdb mongo mongod mongos mongotools bsondump mong
 COPY ./src/setup/ /run/setup/
 RUN chmod +x -R /run
 
-RUN sh /run/setup/install_mongoserver.sh 
+RUN sh /run/setup/install_mongoserver.sh
 RUN sh /run/setup/install_mongotools.sh
 
 COPY ./src /run
@@ -33,5 +33,5 @@ ENV AUTH="n" \
     CONFIG_SVR="n" \
     CONFIG_SERVERS="" \
     SHARDS=""
-    
+
 ENTRYPOINT ["/run/entrypoint.sh"]
