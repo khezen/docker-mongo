@@ -36,7 +36,6 @@ services:
     environment:
       RS_NAME: shard1
       SHARD_SVR: y
-      DB_NAME: example
       AUTH: y
     volumes:
       - shard1_replica2:/data/db
