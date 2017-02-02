@@ -119,7 +119,7 @@ services:
       restart_policy:
         condition: on-failure
     environment:
-      SHARD_SVR: y
+      RS_NAME: shard1
       AUTH: y
     volumes:
       - replica2:/data/db
@@ -137,7 +137,7 @@ services:
         restart_policy:
           condition: on-failure
       environment:
-        SHARD_SVR: y
+        RS_NAME: shard1
         MASTER: shard1_replica3
         SLAVES: shard1_replica1 shard1_replica2
         AUTH: y
@@ -198,7 +198,7 @@ services:
       restart_policy:
         condition: on-failure
     environment:
-      SHARD_SVR: y
+      RS_NAME: shard1
       AUTH: y
     volumes:
       - replica2:/data/db
@@ -216,7 +216,7 @@ services:
         restart_policy:
           condition: on-failure
       environment:
-        SHARD_SVR: y
+        RS_NAME: shard1
         MASTER: shard1_replica3
         SLAVES: shard1_replica1
         ARBITRERS: shard1_replica2
@@ -239,6 +239,7 @@ volumes:
       driver: local
 ```
 
+
 ##### SLAVE_OK | `y`
 `y` means you can read from slaves.
 
@@ -260,12 +261,12 @@ Define the `rsname/host:port` shards you want to add to a cluster.(**CONFIG_SERV
 
 See docker stack below:
 
-*(I am using ip adresses in this example but usually you want to use logical names instead)*
 ```
 version: '3'
+
 services:
 
-  # SHARD 1
+    # SHARD 1
 
   shard1_replica1:
     image: khezen/mongo:slim
@@ -299,7 +300,6 @@ services:
     environment:
       RS_NAME: shard1
       SHARD_SVR: y
-      DB_NAME: example
       AUTH: y
     volumes:
       - shard1_replica2:/data/db
@@ -495,6 +495,7 @@ services:
 networks:
   mongo_cluster:
     driver: overlay
+
 
 volumes:
   - shard1_replica1:
