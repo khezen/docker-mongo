@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
     # SHARD 1
 
@@ -14,8 +14,7 @@ services:
         ports:
              - "27011:27017"
         networks:
-            mongo_cluster_net:
-                ipv4_address: 172.16.239.11
+            - mongo_cluster
         restart: always
 
     shard1_replica2:
@@ -30,8 +29,7 @@ services:
         ports:
              - "27012:27017"
         networks:
-            mongo_cluster_net:
-                ipv4_address: 172.16.239.12
+            - mongo_cluster
         restart: always
 
     shard1_replica3:
@@ -39,8 +37,8 @@ services:
         environment:
             RS_NAME: shard1
             SHARD_SVR: y
-            MASTER: 172.16.239.13
-            SLAVES: 172.16.239.11 172.16.239.12
+            MASTER: shard1_replica3
+            SLAVES: shard1_replica1 shard1_replica2
             DB_NAME: example
             AUTH: y
         volumes:
@@ -48,8 +46,7 @@ services:
         ports:
              - "27013:27017"
         networks:
-            mongo_cluster_net:
-                ipv4_address: 172.16.239.13
+            - mongo_cluster
         restart: always
 
     # SHARD 2
@@ -65,8 +62,7 @@ services:
         ports:
              - "27021:27017"
         networks:
-            mongo_cluster_net:
-                ipv4_address: 172.16.239.21
+            - mongo_cluster
         restart: always
 
     shard2_replica2:
@@ -81,8 +77,7 @@ services:
         ports:
              - "27022:27017"
         networks:
-            mongo_cluster_net:
-                ipv4_address: 172.16.239.22
+            - mongo_cluster
         restart: always
 
     shard2_replica3:
@@ -90,8 +85,8 @@ services:
         environment:
             RS_NAME: shard2
             SHARD_SVR: y
-            MASTER: 172.16.239.23
-            SLAVES: 172.16.239.21 172.16.239.22
+            MASTER: shard2_replica3
+            SLAVES: shard2_replica1 shard2_replica2
             DB_NAME: example
             AUTH: y
         volumes:
@@ -99,8 +94,7 @@ services:
         ports:
              - "27023:27017"
         networks:
-            mongo_cluster_net:
-                ipv4_address: 172.16.239.23
+            - mongo_cluster
         restart: always
 
     # CONFIG SVRS
@@ -117,8 +111,7 @@ services:
         ports:
              - "27101:27017"
         networks:
-            mongo_cluster_net:
-                ipv4_address: 172.16.239.101
+            - mongo_cluster
         restart: always
     configsvr2:
         build: ..
@@ -132,8 +125,7 @@ services:
         ports:
              - "27102:27017"
         networks:
-            mongo_cluster_net:
-                ipv4_address: 172.16.239.102
+            - mongo_cluster
         restart: always
 
     configsvr3:
@@ -142,16 +134,15 @@ services:
             RS_NAME: configsvr
             CONFIG_SVR: y
             DB_NAME: example
-            MASTER: 172.16.239.103
-            SLAVES: 172.16.239.101 172.16.239.102
+            MASTER: configsvr3
+            SLAVES: configsvr1 configsvr2
             AUTH: y
         volumes:
              - /data/mongo/CONFIG_SVR/replica3:/data/db
         ports:
              - "27103:27017"
         networks:
-            mongo_cluster_net:
-                ipv4_address: 172.16.239.103
+            - mongo_cluster
         restart: always
 
     # MONGOS
@@ -159,23 +150,17 @@ services:
     mongos1:
         build: ..
         environment:
-            CONFIG_SERVERS:  configsvr/172.16.239.103:27017
-            SHARDS: shard1/172.16.239.13 shard2/172.16.239.23
+            CONFIG_SERVERS:  configsvr/configsvr3:27017
+            SHARDS: shard1/shard1_replica3 shard2/shard2_replica3
             DB_NAME: example
             AUTH: y
         ports:
              - "27201:27017"
         networks:
-            mongo_cluster_net:
-                ipv4_address: 172.16.239.201
+            - mongo_cluster
         restart: always
 
 
 networks:
-  mongo_cluster_net:
+  mongo_cluster:
     driver: bridge
-    ipam:
-        driver: default
-        config:
-        - subnet: 172.16.239.0/24
-          gateway: 172.16.239.1

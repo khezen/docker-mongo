@@ -6,10 +6,15 @@ set -m
 /run/mongod/start.sh&
 /run/misc/wait_until_started.sh
 
+# CONFIGURE REPLICA SET
+if [ "$RS_NAME" != "" ]; then
+  /run/mongod/replSet/init_rs.sh
+fi
+
 # CONFIGURE AUTHENTICATION
-if [ "$AUTH" == "y" ] && [ ! -f /.admin_created ]; then
+if [ "$AUTH" == "y" ] && [ ! -f /confif/.admin_created ]; then
   /run/auth/create_admin.sh
-  touch /.admin_created
+  touch /config/.admin_created
 fi
 
 # CONFIGURE REPLICA SET
