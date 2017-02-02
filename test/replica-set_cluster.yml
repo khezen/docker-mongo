@@ -1,0 +1,74 @@
+version: '3'
+
+services:
+
+  replica1:
+    image: khezen/mongo:slim
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    environment:
+      RS_NAME: shard1
+      SHARD_SVR: 'y'
+      AUTH: 'y'
+    volumes:
+      - replica1:/data/db
+    networks:
+      - mongo_cluster
+
+  replica2:
+    image: khezen/mongo:slim
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    environment:
+      RS_NAME: shard1
+      SHARD_SVR: 'y'
+      AUTH: 'y'
+    volumes:
+      - replica2:/data/db
+    networks:
+      - mongo_cluster
+
+  replica3:
+    image: khezen/mongo:slim
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    environment:
+      RS_NAME: shard1
+      SHARD_SVR: 'y'
+      MASTER: replica3
+      SLAVES: replica1 replica2
+      AUTH: 'y'
+    volumes:
+      - replica3:/data/db
+    networks:
+      - mongo_cluster
+
+networks:
+  mongo_cluster:
+    driver: overlay
+
+volumes:
+  replica1:
+      driver: local
+  replica2:
+      driver: local
+  replica3:
+      driver: local
