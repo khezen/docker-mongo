@@ -207,7 +207,7 @@ services:
       SHARD_SVR: 'y'
       AUTH: 'y'
     volumes:
-      - rreplica2:/data/db
+      - replica2:/data/db
     networks:
       - mongo_cluster
 
