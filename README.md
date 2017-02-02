@@ -83,130 +83,160 @@ Define the `host:port` of the master during replica set init. (**RS_NAME** has t
 ##### SLAVES | `(empty by default)`
 Define the `host:port` members you want to add to a replica set from its master. (**RS_NAME** has to be specified, **MASTER** has to be specified).
 
-See example below:
+See docker stack below:
 
-*(I am using ip adresses in this example but usually you want to use logical names instead)*
 ```
-version: '2'
+version: '3'
+
 services:
 
-    mongod1:
-        image: khezen/mongo:3
-        environment:
-            RS_NAME: rs
-            STORAGE_ENGINE: rocksdb
-        volumes:
-             - /data/mongo/mongod1:/data/db
-        ports:
-             - "27017:27017"
-        networks:
-            rs_net:
-                ipv4_address: 172.16.238.11
-        restart: always
+  replica1:
+    image: khezen/mongo:slim
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      environment:
+        RS_NAME: shard1
+        AUTH: y
+    volumes:
+      - replica1:/data/db
+    networks:
+      - mongo_cluster
 
-    mongod2:
-        image: khezen/mongo:3
-        environment:
-            RS_NAME: rs
-            STORAGE_ENGINE: rocksdb
-        volumes:
-             - /data/mongo/mongod2:/data/db
-        ports:
-             - "27018:27017"
-        networks:
-            rs_net:
-                ipv4_address: 172.16.238.12
-        restart: always
+  replica2:
+    image: khezen/mongo:slim
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    environment:
+      SHARD_SVR: y
+      AUTH: y
+    volumes:
+      - replica2:/data/db
+    networks:
+      - mongo_cluster
 
-    mongod3:
-        image: khezen/mongo:3
-        environment:
-            RS_NAME: rs
-            STORAGE_ENGINE: rocksdb
-            MASTER: 172.16.238.13
-            SLAVES: 172.16.238.11 172.16.238.12    
-        volumes:
-             - /data/mongo/mongod3:/data/db
-        ports:
-             - "27019:27017"
-        networks:
-            rs_net:
-                ipv4_address: 172.16.238.13
-        restart: always
+    shard1_replica3:
+      image: khezen/mongo:slim
+      deploy:
+        mode: replicated
+        replicas: 1
+        update_config:
+          parallelism: 1
+          delay: 10s
+        restart_policy:
+          condition: on-failure
+      environment:
+        SHARD_SVR: y
+        MASTER: shard1_replica3
+        SLAVES: shard1_replica1 shard1_replica2
+        AUTH: y
+      volumes:
+        - replica3:/data/db
+      networks:
+        - mongo_cluster
 
 networks:
-  rs_net:
-    driver: bridge
-    ipam:
-        driver: default
-        config:
-        - subnet: 172.16.238.0/24
-          gateway: 172.16.238.1
+  mongo_cluster:
+    driver: overlay
+
+volumes:
+  - replica1:
+      driver: local
+  - rreplica2:
+      driver: local
+  - replica3:
+      driver: local
 ```
 
 ##### ARBITRERS | `(empty by default)`
 Define the `host:port` arbitrers you want to add to a replica set from its master. (**RS_NAME** has to be specified, **MASTER** has to be specified, **SLAVES** has to be specified).
 
-See example below:
+See docker stack below:
 
-*(I am using ip adresses in this example but usually you want to use logical names instead)*
 ```
-version: '2'
+version: '3'
+
 services:
 
-    mongod1:
-        image: khezen/mongo:3
-        environment:
-            RS_NAME: rs
-            STORAGE_ENGINE: rocksdb
-        volumes:
-             - /data/mongo/mongod1:/data/db
-        ports:
-             - "27017:27017"
-        networks:
-            rs_net:
-                ipv4_address: 172.16.238.11
-        restart: always
+  replica1:
+    image: khezen/mongo:slim
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      environment:
+        RS_NAME: shard1
+        AUTH: y
+    volumes:
+      - replica1:/data/db
+    networks:
+      - mongo_cluster
 
-    mongod2:
-        image: khezen/mongo:3
-        environment:
-            RS_NAME: rs
-            STORAGE_ENGINE: rocksdb
-        volumes:
-             - /data/mongo/mongod2:/data/db
-        ports:
-             - "27018:27017"
-        networks:
-            rs_net:
-                ipv4_address: 172.16.238.12
-        restart: always
+  replica2:
+    image: khezen/mongo:slim
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    environment:
+      SHARD_SVR: y
+      AUTH: y
+    volumes:
+      - replica2:/data/db
+    networks:
+      - mongo_cluster
 
-    mongod3:
-        image: khezen/mongo:3
-        environment:
-            RS_NAME: rs
-            STORAGE_ENGINE: rocksdb
-            MASTER: 172.16.238.13
-            SLAVES: 172.16.238.11
-            ARBITRERS: 172.16.238.12
-        volumes:
-             - /data/mongo/mongod3:/data/db
-        ports:
-             - "27019:27017"
-        networks:
-            rs_net:
-                ipv4_address: 172.16.238.13
-        restart: always
+    shard1_replica3:
+      image: khezen/mongo:slim
+      deploy:
+        mode: replicated
+        replicas: 1
+        update_config:
+          parallelism: 1
+          delay: 10s
+        restart_policy:
+          condition: on-failure
+      environment:
+        SHARD_SVR: y
+        MASTER: shard1_replica3
+        SLAVES: shard1_replica1
+        ARBITRERS: shard1_replica2
+        AUTH: y
+      volumes:
+        - replica3:/data/db
+      networks:
+        - mongo_cluster
 
 networks:
-  rs_net:
-    driver: bridge
-    ipam:
-        driver: default
-        config:
-        - subnet: 172.16.238.0/24
-          gateway: 172.16.238.1
+  mongo_cluster:
+    driver: overlay
+
+volumes:
+  - replica1:
+      driver: local
+  - rreplica2:
+      driver: local
+  - replica3:
+      driver: local
 ```
 
 ##### SLAVE_OK | `y`
@@ -228,173 +258,264 @@ Define the `rsname/host:port` shards you want to add to a cluster.(**CONFIG_SERV
 
 *NOTE*: if **DB_NAME** is specified, then sharding is automatically enabled for the database named after it.
 
-See example below:
+See docker stack below:
 
 *(I am using ip adresses in this example but usually you want to use logical names instead)*
 ```
-version: '2'
+version: '3'
 services:
 
-    # SHARD 1
+  # SHARD 1
 
-    shard1_replica1:
-        image: khezen/mongo:3
-        environment:
-            RS_NAME: shard1
-            SHARD_SVR: y
-        volumes:
-             - /data/mongo/shard1/replica1:/data/db
-        ports:
-             - "27011:27017"
-        networks:
-            mongo_cluster_net:
-                ipv4_address: 172.16.239.11
-        restart: always
+  shard1_replica1:
+    image: khezen/mongo:slim
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      environment:
+        RS_NAME: shard1
+        SHARD_SVR: y
+        AUTH: y
+    volumes:
+      - shard1_replica1:/data/db
+    networks:
+      - mongo_cluster
 
-    shard1_replica2:
-        image: khezen/mongo:3
-        environment:
-            RS_NAME: shard1
-            SHARD_SVR: y
-        volumes:
-             - /data/mongo/shard1/replica2:/data/db
-        ports:
-             - "27012:27017"
-        networks:
-            mongo_cluster_net:
-                ipv4_address: 172.16.239.12
-        restart: always
+  shard1_replica2:
+    image: khezen/mongo:slim
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    environment:
+      RS_NAME: shard1
+      SHARD_SVR: y
+      DB_NAME: example
+      AUTH: y
+    volumes:
+      - shard1_replica2:/data/db
+    networks:
+      - mongo_cluster
 
     shard1_replica3:
-        image: khezen/mongo:3
-        environment:
-            RS_NAME: shard1
-            SHARD_SVR: y
-            MASTER: 172.16.239.13
-            SLAVES: 172.16.239.11 172.16.239.12    
-        volumes:
-             - /data/mongo/shard1/replica3:/data/db
-        ports:
-             - "27013:27017"
-        networks:
-            mongo_cluster_net:
-                ipv4_address: 172.16.239.13
-        restart: always
+      image: khezen/mongo:slim
+      deploy:
+        mode: replicated
+        replicas: 1
+        update_config:
+          parallelism: 1
+          delay: 10s
+        restart_policy:
+          condition: on-failure
+      environment:
+        RS_NAME: shard1
+        SHARD_SVR: y
+        MASTER: shard1_replica3
+        SLAVES: shard1_replica1 shard1_replica2
+        AUTH: y
+      volumes:
+        - shard1_replica3:/data/db
+      networks:
+        - mongo_cluster
 
     # SHARD 2
 
     shard2_replica1:
-        image: khezen/mongo:3
-        environment:
-            RS_NAME: shard2
-            SHARD_SVR: y
-        volumes:
-             - /data/mongo/shard2/replica1:/data/db
-        ports:
-             - "27021:27017"
-        networks:
-            mongo_cluster_net:
-                ipv4_address: 172.16.239.21
-        restart: always
+      image: khezen/mongo:slim
+      deploy:
+        mode: replicated
+        replicas: 1
+        update_config:
+          parallelism: 1
+          delay: 10s
+        restart_policy:
+          condition: on-failure
+      environment:
+        RS_NAME: shard2
+        SHARD_SVR: y
+        AUTH: y
+      volumes:
+       - shard2_replica1:/data/db
+      networks:
+        - mongo_cluster
 
     shard2_replica2:
-        image: khezen/mongo:3
-        environment:
-            RS_NAME: shard2
-            SHARD_SVR: y
-        volumes:
-             - /data/mongo/shard2/replica2:/data/db
-        ports:
-             - "27022:27017"
-        networks:
-            mongo_cluster_net:
-                ipv4_address: 172.16.239.22
-        restart: always
+      image: khezen/mongo:slim
+      deploy:
+        mode: replicated
+        replicas: 1
+        update_config:
+          parallelism: 1
+          delay: 10s
+        restart_policy:
+          condition: on-failure
+      environment:
+        RS_NAME: shard2
+        SHARD_SVR: y
+        AUTH: y
+      volumes:
+        - shard2_replica2:/data/db
+      networks:
+        - mongo_cluster
 
     shard2_replica3:
-        image: khezen/mongo:3
-        environment:
-            RS_NAME: shard2
-            SHARD_SVR: y
-            MASTER: 172.16.239.23
-            SLAVES: 172.16.239.21 172.16.239.22    
-        volumes:
-             - /data/mongo/shard2/replica3:/data/db
-        ports:
-             - "27023:27017"
-        networks:
-            mongo_cluster_net:
-                ipv4_address: 172.16.239.23
-        restart: always
+      image: khezen/mongo:slim
+      deploy:
+        mode: replicated
+        replicas: 1
+        update_config:
+          parallelism: 1
+          delay: 10s
+        restart_policy:
+          condition: on-failure
+      environment:
+        RS_NAME: shard2
+        SHARD_SVR: y
+        MASTER: shard2_replica3
+        SLAVES: shard2_replica1 shard2_replica2
+        AUTH: y
+      volumes:
+        - shard2_replica3:/data/db
+      networks:
+        - mongo_cluster
 
     # CONFIG SVRS
 
     configsvr1:
-        image: khezen/mongo:3
-        environment:
-            RS_NAME: configsvr
-            CONFIG_SVR: y
-        volumes:
-             - /data/mongo/configsvr/replica1:/data/db
-        ports:
-             - "27101:27017"
-        networks:
-            mongo_cluster_net:
-                ipv4_address: 172.16.239.101
-        restart: always
+      image: khezen/mongo:slim
+      deploy:
+        mode: replicated
+        replicas: 1
+        update_config:
+          parallelism: 1
+          delay: 10s
+        restart_policy:
+          condition: on-failure
+      environment:
+        RS_NAME: configsvr
+        CONFIG_SVR: y
+        AUTH: y
+      volumes:
+        - configsvr1:/data/db
+      networks:
+        - mongo_cluster
 
     configsvr2:
-        image: khezen/mongo:3
-        environment:
-            RS_NAME: configsvr
-            CONFIG_SVR: y   
-        volumes:
-             - /data/mongo/configsvr/replica2:/data/db
-        ports:
-             - "27102:27017"
-        networks:
-            mongo_cluster_net:
-                ipv4_address: 172.16.239.102
-        restart: always
+      image: khezen/mongo:slim
+      deploy:
+        mode: replicated
+        replicas: 1
+        update_config:
+          parallelism: 1
+          delay: 10s
+        restart_policy:
+          condition: on-failure
+      environment:
+        RS_NAME: configsvr
+        CONFIG_SVR: y
+        AUTH: y
+      volumes:
+        - configsvr2:/data/db
+      networks:
+        - mongo_cluster
 
     configsvr3:
-        image: khezen/mongo:3
-        environment:
-            RS_NAME: configsvr
-            CONFIG_SVR: y
-            MASTER: 172.16.239.103
-            SLAVES: 172.16.239.101 172.16.239.102
-        volumes:
-             - /data/mongo/configsvr/replica3:/data/db
-        ports:
-             - "27103:27017"
-        networks:
-            mongo_cluster_net:
-                ipv4_address: 172.16.239.103
-        restart: always
+      image: khezen/mongo:slim
+      deploy:
+        mode: replicated
+        replicas: 1
+        update_config:
+          parallelism: 1
+          delay: 10s
+        restart_policy:
+          condition: on-failure
+      environment:
+        RS_NAME: configsvr
+        CONFIG_SVR: y
+        MASTER: configsvr3
+        SLAVES: configsvr1 configsvr2
+        AUTH: y
+      volumes:
+        - configsvr3:/data/db
+      networks:
+        - mongo_cluster
 
     # MONGOS
 
-    mongos1:
-        image: khezen/mongo:3
+    mongos:
+      image: khezen/mongo:slim
+      deploy:
+        mode: replicated
+        replicas: 3
+        update_config:
+          parallelism: 2
+          delay: 10s
+        restart_policy:
+          condition: on-failure
+      environment:
+        CONFIG_SERVERS:  configsvr/configsvr3:27017
+        SHARDS: shard1/shard1_replica3 shard2/shard2_replica3
+        AUTH: y
+        SERVICE_PORTS: 27017
+        TCP_PORTS: 27017
+      networks:
+        - mongo_cluster
+
+    load_balancer:
+        image: dockercloud/haproxy:1.6.2
+        depends_on:
+          - mongos
+        deploy:
+          mode: global
+          restart_policy:
+            condition: any
+          placement:
+            constraints:
+              - node.role == manager
         environment:
-            CONFIG_SERVERS: configsvr/172.16.239.103:27017
-            SHARDS: shard1/172.16.239.13 shard2/172.16.239.23
-        ports:
-             - "27201:27017"
+          STATS_PORT: 9000
+          STATS_AUTH: stats:changeme
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock
         networks:
-            mongo_cluster_net:
-                ipv4_address: 172.16.239.201
-        restart: always
+          - mongo_cluster
+        ports:
+          - "9090:9000"
+          - "27017:27017"
 
 networks:
-  mongo_cluster_net:
-    driver: bridge
-    ipam:
-        driver: default
-        config:
-        - subnet: 172.16.239.0/24
-          gateway: 172.16.239.1
+  mongo_cluster:
+    driver: overlay
+
+volumes:
+  - shard1_replica1:
+      driver: local
+  - shard1_replica2:
+      driver: local
+  - shard1_replica3:
+      driver: local
+  - shard2_replica1:
+      driver: local
+  - shard2_replica2:
+      driver: local
+  - shard2_replica3:
+      driver: local
+  - configsvr1:
+      driver: local
+  - configsvr2:
+      driver: local
+  - configsvr3:
+      driver: local
+
 ```
 
 # User Feedback
