@@ -167,21 +167,21 @@ networks:
 
 
 volumes:
-  - shard1_replica1:
+  shard1_replica1:
       driver: local
-  - shard1_replica2:
+  shard1_replica2:
       driver: local
-  - shard1_replica3:
+  shard1_replica3:
       driver: local
-  - shard2_replica1:
+  shard2_replica1:
       driver: local
-  - shard2_replica2:
+  shard2_replica2:
       driver: local
-  - shard2_replica3:
+  shard2_replica3:
       driver: local
-  - configsvr1:
+  configsvr1:
       driver: local
-  - configsvr2:
+  configsvr2:
       driver: local
-  - configsvr3:
+  configsvr3:
       driver: local
