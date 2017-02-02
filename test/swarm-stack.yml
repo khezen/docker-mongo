@@ -235,7 +235,7 @@ services:
         networks:
           - mongo_cluster
         ports:
-          - "8081:9000"
+          - "9090:9000"
           - "27017:27017"
 
 networks:
