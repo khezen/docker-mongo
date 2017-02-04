@@ -10,7 +10,7 @@ services:
             DB_NAME: example
             AUTH: 'y'
         volumes:
-             - shard1_replica1:/data/db
+             - /data/mongo/shard1/replica1:/data/db
         ports:
              - "27011:27017"
         networks:
@@ -25,7 +25,7 @@ services:
             DB_NAME: example
             AUTH: 'y'
         volumes:
-             - shard1_replica2:/data/db
+             - /data/mongo/shard1/replica2:/data/db
         ports:
              - "27012:27017"
         networks:
@@ -42,7 +42,7 @@ services:
             DB_NAME: example
             AUTH: 'y'
         volumes:
-             - shard1_replica3:/data/db
+             - /data/mongo/shard1/replica3:/data/db
         ports:
              - "27013:27017"
         networks:
@@ -58,7 +58,7 @@ services:
             DB_NAME: example
             AUTH: 'y'
         volumes:
-             - shard2_replica1:/data/db
+             - /data/mongo/shard2/replica1:/data/db
         ports:
              - "27021:27017"
         networks:
@@ -73,7 +73,7 @@ services:
             DB_NAME: example
             AUTH: 'y'
         volumes:
-             - shard2_replica2:/data/db
+             - /data/mongo/shard2/replica2:/data/db
         ports:
              - "27022:27017"
         networks:
@@ -90,7 +90,7 @@ services:
             DB_NAME: example
             AUTH: 'y'
         volumes:
-             - shard2_replica3:/data/db
+             - /data/mongo/shard2/replica3:/data/db
         ports:
              - "27023:27017"
         networks:
@@ -107,7 +107,7 @@ services:
             DB_NAME: example
             AUTH: 'y'
         volumes:
-             - configsvr1:/data/db
+             - /data/mongo/configsvr/replica1:/data/db
         ports:
              - "27101:27017"
         networks:
@@ -121,7 +121,7 @@ services:
             DB_NAME: example
             AUTH: 'y'
         volumes:
-             - configsvr2:/data/db
+             - /data/mongo/configsvr/replica2:/data/db
         ports:
              - "27102:27017"
         networks:
@@ -138,7 +138,7 @@ services:
             SLAVES: configsvr1 configsvr2
             AUTH: 'y'
         volumes:
-             - configsvr3:/data/db
+             - /data/mongo/configsvr/replica3:/data/db
         ports:
              - "27103:27017"
         networks:
@@ -164,24 +164,3 @@ services:
 networks:
   mongo_cluster:
     driver: overlay
-
-
-volumes:
-  shard1_replica1:
-      driver: local
-  shard1_replica2:
-      driver: local
-  shard1_replica3:
-      driver: local
-  shard2_replica1:
-      driver: local
-  shard2_replica2:
-      driver: local
-  shard2_replica3:
-      driver: local
-  configsvr1:
-      driver: local
-  configsvr2:
-      driver: local
-  configsvr3:
-      driver: local
