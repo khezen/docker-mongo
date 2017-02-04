@@ -17,7 +17,7 @@ services:
       SHARD_SVR: 'y'
       AUTH: 'y'
     volumes:
-      - replica1:/data/db
+      - /data/mongo/replica1:/data/db
     networks:
       - mongo_cluster
 
@@ -36,7 +36,7 @@ services:
       SHARD_SVR: 'y'
       AUTH: 'y'
     volumes:
-      - replica2:/data/db
+      - /data/mongo/replica2:/data/db
     networks:
       - mongo_cluster
 
@@ -57,18 +57,10 @@ services:
       SLAVES: replica1 replica2
       AUTH: 'y'
     volumes:
-      - replica3:/data/db
+      - /data/mongo/replica3:/data/db
     networks:
       - mongo_cluster
 
 networks:
   mongo_cluster:
     driver: overlay
-
-volumes:
-  replica1:
-      driver: local
-  replica2:
-      driver: local
-  replica3:
-      driver: local

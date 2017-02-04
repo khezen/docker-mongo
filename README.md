@@ -105,7 +105,7 @@ services:
       SHARD_SVR: 'y'
       AUTH: 'y'
     volumes:
-      - replica1:/data/db
+      - /data/mongo/replica1:/data/db
     networks:
       - mongo_cluster
 
@@ -124,7 +124,7 @@ services:
       SHARD_SVR: 'y'
       AUTH: 'y'
     volumes:
-      - replica2:/data/db
+      - /data/mongo/replica2:/data/db
     networks:
       - mongo_cluster
 
@@ -142,25 +142,16 @@ services:
       RS_NAME: shard1
       SHARD_SVR: 'y'
       MASTER: replica3
-      SLAVES: replica1 rreplica2
+      SLAVES: replica1 replica2
       AUTH: 'y'
     volumes:
-      - replica3:/data/db
+      - /data/mongo/replica3:/data/db
     networks:
       - mongo_cluster
 
 networks:
   mongo_cluster:
     driver: overlay
-
-volumes:
-  replica1:
-      driver: local
-  replica2:
-      driver: local
-  replica3:
-      driver: local
-
 ```
 
 ##### ARBITRERS | `(empty by default)`
@@ -188,7 +179,7 @@ services:
       SHARD_SVR: 'y'
       AUTH: 'y'
     volumes:
-      - replica1:/data/db
+      - /data/mongo/replica1:/data/db
     networks:
       - mongo_cluster
 
@@ -207,7 +198,7 @@ services:
       SHARD_SVR: 'y'
       AUTH: 'y'
     volumes:
-      - replica2:/data/db
+      - /data/mongo/replica2:/data/db
     networks:
       - mongo_cluster
 
@@ -229,22 +220,13 @@ services:
       ARBITRERS: replica2
       AUTH: 'y'
     volumes:
-      - replica3:/data/db
+      - /data/mongo/replica3:/data/db
     networks:
       - mongo_cluster
 
 networks:
   mongo_cluster:
     driver: overlay
-
-volumes:
-  replica1:
-      driver: local
-  replica2:
-      driver: local
-  replica3:
-      driver: local
-
 ```
 
 
@@ -291,7 +273,7 @@ services:
       SHARD_SVR: 'y'
       AUTH: 'y'
     volumes:
-      - shard1_replica1:/data/db
+      - /data/mongo/shard1/replica1:/data/db
     networks:
       - mongo_cluster
 
@@ -310,7 +292,7 @@ services:
       SHARD_SVR: 'y'
       AUTH: 'y'
     volumes:
-      - shard1_replica2:/data/db
+      - /data/mongo/shard1/replica2:/data/db
     networks:
       - mongo_cluster
 
@@ -331,7 +313,7 @@ services:
       SLAVES: shard1_replica1 shard1_replica2
       AUTH: 'y'
     volumes:
-      - shard1_replica3:/data/db
+      - /data/mongo/shard1/replica3:/data/db
     networks:
       - mongo_cluster
 
@@ -352,7 +334,7 @@ services:
       SHARD_SVR: 'y'
       AUTH: 'y'
     volumes:
-     - shard2_replica1:/data/db
+     - /data/mongo/shard2/replica1:/data/db
     networks:
       - mongo_cluster
 
@@ -371,7 +353,7 @@ services:
       SHARD_SVR: 'y'
       AUTH: 'y'
     volumes:
-      - shard2_replica2:/data/db
+      - /data/mongo/shard2/replica2:/data/db
     networks:
       - mongo_cluster
 
@@ -392,7 +374,7 @@ services:
       SLAVES: shard2_replica1 shard2_replica2
       AUTH: 'y'
     volumes:
-      - shard2_replica3:/data/db
+      - /data/mongo/shard2/replica3:/data/db
     networks:
       - mongo_cluster
 
@@ -413,7 +395,7 @@ services:
       CONFIG_SVR: 'y'
       AUTH: 'y'
     volumes:
-      - configsvr1:/data/db
+      - /data/mongo/configsvr/replica1:/data/db
     networks:
       - mongo_cluster
 
@@ -432,7 +414,7 @@ services:
       CONFIG_SVR: 'y'
       AUTH: 'y'
     volumes:
-      - configsvr2:/data/db
+      - /data/mongo/configsvr/replica2:/data/db
     networks:
       - mongo_cluster
 
@@ -453,7 +435,7 @@ services:
       SLAVES: configsvr1 configsvr2
       AUTH: 'y'
     volumes:
-      - configsvr3:/data/db
+      - /data/mongo/configsvr/replica3:/data/db
     networks:
       - mongo_cluster
 
@@ -503,27 +485,6 @@ services:
 networks:
   mongo_cluster:
     driver: overlay
-
-
-volumes:
-  shard1_replica1:
-      driver: local
-  shard1_replica2:
-      driver: local
-  shard1_replica3:
-      driver: local
-  shard2_replica1:
-      driver: local
-  shard2_replica2:
-      driver: local
-  shard2_replica3:
-      driver: local
-  configsvr1:
-      driver: local
-  configsvr2:
-      driver: local
-  configsvr3:
-      driver: local
 ```
 
 # User Feedback
