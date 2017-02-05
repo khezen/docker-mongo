@@ -18,6 +18,9 @@ RUN chmod +x -R /run \
 ENV AUTH="n" \
     ADMIN_USER="admin" \
     ADMIN_PWD="changeme" \
+    REQUIRE_SSL="n" \
+    PEM_KEY_FILE="/etc/ssl/mongodb.pem" \
+    CA_FILE="/etc/ssl/ca.pem" \
     DATA_PATH="/data/db" \
     DB_NAME="" \
     DB_USER="user" \
