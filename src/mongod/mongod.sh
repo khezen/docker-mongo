@@ -27,7 +27,7 @@ fi
 if [ "$AUTH" == "y" ] && [ -f /config/key ]; then
   cmd="$cmd --keyFile /config/key"
   if [ "$REQUIRE_SSL" == "y" ]; then
-    cmd="$cmd --sslMode requireSSL --sslPEMKeyFile $PEM_KEY_FILE --sslCAFile $CA_FILE"
+    cmd="$cmd --sslPEMKeyFile $PEM_KEY_FILE --sslCAFile $CA_FILE"
   fi
 fi
 

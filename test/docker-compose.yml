@@ -8,6 +8,7 @@ services:
             RS_NAME: shard1
             SHARD_SVR: 'y'
             DB_NAME: example
+            REQUIRE_SSL: 'y'
             AUTH: 'y'
         volumes:
              - /data/mongo/shard1/replica1:/data/db
@@ -21,6 +22,7 @@ services:
         build: ..
         environment:
             RS_NAME: shard1
+            REQUIRE_SSL: 'y'
             SHARD_SVR: 'y'
             DB_NAME: example
             AUTH: 'y'
@@ -36,6 +38,7 @@ services:
         build: ..
         environment:
             RS_NAME: shard1
+            REQUIRE_SSL: 'y'
             SHARD_SVR: 'y'
             MASTER: shard1_replica3
             SLAVES: shard1_replica1 shard1_replica2
@@ -54,6 +57,7 @@ services:
         build: ..
         environment:
             RS_NAME: shard2
+            REQUIRE_SSL: 'y'
             SHARD_SVR: 'y'
             DB_NAME: example
             AUTH: 'y'
@@ -69,6 +73,7 @@ services:
         build: ..
         environment:
             RS_NAME: shard2
+            REQUIRE_SSL: 'y'
             SHARD_SVR: 'y'
             DB_NAME: example
             AUTH: 'y'
@@ -84,6 +89,7 @@ services:
         build: ..
         environment:
             RS_NAME: shard2
+            REQUIRE_SSL: 'y'
             SHARD_SVR: 'y'
             MASTER: shard2_replica3
             SLAVES: shard2_replica1 shard2_replica2
@@ -103,6 +109,7 @@ services:
         build: ..
         environment:
             RS_NAME: configsvr
+            REQUIRE_SSL: 'y'
             CONFIG_SVR: 'y'
             DB_NAME: example
             AUTH: 'y'
@@ -117,6 +124,7 @@ services:
         build: ..
         environment:
             RS_NAME: configsvr
+            REQUIRE_SSL: 'y'
             CONFIG_SVR: 'y'
             DB_NAME: example
             AUTH: 'y'
@@ -132,6 +140,7 @@ services:
         build: ..
         environment:
             RS_NAME: configsvr
+            REQUIRE_SSL: 'y'
             CONFIG_SVR: 'y'
             DB_NAME: example
             MASTER: configsvr3
@@ -151,6 +160,7 @@ services:
         build: ..
         environment:
             CONFIG_SERVERS:  configsvr/configsvr3:27017
+            REQUIRE_SSL: 'y'
             SHARDS: shard1/shard1_replica3 shard2/shard2_replica3
             DB_NAME: example
             AUTH: 'y'
