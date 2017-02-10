@@ -12,6 +12,8 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
+      palcement:
+        node.hostname: node-1
     environment:
       RS_NAME: shard1
       SHARD_SVR: 'y'
@@ -31,6 +33,8 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
+      palcement:
+        node.hostname: node-2
     environment:
       RS_NAME: shard1
       SHARD_SVR: 'y'
@@ -50,6 +54,8 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
+      palcement:
+        node.hostname: node-3
     environment:
       RS_NAME: shard1
       SHARD_SVR: 'y'

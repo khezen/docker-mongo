@@ -2,7 +2,7 @@
 
 # misc
 apt-get update
-apt-get install -y build-essential git binutils python scons
+apt-get install -y build-essential git binutils python scons openssl libssl-dev
 
 # RocksDB
 apt-get update
@@ -22,14 +22,14 @@ cd /mongo
 git checkout tags/r3.4.1
 mkdir -p src/mongo/db/modules/
 ln -sf /mongo-rocks src/mongo/db/modules/rocks
-CXXFLAGS="-flto -Os -s" scons CPPPATH=/usr/local/include LIBPATH=/usr/local/lib -j$(nproc) --disable-warnings-as-errors --release --prefix=/usr --opt core  install
+CXXFLAGS="-flto -Os -s" scons CPPPATH=/usr/local/include LIBPATH=/usr/local/lib -j$(nproc) --disable-warnings-as-errors --release --prefix=/usr --opt core --ssl  install
 
 # purge
 strip /usr/bin/mongoperf
 strip /usr/bin/mongo
 strip /usr/bin/mongod
 strip /usr/bin/mongos
-apt-get -y --purge autoremove build-essential git binutils python scons
+apt-get -y --purge autoremove build-essential git binutils python scons libssl-dev
 rm -rf /rocksdb
 rm -rf /mongo-rocks
 rm -rf /mongo
