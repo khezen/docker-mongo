@@ -100,6 +100,8 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
+      palcement:
+        node.hostname: node-1
     environment:
       RS_NAME: shard1
       SHARD_SVR: 'y'
@@ -119,6 +121,8 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
+      palcement:
+        node.hostname: node-2
     environment:
       RS_NAME: shard1
       SHARD_SVR: 'y'
@@ -138,6 +142,8 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
+      palcement:
+        node.hostname: node-3
     environment:
       RS_NAME: shard1
       SHARD_SVR: 'y'
@@ -152,6 +158,7 @@ services:
 networks:
   mongo_cluster:
     driver: overlay
+
 ```
 
 ##### ARBITRERS | `(empty by default)`
@@ -174,6 +181,8 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
+      palcement:
+        node.hostname: node-1
     environment:
       RS_NAME: shard1
       SHARD_SVR: 'y'
@@ -193,6 +202,8 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
+      palcement:
+        node.hostname: node-2
     environment:
       RS_NAME: shard1
       SHARD_SVR: 'y'
@@ -212,6 +223,8 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
+      palcement:
+        node.hostname: node-3
     environment:
       RS_NAME: shard1
       SHARD_SVR: 'y'
@@ -268,6 +281,8 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
+      palcement:
+        node.hostname: node-1
     environment:
       RS_NAME: shard1
       SHARD_SVR: 'y'
@@ -287,6 +302,8 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
+      palcement:
+        node.hostname: node-2
     environment:
       RS_NAME: shard1
       SHARD_SVR: 'y'
@@ -306,6 +323,8 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
+      palcement:
+        node.hostname: node-3
     environment:
       RS_NAME: shard1
       SHARD_SVR: 'y'
@@ -329,6 +348,8 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
+      palcement:
+        node.hostname: node-4
     environment:
       RS_NAME: shard2
       SHARD_SVR: 'y'
@@ -348,6 +369,8 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
+      palcement:
+        node.hostname: node-5
     environment:
       RS_NAME: shard2
       SHARD_SVR: 'y'
@@ -367,6 +390,8 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
+      palcement:
+        node.hostname: node-6
     environment:
       RS_NAME: shard2
       SHARD_SVR: 'y'
@@ -390,6 +415,8 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
+      palcement:
+        node.hostname: node-1
     environment:
       RS_NAME: configsvr
       CONFIG_SVR: 'y'
@@ -409,6 +436,8 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
+      palcement:
+        node.hostname: node-3
     environment:
       RS_NAME: configsvr
       CONFIG_SVR: 'y'
@@ -428,6 +457,8 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
+      palcement:
+        node.hostname: node-5
     environment:
       RS_NAME: configsvr
       CONFIG_SVR: 'y'
