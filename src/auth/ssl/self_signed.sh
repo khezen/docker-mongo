@@ -6,7 +6,7 @@ if [ ! -f $PEM_KEY_FILE ]; then
 fi
 
 if [ ! -f $CA_FILE ]; then
-  ca_pwd=openssl rand -base64 32
+  ca_pwd=$(openssl rand -base64 32)
   openssl req -new -config /run/auth/ssl/ca.conf -out /etc/ssl/ca/mongodb-ca.key -keyout /etc/ssl/ca/mongodb-ca.key -batch -passout pass:$ca_pwd
   openssl ca -selfsign -config /run/auth/ssl/ca.conf -in /etc/ssl/ca/mongodb-ca.key -out /etc/ssl/ca/mongodb-ca.crt -extensions root_ca_ext -batch -passin pass:$ca_pwd
   cat /etc/ssl/ca/mongodb-ca.crt /etc/ssl/ca/mongodb-ca.key > $CA_FILE
