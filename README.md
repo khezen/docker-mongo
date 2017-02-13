@@ -1,8 +1,8 @@
 # Supported tags and respective `Dockerfile` links
 
 * `3.2.9`, `3.2` [(3.2/Dockerfile)](https://github.com/Khezen/docker-mongo/blob/v3.2/Dockerfile) [![](https://images.microbadger.com/badges/image/khezen/mongo:3.2.svg)](https://microbadger.com/images/khezen/mongo:3.2 "Get your own image badge on microbadger.com")
-* `3.4.1`, `3.4`, `3`, `latest` [(3.4/Dockerfile)](https://github.com/Khezen/docker-mongo/blob/v3.4/Dockerfile) [![](https://images.microbadger.com/badges/image/khezen/mongo:3.4.svg)](https://microbadger.com/images/khezen/mongo:3.4 "Get your own image badge on microbadger.com")
-* `3.4.1-slim`, `3.4-slim`, `3-slim`, `slim` [(3.4-slim/Dockerfile)](https://github.com/Khezen/docker-mongo/blob/v3.4-slim/Dockerfile) [![](https://images.microbadger.com/badges/image/khezen/mongo:3.4-slim.svg)](https://microbadger.com/images/khezen/mongo:3.4-slim "Get your own image badge on microbadger.com")
+* `3.4.2`, `3.4`, `3`, `latest` [(3.4/Dockerfile)](https://github.com/Khezen/docker-mongo/blob/v3.4/Dockerfile) [![](https://images.microbadger.com/badges/image/khezen/mongo:3.4.svg)](https://microbadger.com/images/khezen/mongo:3.4 "Get your own image badge on microbadger.com")
+* `3.4.2-slim`, `3.4-slim`, `3-slim`, `slim` [(3.4-slim/Dockerfile)](https://github.com/Khezen/docker-mongo/blob/v3.4-slim/Dockerfile) [![](https://images.microbadger.com/badges/image/khezen/mongo:3.4-slim.svg)](https://microbadger.com/images/khezen/mongo:3.4-slim "Get your own image badge on microbadger.com")
 
 # What is MongoDB?
 MongoDB (from "humongous") is a cross-platform document-oriented database. Classified as a NoSQL database, MongoDB eschews the traditional table-based relational database structure in favor of JSON-like documents with dynamic schemas (MongoDB calls the format BSON), making the integration of data in certain types of applications easier and faster. Released under a combination of the GNU Affero General Public License and the Apache License, MongoDB is free and open-source software.
@@ -57,6 +57,11 @@ User with *root* permissions on the *admin* DB_NAME. (**AUTH** has to be set to 
 
 ##### ADMIN_PWD | `changeme`
 The password of the **ADMIN_USER** above. (**AUTH** has to be set to `y`).
+
+##### KEY_FILE | `/etc/ssl/mongodb.pem`
+
+##### CA_FILE | `/etc/ssl/ca.pem`
+`
 
 ##### DB_NAME | `(empty by default)`
 Create a new DB_NAME with this name.

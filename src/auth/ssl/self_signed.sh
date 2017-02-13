@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if [ ! -f $PEM_KEY_FILE ]; then
+if [ ! -f $KEY_FILE ]; then
   openssl req -newkey rsa:2048 -new -x509 -days 365 -nodes -out /etc/ssl/mongodb-cert.crt -keyout /etc/ssl/mongodb-cert.key
-  cat /etc/ssl/mongodb-cert.key /etc/ssl/mongodb-cert.crt > $PEM_KEY_FILE
+  cat /etc/ssl/mongodb-cert.key /etc/ssl/mongodb-cert.crt > $KEY_FILE
 fi
 
 if [ ! -f $CA_FILE ]; then
