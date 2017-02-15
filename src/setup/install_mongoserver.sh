@@ -22,7 +22,7 @@ cd /mongo
 git checkout tags/r3.4.2
 mkdir -p src/mongo/db/modules/
 ln -sf /mongo-rocks src/mongo/db/modules/rocks
-CXXFLAGS="-flto -Os -s" scons CPPPATH=/usr/local/include LIBPATH=/usr/local/lib -j$(nproc) --disable-warnings-as-errors --release --prefix=/usr --opt core  install
+CXXFLAGS="-flto -Os -s" scons CPPPATH=/usr/local/include LIBPATH=/usr/local/lib -j$(nproc) --disable-warnings-as-errors --release --prefix=/usr --opt core --ssl  install
 
 # purge
 strip /usr/bin/mongoperf
