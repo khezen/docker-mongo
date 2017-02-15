@@ -40,4 +40,4 @@ strip /usr/bin/mongotop
 apt-get -y --purge autoremove  wget git binutils
 rm -rf /mongo-tools
 rm -rf /usr/local/go
-rm -f /usr/local/go1.7.3.linux-amd64.tar.gz
+rm -f /usr/local/go1.7.5.linux-amd64.tar.gz
