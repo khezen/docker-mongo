@@ -1,0 +1,251 @@
+version: '3'
+
+services:
+
+    # SHARD 1
+
+  shard1_replica1:
+    image: khezen/mongo:slim
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      palcement:
+        node.hostname: node-1
+    environment:
+      RS_NAME: shard1
+      SHARD_SVR: 'y'
+      AUTH: 'y'
+    volumes:
+      - /data/mongo/shard1/replica1:/data/db
+    networks:
+      - mongo_cluster
+
+  shard1_replica2:
+    image: khezen/mongo:slim
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      palcement:
+        node.hostname: node-2
+    environment:
+      RS_NAME: shard1
+      SHARD_SVR: 'y'
+      AUTH: 'y'
+    volumes:
+      - /data/mongo/shard1/replica2:/data/db
+    networks:
+      - mongo_cluster
+
+  shard1_replica3:
+    image: khezen/mongo:slim
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      palcement:
+        node.hostname: node-3
+    environment:
+      RS_NAME: shard1
+      SHARD_SVR: 'y'
+      MASTER: shard1_replica3
+      SLAVES: shard1_replica1 shard1_replica2
+      AUTH: 'y'
+    volumes:
+      - /data/mongo/shard1/replica3:/data/db
+    networks:
+      - mongo_cluster
+
+  # SHARD 2
+
+  shard2_replica1:
+    image: khezen/mongo:slim
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      palcement:
+        node.hostname: node-4
+    environment:
+      RS_NAME: shard2
+      SHARD_SVR: 'y'
+      AUTH: 'y'
+    volumes:
+     - /data/mongo/shard2/replica1:/data/db
+    networks:
+      - mongo_cluster
+
+  shard2_replica2:
+    image: khezen/mongo:slim
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      palcement:
+        node.hostname: node-5
+    environment:
+      RS_NAME: shard2
+      SHARD_SVR: 'y'
+      AUTH: 'y'
+    volumes:
+      - /data/mongo/shard2/replica2:/data/db
+    networks:
+      - mongo_cluster
+
+  shard2_replica3:
+    image: khezen/mongo:slim
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      palcement:
+        node.hostname: node-6
+    environment:
+      RS_NAME: shard2
+      SHARD_SVR: 'y'
+      MASTER: shard2_replica3
+      SLAVES: shard2_replica1 shard2_replica2
+      AUTH: 'y'
+    volumes:
+      - /data/mongo/shard2/replica3:/data/db
+    networks:
+      - mongo_cluster
+
+  # CONFIG SVRS
+
+  configsvr1:
+    image: khezen/mongo:slim
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      palcement:
+        node.hostname: node-1
+    environment:
+      RS_NAME: configsvr
+      CONFIG_SVR: 'y'
+      AUTH: 'y'
+    volumes:
+      - /data/mongo/configsvr/replica1:/data/db
+    networks:
+      - mongo_cluster
+
+  configsvr2:
+    image: khezen/mongo:slim
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      palcement:
+        node.hostname: node-3
+    environment:
+      RS_NAME: configsvr
+      CONFIG_SVR: 'y'
+      AUTH: 'y'
+    volumes:
+      - /data/mongo/configsvr/replica2:/data/db
+    networks:
+      - mongo_cluster
+
+  configsvr3:
+    image: khezen/mongo:slim
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      palcement:
+        node.hostname: node-5
+    environment:
+      RS_NAME: configsvr
+      CONFIG_SVR: 'y'
+      MASTER: configsvr3
+      SLAVES: configsvr1 configsvr2
+      AUTH: 'y'
+    volumes:
+      - /data/mongo/configsvr/replica3:/data/db
+    networks:
+      - mongo_cluster
+
+  # MONGOS
+
+  mongos:
+    image: khezen/mongo:slim
+    deploy:
+      mode: replicated
+      replicas: 3
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    environment:
+      CONFIG_SERVERS:  configsvr/configsvr3:27017
+      SHARDS: shard1/shard1_replica3 shard2/shard2_replica3
+      AUTH: 'y'
+      SERVICE_PORTS: 27017
+      TCP_PORTS: 27017
+    networks:
+      - mongo_cluster
+
+  load_balancer:
+    image: dockercloud/haproxy:1.6.2
+    depends_on:
+      - mongos
+    deploy:
+      mode: global
+      restart_policy:
+        condition: any
+      placement:
+        constraints:
+          - node.role == manager
+    environment:
+      STATS_PORT: 9000
+      STATS_AUTH: stats:changeme
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - mongo_cluster
+    ports:
+      - "9090:9000"
+      - "27017:27017"
+
+networks:
+  mongo_cluster:
+    driver: overlay
