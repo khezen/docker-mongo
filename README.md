@@ -10,14 +10,6 @@ MongoDB (from "humongous") is a cross-platform document-oriented database. Class
 [wikipedia.org/wiki/MongoDB](https://en.wikipedia.org/wiki/MongoDB)
 
 
-# Comming soon
-
-* mongo v3.4.2
-* rocksdb v5.1.2
-* TLS support
-* alpine based image
-
-
 ![logo](https://raw.githubusercontent.com/docker-library/docs/01c12653951b2fe592c1f93a13b4e289ada0e3a1/mongo/logo.png)
 
 # Comming soon
