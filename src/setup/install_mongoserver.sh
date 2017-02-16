@@ -2,7 +2,7 @@
 
 # misc
 apt-get update
-apt-get install -y build-essential git binutils python scons libssl-dev
+apt-get install -y build-essential git binutils python scons openssl libssl-dev
 
 # RocksDB
 apt-get update
