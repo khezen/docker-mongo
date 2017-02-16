@@ -173,4 +173,4 @@ services:
 
 networks:
   mongo_cluster:
-    driver: overlay
+    driver: bridge
