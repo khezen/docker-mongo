@@ -3,7 +3,7 @@ services:
     # SHARD 1
 
     shard1_replica1:
-        build: ..
+        build: ../..
         environment:
             RS_NAME: shard1
             SHARD_SVR: 'y'
