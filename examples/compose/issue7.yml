@@ -10,11 +10,8 @@ services:
             DB_USER: someuser
             DB_PWD:  somepass
         volumes:
-             - dbdata:/data/db
+             - /data/mongo/issue7:/data/db
         ports:
              - "27017:27017"
         network_mode: bridge
         restart: always
-
-volumes:
-    dbdata:
