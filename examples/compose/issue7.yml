@@ -1,0 +1,20 @@
+version: '2'
+services:
+    mongod1:
+        build: ../..
+        environment:
+            AUTH: y
+            ADMIN_USER: admin
+            ADMIN_PWD: adminpass
+            DB_NAME:   someuserdb
+            DB_USER: someuser
+            DB_PWD:  somepass
+        volumes:
+             - dbdata:/data/db
+        ports:
+             - "27017:27017"
+        network_mode: bridge
+        restart: always
+
+volumes:
+    dbdata:
