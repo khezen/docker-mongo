@@ -16,6 +16,7 @@ rm -rf .gopath/
 mkdir -p .gopath/src/"$(dirname "${TOOLS_PKG}")"
 ln -sf `pwd` .gopath/src/$TOOLS_PKG
 export GOPATH=`pwd`/.gopath:`pwd`/vendor
+
 go build -o /usr/bin/bsondump bsondump/main/bsondump.go
 go build -o /usr/bin/mongoimport mongoimport/main/mongoimport.go
 go build -o /usr/bin/mongoexport mongoexport/main/mongoexport.go
