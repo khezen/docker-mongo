@@ -1,4 +1,4 @@
-FROM debian:testing
+FROM debian:testing-slim
 
 MAINTAINER Guillaume Simonneau <simonneaug@gmail.com>
 LABEL Descritpion="mongodb roccksdb mongo mongod mongos mongotools bsondump mongodump mongorestore mongoimport mongoexport mongostat mongofiles mongooplog mongotop"

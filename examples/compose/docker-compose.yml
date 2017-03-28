@@ -3,7 +3,7 @@ services:
     # SHARD 1
 
     shard1_replica1:
-        build: ..
+        build: ../..
         environment:
             RS_NAME: shard1
             SHARD_SVR: 'y'
@@ -19,7 +19,7 @@ services:
         restart: always
 
     shard1_replica2:
-        build: ..
+        build: ../..
         environment:
             RS_NAME: shard1
             REQUIRE_SSL: 'y'
@@ -35,7 +35,7 @@ services:
         restart: always
 
     shard1_replica3:
-        build: ..
+        build: ../..
         environment:
             RS_NAME: shard1
             REQUIRE_SSL: 'y'
@@ -54,7 +54,7 @@ services:
 
     # SHARD 2
     shard2_replica1:
-        build: ..
+        build: ../..
         environment:
             RS_NAME: shard2
             REQUIRE_SSL: 'y'
@@ -70,7 +70,7 @@ services:
         restart: always
 
     shard2_replica2:
-        build: ..
+        build: ../..
         environment:
             RS_NAME: shard2
             REQUIRE_SSL: 'y'
@@ -86,7 +86,7 @@ services:
         restart: always
 
     shard2_replica3:
-        build: ..
+        build: ../..
         environment:
             RS_NAME: shard2
             REQUIRE_SSL: 'y'
@@ -106,7 +106,7 @@ services:
     # CONFIG SVRS
 
     configsvr1:
-        build: ..
+        build: ../..
         environment:
             RS_NAME: configsvr
             REQUIRE_SSL: 'y'
@@ -121,7 +121,7 @@ services:
             - mongo_cluster
         restart: always
     configsvr2:
-        build: ..
+        build: ../..
         environment:
             RS_NAME: configsvr
             REQUIRE_SSL: 'y'
@@ -137,7 +137,7 @@ services:
         restart: always
 
     configsvr3:
-        build: ..
+        build: ../..
         environment:
             RS_NAME: configsvr
             REQUIRE_SSL: 'y'
@@ -157,7 +157,7 @@ services:
     # MONGOS
 
     mongos1:
-        build: ..
+        build: ../..
         environment:
             CONFIG_SERVERS:  configsvr/configsvr3:27017
             REQUIRE_SSL: 'y'
