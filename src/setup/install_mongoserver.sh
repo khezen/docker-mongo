@@ -9,7 +9,7 @@ apt-get update
 apt-get install -y libbz2-dev libsnappy-dev zlib1g-dev
 git clone https://github.com/facebook/rocksdb.git
 cd rocksdb
-git checkout tags/v5.1.3
+git checkout tags/v5.2.1
 CXXFLAGS="-flto -Os -s" make -j$(nproc) shared_lib
 make install
 
