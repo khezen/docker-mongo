@@ -2,7 +2,7 @@
 
 if [ "$AUTH" == "y" ]; then
   /run/auth/create_keyfile.sh
-  touch /config/.admin_created
+  touch /data/db/.metadata/.admin_created
 fi
 
 cmd="mongos --port 27017 --configdb"
