@@ -11,7 +11,7 @@ RUN sh /run/setup/install_mongotools.sh
 
 COPY ./src /run
 RUN chmod +x -R /run \
-&&  mkdir -p /config
+&&  mkdir -p /data/db/.metadata
 
 
 # configuration and startup
