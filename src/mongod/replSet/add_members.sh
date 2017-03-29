@@ -1,6 +1,6 @@
 #!/bin/bash
-if [ ! -f /config/.members_added ] && [ "$SLAVES" != "" ]; then
-    
+if [ ! -f /data/db/.metadata/.members_added ] && [ "$SLAVES" != "" ]; then
+
    mongoshell=$(/run/misc/mongoshell.sh)
 
     if [ "$SLAVES" != "" ]; then
@@ -19,7 +19,7 @@ if [ ! -f /config/.members_added ] && [ "$SLAVES" != "" ]; then
 
     if [ "$SLAVES" != "" ] && [ "$SLAVE_OK" == "y" ]; then
     echo $mongoshell admin --quiet --eval "rs.slaveOk()"
-    $mongoshell admin --quiet --eval "rs.slaveOk()"  
+    $mongoshell admin --quiet --eval "rs.slaveOk()"
     fi
-    touch /config/.members_added
+    touch /data/db/.metadata/.members_added
 fi

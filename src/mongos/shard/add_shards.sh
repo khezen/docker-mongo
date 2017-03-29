@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ ! -f /config/.shards_added ]; then
+if [ ! -f /data/db/.metadata/.shards_added ]; then
     mongoshell=$(/run/misc/mongoshell.sh)
 
     if [ "$SHARDS" != "" ]; then
@@ -14,5 +14,5 @@ if [ ! -f /config/.shards_added ]; then
         $mongoshell admin --quiet --eval "sh.enableSharding('$DB_NAME')"
     fi
 
-    touch /config/.shards_added
+    touch /data/db/.metadata/.shards_added
 fi

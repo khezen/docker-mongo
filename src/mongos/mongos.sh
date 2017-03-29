@@ -16,8 +16,8 @@ for config_server in $CONFIG_SERVERS; do
 done
 cmd="$cmd $concat_servers"
 
-if [ "$AUTH" == "y" ] && [ -f /config/key ]; then
-  cmd="$cmd --keyFile /config/key"
+if [ "$AUTH" == "y" ] && [ -f /.key ]; then
+  cmd="$cmd --keyFile /.key"
 fi
 
 echo $cmd
