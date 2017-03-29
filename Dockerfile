@@ -10,9 +10,7 @@ RUN sh /run/setup/install_mongoserver.sh
 RUN sh /run/setup/install_mongotools.sh
 
 COPY ./src /run
-RUN chmod +x -R /run \
-&&  mkdir -p /data/db/.metadata
-
+RUN chmod +x -R /run
 
 # configuration and startup
 ENV AUTH="n" \

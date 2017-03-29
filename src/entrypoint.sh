@@ -2,6 +2,8 @@
 
 set -m
 
+mkdir -p /data/db/.metadata
+
 if [ "$CONFIG_SERVERS" == "" ]; then
   /run/mongod/entrypoint.sh &
 else
