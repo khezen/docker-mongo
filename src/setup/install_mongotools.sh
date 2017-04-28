@@ -1,6 +1,8 @@
 #!/bin/sh
 
 # misc
+
+MONGO_VERSION=3.4.4
 apt-get update -y
 apt-get install wget git binutils -y
 wget https://storage.googleapis.com/golang/go1.7.5.linux-amd64.tar.gz -P /usr/local
@@ -10,7 +12,7 @@ export PATH=$PATH:/usr/local/go/bin
 # mongotools
 git clone https://github.com/mongodb/mongo-tools /mongo-tools
 cd /mongo-tools
-git checkout tags/r3.4.3
+git checkout tags/r$MONGO_VERSION
 TOOLS_PKG='github.com/mongodb/mongo-tools'
 rm -rf .gopath/
 mkdir -p .gopath/src/"$(dirname "${TOOLS_PKG}")"
