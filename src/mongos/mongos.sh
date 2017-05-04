@@ -3,7 +3,7 @@
 if [ "$AUTH" == "y" ]; then
   /run/auth/create_keyfile.sh
   /run/auth/ssl/sel_signed.sh
-  touch /config/.admin_created
+  touch /data/db/.metadata/.admin_created
 fi
 
 cmd="mongos --port 27017 --configdb"
@@ -17,8 +17,8 @@ for config_server in $CONFIG_SERVERS; do
 done
 cmd="$cmd $concat_servers"
 
-if [ "$AUTH" == "y" ] && [ -f /config/key ]; then
-  cmd="$cmd --keyFile /config/key"
+if [ "$AUTH" == "y" ] && [ -f /.key ]; then
+  cmd="$cmd --keyFile /.key"
   if [ "$REQUIRE_SSL" == "y" ]; then
     cmd="$cmd --sslMode requireSSL --sslPEMKeyFile $KEY_FILE --sslCAFile $CA_FILE"
   fi

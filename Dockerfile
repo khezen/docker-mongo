@@ -1,4 +1,4 @@
-FROM debian:testing-slim
+FROM debian:testing
 
 MAINTAINER Guillaume Simonneau <simonneaug@gmail.com>
 LABEL Descritpion="mongodb roccksdb mongo mongod mongos mongotools bsondump mongodump mongorestore mongoimport mongoexport mongostat mongofiles mongooplog mongotop"
@@ -10,9 +10,7 @@ RUN sh /run/setup/install_mongoserver.sh
 RUN sh /run/setup/install_mongotools.sh
 
 COPY ./src /run
-RUN chmod +x -R /run \
-&&  mkdir -p /config
-
+RUN chmod +x -R /run
 
 # configuration and startup
 ENV AUTH="n" \

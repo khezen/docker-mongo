@@ -14,7 +14,6 @@ fi
 # CONFIGURE AUTHENTICATION
 if [ "$AUTH" == "y" ] && [ ! -f /confif/.admin_created ]; then
   /run/auth/create_admin.sh
-  touch /config/.admin_created
 fi
 
 # CONFIGURE REPLICA SET

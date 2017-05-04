@@ -24,8 +24,8 @@ if [ "$CONFIG_SVR" == "y" ]; then
     cmd="$cmd --configsvr"
 fi
 
-if [ "$AUTH" == "y" ] && [ -f /config/key ]; then
-  cmd="$cmd --keyFile /config/key"
+if [ "$AUTH" == "y" ] && [ -f /.key ]; then
+  cmd="$cmd --keyFile /.key"
   if [ "$REQUIRE_SSL" == "y" ]; then
     cmd="$cmd --sslPEMKeyFile $KEY_FILE --sslCAFile $CA_FILE"
   fi
