@@ -46,7 +46,7 @@ services:
 ## General
 
 ##### STORAGE_ENGINE | `wiredTiger`
-Define the storage engine you want to plug to your mongod server.
+Choose the storage engine to be used:
 * [mmapv1](https://docs.mongodb.com/manual/core/mmapv1/)
 * [wiredTiger](http://www.WiredTiger.com/)
   * [config ref](https://docs.mongodb.com/manual/core/wiredtiger)
