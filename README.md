@@ -49,9 +49,9 @@ services:
 Define the storage engine you want to plug to your mongod server.
 * [mmapv1](https://docs.mongodb.com/manual/core/mmapv1/)
 * [wiredTiger](http://www.WiredTiger.com/)
-  * [ref](https://docs.mongodb.com/manual/core/wiredtiger)
+  * [config ref](https://docs.mongodb.com/manual/core/wiredtiger)
 * [rocksdb](http://RocksDB.org/)
-  * [ref](https://github.com/mongodb-partners/mongo-rocks/wiki).
+  * [config ref](https://github.com/mongodb-partners/mongo-rocks/wiki)
 
 ##### AUTH | `n`
 To enable AUTHentication, set to `y`.
