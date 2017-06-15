@@ -3,11 +3,11 @@ FROM debian:testing-slim
 MAINTAINER Guillaume Simonneau <simonneaug@gmail.com>
 LABEL Descritpion="mongodb roccksdb mongo mongod mongos mongotools bsondump mongodump mongorestore mongoimport mongoexport mongostat mongofiles mongooplog mongotop"
 
-COPY ./src/setup/ /run/setup/
+COPY ./install/ /run/install/
 RUN chmod +x -R /run
 
-RUN sh /run/setup/install_mongoserver.sh
-RUN sh /run/setup/install_mongotools.sh
+RUN sh /run/install/install_mongoserver.sh
+RUN sh /run/install/install_mongotools.sh
 
 COPY ./src /run
 RUN chmod +x -R /run
