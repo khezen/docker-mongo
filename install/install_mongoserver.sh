@@ -1,7 +1,7 @@
 #!/bin/sh
 
-MONGO_VERSION=3.4.4
-ROCKSDB_VERSION=5.2.1
+MONGO_VERSION=3.4.5
+ROCKSDB_VERSION=5.4.6
 
 # misc
 apt-get update
