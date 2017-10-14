@@ -2,7 +2,6 @@
 
 if [ "$AUTH" == "y" ]; then
   /run/auth/create_keyfile.sh
-  /run/auth/ssl/sel_signed.sh
   touch /data/db/.metadata/.admin_created
 fi
 
@@ -19,9 +18,6 @@ cmd="$cmd $concat_servers"
 
 if [ "$AUTH" == "y" ] && [ -f /.key ]; then
   cmd="$cmd --keyFile /.key"
-  if [ "$REQUIRE_SSL" == "y" ]; then
-    cmd="$cmd --sslMode requireSSL --sslPEMKeyFile $KEY_FILE --sslCAFile $CA_FILE"
-  fi
 fi
 
 echo $cmd
