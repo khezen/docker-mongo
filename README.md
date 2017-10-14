@@ -1,6 +1,5 @@
 # Supported tags and respective `Dockerfile` links
 
-* `3.2.9`, `3.2` [(3.2/Dockerfile)](https://github.com/Khezen/docker-mongo/blob/v3.2/Dockerfile) [![](https://images.microbadger.com/badges/image/khezen/mongo:3.2.svg)](https://microbadger.com/images/khezen/mongo:3.2 "Get your own image badge on microbadger.com")
 * `3.4.5`, `3.4`, `3`, `latest` [(3.4/Dockerfile)](https://github.com/Khezen/docker-mongo/blob/v3.4/Dockerfile) [![](https://images.microbadger.com/badges/image/khezen/mongo:3.4.svg)](https://microbadger.com/images/khezen/mongo:3.4 "Get your own image badge on microbadger.com")
 * `3.4.5-slim`, `3.4-slim`, `3-slim`, `slim` [(3.4-slim/Dockerfile)](https://github.com/Khezen/docker-mongo/blob/v3.4-slim/Dockerfile) [![](https://images.microbadger.com/badges/image/khezen/mongo:3.4-slim.svg)](https://microbadger.com/images/khezen/mongo:3.4-slim "Get your own image badge on microbadger.com")
 
