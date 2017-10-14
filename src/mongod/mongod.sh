@@ -2,6 +2,7 @@
 
 if [ "$AUTH" == "y" ]; then
   /run/auth/create_keyfile.sh
+  /run/auth/ssl/self_signed.sh
 fi
 
 cmd="mongod --storageEngine $STORAGE_ENGINE --port 27017"
@@ -25,6 +26,9 @@ fi
 
 if [ "$AUTH" == "y" ] && [ -f /.key ]; then
   cmd="$cmd --keyFile /.key"
+  if [ "$REQUIRE_SSL" == "y" ]; then
+    cmd="$cmd --sslPEMKeyFile $KEY_FILE --sslCAFile $CA_FILE"
+  fi
 fi
 
 echo $cmd

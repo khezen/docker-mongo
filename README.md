@@ -61,6 +61,14 @@ User with *root* permissions on the *admin* DB_NAME. (**AUTH** has to be set to 
 ##### ADMIN_PWD | `changeme`
 The password of the **ADMIN_USER** above. (**AUTH** has to be set to `y`).
 
+##### KEY_FILE | `/etc/ssl/mongodb.pem`
+Path to the .pem file that contains the signed SSL certificate and key.
+Self generated if the file does not exists.
+
+##### CA_FILE | `/etc/ssl/ca.pem`
+Path to the .pem file that contains the root certificate chain from the Certificate Authority.
+Self generated if the file does not exists.
+
 ##### DB_NAME | `(empty by default)`
 Create a new DB_NAME with this name.
 

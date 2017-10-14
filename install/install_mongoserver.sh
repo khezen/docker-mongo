@@ -5,7 +5,7 @@ ROCKSDB_VERSION=5.4.6
 
 # misc
 apt-get update
-apt-get install -y build-essential git binutils python scons libssl-dev
+apt-get install -y build-essential git binutils python scons openssl libssl-dev
 
 # RocksDB
 apt-get update
@@ -25,7 +25,7 @@ cd /mongo
 git checkout tags/r$MONGO_VERSION
 mkdir -p src/mongo/db/modules/
 ln -sf /mongo-rocks src/mongo/db/modules/rocks
-CXXFLAGS="-flto -Os -s" scons CPPPATH=/usr/local/include LIBPATH=/usr/local/lib -j$(nproc) --disable-warnings-as-errors --release --prefix=/usr --opt core  install
+CXXFLAGS="-flto -Os -s" scons CPPPATH=/usr/local/include LIBPATH=/usr/local/lib -j$(nproc) --disable-warnings-as-errors --release --prefix=/usr --opt core --ssl  install
 
 # purge
 strip /usr/bin/mongoperf
