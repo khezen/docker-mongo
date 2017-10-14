@@ -2,7 +2,7 @@
 
 # misc
 
-MONGO_VERSION=3.4.5
+MONGO_VERSION=3.6
 apt-get update -y
 apt-get install wget git binutils -y
 wget https://storage.googleapis.com/golang/go1.7.5.linux-amd64.tar.gz -P /usr/local
