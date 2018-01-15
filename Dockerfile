@@ -84,8 +84,8 @@ COPY --from=build /usr/bin/mongostat /bin/mongostat
 COPY --from=build /usr/bin/mongofiles /bin/mongofiles
 COPY --from=build /usr/bin/mongooplog /bin/mongooplog
 COPY --from=build /usr/bin/mongotop /bin/mongotop
+COPY ./config.yml /.backup/mongo/config.yml
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
-COPY ./config.yml /.backup/mongo/config.yml
 ENTRYPOINT  ["/entrypoint.sh"]
 CMD ["mongod --config etc/mongo/config.yml"]
