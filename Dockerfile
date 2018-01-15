@@ -1,4 +1,4 @@
-FROM debian:slim
+FROM debian:stretch-slim
 LABEL Descritpion="mongodb roccksdb mongo mongod mongos mongotools bsondump mongodump mongorestore mongoimport mongoexport mongostat mongofiles mongooplog mongotop"
 
 COPY ./install/ /install/
