@@ -1,13 +1,14 @@
-FROM debian:testing
-
-MAINTAINER Guillaume Simonneau <simonneaug@gmail.com>
+FROM debian:slim
 LABEL Descritpion="mongodb roccksdb mongo mongod mongos mongotools bsondump mongodump mongorestore mongoimport mongoexport mongostat mongofiles mongooplog mongotop"
 
 COPY ./install/ /install/
 RUN chmod +x -R /install
-RUN sh /install/install_mongoserver.sh
-RUN sh /install/install_mongotools.sh
+RUN sh /install/mongoserver.sh
+RUN sh /install/mongotools.sh
 
-COPY ./default_config.yml /config.yml
 
-CMD ["mongod --config /config.yml"]
+COPY ./entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+COPY ./config.yml /.backup/mongo/config.yml
+ENTRYPOINT  ["/entrypoint.sh"]
+CMD ["mongod --config etc/mongo/config.yml"]

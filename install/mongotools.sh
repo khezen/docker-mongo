@@ -2,11 +2,12 @@
 
 # misc
 
-MONGO_VERSION=3.6
+MONGO_VERSION=3.6.2
+GO_VERSION=1.9.1
 apt-get update -y
 apt-get install wget git binutils -y
-wget https://storage.googleapis.com/golang/go1.7.5.linux-amd64.tar.gz -P /usr/local
-tar -C /usr/local -xzf /usr/local/go1.7.5.linux-amd64.tar.gz
+wget https://storage.googleapis.com/golang/go$GO_VERSION.linux-amd64.tar.gz -P /usr/local
+tar -C /usr/local -xzf /usr/local/go$GO_VERSION.linux-amd64.tar.gz
 export PATH=$PATH:/usr/local/go/bin
 
 # mongotools
@@ -43,4 +44,4 @@ strip /usr/bin/mongotop
 apt-get -y --purge autoremove  wget git binutils
 rm -rf /mongo-tools
 rm -rf /usr/local/go
-rm -f /usr/local/go1.7.5.linux-amd64.tar.gz
+rm -f /usr/local/go$GO_VERSION.linux-amd64.tar.gz

@@ -11,7 +11,7 @@
 
 # Where and how to store data.
 storage:
-  dbPath: /data/mongo
+  dbPath: /data/db
   journal:
     enabled: true
 engine: rocksdb
