@@ -20,7 +20,7 @@ RUN echo "deb http://ftp.us.debian.org/debian unstable main contrib non-free" > 
     zlib1g-dev \
     wget \
     git \
-    binutils \
+    binutils
 RUN  pip install -t lib setuptools
 # RocksDB
 RUN git clone https://github.com/facebook/rocksdb.git \
