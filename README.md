@@ -42,6 +42,7 @@ The image embed the following binaries:
 * mongofiles
 * mongooplog
 * mongotop
+* mongoreplay
 
 # User Feedback
 ## Issues
