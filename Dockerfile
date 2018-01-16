@@ -36,7 +36,7 @@ RUN  cd /mongo && git checkout tags/r$MONGO_VERSION \
 &&  mkdir -p src/mongo/db/modules/ \
 &&  ln -sf /mongo-rocks src/mongo/db/modules/rocks \
 &&  pip install -r buildscripts/requirements.txt \
-&&  CXXFLAGS="-flto -Os -s" scons CPPPATH=/usr/local/include LIBPATH=/usr/local/lib -j$(nproc) --disable-warnings-as-errors --release --prefix=/usr --opt core --ssl  install
+&&  CXXFLAGS="-flto -Os -s" scons CPPPATH=/usr/local/include LIBPATH=/usr/local/lib -j$(nproc) --disable-warnings-as-errors --release --prefix=/usr --opt core --ssl install
 RUN strip /usr/bin/mongoperf \
 &&  strip /usr/bin/mongo \
 &&  strip /usr/bin/mongod \
