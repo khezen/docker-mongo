@@ -14,13 +14,35 @@ This image embed [`rocksdb`](http://rocksdb.org/) next to [`wiredTiger`](http://
 
 ---
 # How To Use
+
+## run
 ```
 docker run -d -p 27017:27017 khezen/mongo:latest
 ```   
+
 ```
 docker run -d -p 27017:27017 -v /data/mongo:/data/db -v /etc/mongo:/etc/mongo khezen/mongo:latest
 ```
+
+## config
 start with this [config file](./config.yml) by default. For more configuration options have a look at the [documentation](http://docs.mongodb.org/manual/reference/configuration-options/)
+
+## cmd
+The image embed the following binaries:
+* mongo
+* mongod
+* mongos
+* mongoperf
+* bsondump
+* mongoimport
+* mongoexport
+* mongodump
+* mongorestore
+* mongostat
+* mongofiles
+* mongooplog
+* mongotop
+
 # User Feedback
 ## Issues
 If you have any problems with or questions about this image, please ask for help through a [GitHub issue](https://github.com/Khezen/docker-mongo/issues).
