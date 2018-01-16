@@ -1,6 +1,4 @@
 FROM debian:stretch-slim as build
-LABEL Descritpion="mongodb roccksdb mongo mongod mongos mongotools bsondump mongodump mongorestore mongoimport mongoexport mongostat mongofiles mongooplog mongotop"
-
 ENV MONGO_VERSION=3.6.2
 ENV ROCKSDB_VERSION=5.9.2
 # misc
@@ -61,7 +59,8 @@ RUN go build -o /usr/bin/bsondump bsondump/main/bsondump.go \
 &&  go build -o /usr/bin/mongostat mongostat/main/mongostat.go \
 &&  go build -o /usr/bin/mongofiles mongofiles/main/mongofiles.go \
 &&  go build -o /usr/bin/mongooplog mongooplog/main/mongooplog.go \
-&&  go build -o /usr/bin/mongotop mongotop/main/mongotop.go
+&&  go build -o /usr/bin/mongotop mongotop/main/mongotop.go \
+&&  go build -o /usr/bin/mongotop mongotop/main/mongoreplay.go
 RUN strip /usr/bin/bsondump \
 &&  strip /usr/bin/mongoimport \
 &&  strip /usr/bin/mongoexport \
@@ -70,9 +69,11 @@ RUN strip /usr/bin/bsondump \
 &&  strip /usr/bin/mongostat \
 &&  strip /usr/bin/mongofiles \
 &&  strip /usr/bin/mongooplog \
-&&  strip /usr/bin/mongotop
+&&  strip /usr/bin/mongotop \
+&&  strip /usr/bin/mongoreplay
 
 FROM debian:stretch-slim
+LABEL Descritpion="mongodb roccksdb mongo mongod mongos mongotools bsondump mongodump mongorestore mongoimport mongoexport mongostat mongofiles mongooplog mongotop mongoreplay"
 COPY --from=build /usr/bin/mongoperf /bin/mongoperf
 COPY --from=build /usr/bin/mongo /bin/mongo
 COPY --from=build /usr/bin/mongod /bin/mongod
@@ -86,6 +87,7 @@ COPY --from=build /usr/bin/mongostat /bin/mongostat
 COPY --from=build /usr/bin/mongofiles /bin/mongofiles
 COPY --from=build /usr/bin/mongooplog /bin/mongooplog
 COPY --from=build /usr/bin/mongotop /bin/mongotop
+COPY --from=build /usr/bin/mongotop /bin/mongoreplay
 COPY ./config.yml /.backup/mongo/config.yml
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
