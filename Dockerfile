@@ -14,27 +14,29 @@ RUN echo "deb http://ftp.us.debian.org/debian unstable main contrib non-free" > 
     scons \
     libssl-dev \
     gcc-5 \
-    pip \
     libbz2-dev \
     libsnappy-dev \
     zlib1g-dev \
     wget \
     git \
     binutils
-RUN  pip install -t lib setuptools
 # RocksDB
-RUN git clone https://github.com/facebook/rocksdb.git \
-&&  cd rocksdb &&  git checkout tags/v$ROCKSDB_VERSION
-RUN USE_RTTI=1 CFLAGS="-fPIC" CXXFLAGS="-flto -Os -s" make -j$(nproc) static_lib \
+RUN git clone https://github.com/facebook/rocksdb.git
+RUN cd rocksdb &&  git checkout tags/v$ROCKSDB_VERSION \
+&&  USE_RTTI=1 CFLAGS="-fPIC" CXXFLAGS="-flto -Os -s" make -j$(nproc) static_lib \
 &&  make install
 # MongoDB
 RUN git clone https://github.com/mongodb-partners/mongo-rocks.git /mongo-rocks \
 &&  cd /mongo-rocks && git checkout tags/r$MONGO_VERSION
-RUN git clone https://github.com/mongodb/mongo.git /mongo \
-&&  cd /mongo && git checkout tags/r$MONGO_VERSION
-RUN mkdir -p src/mongo/db/modules/ \
-&&  ln -sf /mongo-rocks src/mongo/db/modules/rocks
-RUN CXXFLAGS="-flto -Os -s" scons CPPPATH=/usr/local/include LIBPATH=/usr/local/lib -j$(nproc) --disable-warnings-as-errors --release --prefix=/usr --opt core  install
+RUN git clone https://github.com/mongodb/mongo.git /mongo
+RUN apt-get install -y python-dev
+RUN wget https://bootstrap.pypa.io/get-pip.py \
+&&  python get-pip.py
+RUN  cd /mongo && git checkout tags/r$MONGO_VERSION \
+&&  mkdir -p src/mongo/db/modules/ \
+&&  ln -sf /mongo-rocks src/mongo/db/modules/rocks \
+&&  pip install -r buildscripts/requirements.txt \
+&&  CXXFLAGS="-flto -Os -s" scons CPPPATH=/usr/local/include LIBPATH=/usr/local/lib -j$(nproc) --disable-warnings-as-errors --release --prefix=/usr --opt core --ssl  install
 RUN strip /usr/bin/mongoperf \
 &&  strip /usr/bin/mongo \
 &&  strip /usr/bin/mongod \
@@ -59,7 +61,7 @@ RUN go build -o /usr/bin/bsondump bsondump/main/bsondump.go \
 &&  go build -o /usr/bin/mongostat mongostat/main/mongostat.go \
 &&  go build -o /usr/bin/mongofiles mongofiles/main/mongofiles.go \
 &&  go build -o /usr/bin/mongooplog mongooplog/main/mongooplog.go \
-&&  go build -o /usr/bin/mongotop mongotop/main/mongotop.go \
+&&  go build -o /usr/bin/mongotop mongotop/main/mongotop.go
 RUN strip /usr/bin/bsondump \
 &&  strip /usr/bin/mongoimport \
 &&  strip /usr/bin/mongoexport \
