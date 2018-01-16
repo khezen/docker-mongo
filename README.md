@@ -20,7 +20,7 @@ docker run -d -p 27017:27017 khezen/mongo:latest
 ```
 docker run -d -p 27017:27017 -v /data/mongo:/data/db -v /etc/mongo:/etc/mongo khezen/mongo:latest
 ```
-start with a [default config file](./config.yml) by default. For more configuration options have a look at the [documentation](http://docs.mongodb.org/manual/reference/configuration-options/)
+start with this [config file](./config.yml) by default. For more configuration options have a look at the [documentation](http://docs.mongodb.org/manual/reference/configuration-options/)
 # User Feedback
 ## Issues
 If you have any problems with or questions about this image, please ask for help through a [GitHub issue](https://github.com/Khezen/docker-mongo/issues).
