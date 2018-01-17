@@ -48,6 +48,7 @@ ENV TOOLS_PKG='github.com/mongodb/mongo-tools'
 RUN git clone https://github.com/mongodb/mongo-tools /usr/local/go/src/${TOOLS_PKG} \
 &&  cd /usr/local/go/src/${TOOLS_PKG} && git checkout tags/r$MONGO_VERSION
 RUN cp -avr /usr/local/go/src/${TOOLS_PKG}/vendor/src/* /usr/local/go/src
+RUN apt-get install -y libpcap-dev
 RUN cd /usr/local/go/src/${TOOLS_PKG} \
 &&  go build -o /usr/bin/bsondump bsondump/main/bsondump.go \
 &&  go build -o /usr/bin/mongoimport mongoimport/main/mongoimport.go \
@@ -81,7 +82,6 @@ COPY --from=build /usr/bin/mongodump /bin/mongodump
 COPY --from=build /usr/bin/mongorestore /bin/mongorestore
 COPY --from=build /usr/bin/mongostat /bin/mongostat
 COPY --from=build /usr/bin/mongofiles /bin/mongofiles
-COPY --from=build /usr/bin/mongooplog /bin/mongooplog
 COPY --from=build /usr/bin/mongotop /bin/mongotop
 COPY --from=build /usr/bin/mongotop /bin/mongoreplay
 COPY ./config.yml /.backup/mongo/config.yml
