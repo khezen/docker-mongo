@@ -42,16 +42,14 @@ RUN strip /usr/bin/mongoperf \
 # mongotools
 ENV GO_VERSION=1.9.1
 RUN wget https://storage.googleapis.com/golang/go$GO_VERSION.linux-amd64.tar.gz -P /usr/local \
-&&  tar -C /usr/local -xzf /usr/local/go$GO_VERSION.linux-amd64.tar.gz \
-&&  export PATH=$PATH:/usr/local/go/bin
-RUN git clone https://github.com/mongodb/mongo-tools /mongo-tools \
-&&  cd /mongo-tools && git checkout tags/r$MONGO_VERSION
+&&  tar -C /usr/local -xzf /usr/local/go$GO_VERSION.linux-amd64.tar.gz
+ENV PATH="${PATH}:/usr/local/go/bin"
 ENV TOOLS_PKG='github.com/mongodb/mongo-tools'
-RUN rm -rf .gopath/ \
-&&  mkdir -p .gopath/src/"$(dirname "${TOOLS_PKG}")" \
-&&  ln -sf `pwd` .gopath/src/$TOOLS_PKG \
-&&  export GOPATH=`pwd`/.gopath:`pwd`/vendor
-RUN go build -o /usr/bin/bsondump bsondump/main/bsondump.go \
+RUN git clone https://github.com/mongodb/mongo-tools /usr/local/go/src/${TOOLS_PKG} \
+&&  cd /usr/local/go/src/${TOOLS_PKG} && git checkout tags/r$MONGO_VERSION
+RUN cp -avr /usr/local/go/src/${TOOLS_PKG}/vendor/src/* /usr/local/go/src
+RUN cd /usr/local/go/src/${TOOLS_PKG} \
+&&  go build -o /usr/bin/bsondump bsondump/main/bsondump.go \
 &&  go build -o /usr/bin/mongoimport mongoimport/main/mongoimport.go \
 &&  go build -o /usr/bin/mongoexport mongoexport/main/mongoexport.go \
 &&  go build -o /usr/bin/mongodump mongodump/main/mongodump.go \
