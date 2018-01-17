@@ -29,7 +29,7 @@ docker run -d -it -p 27017:27017 khezen/mongo:latest "mongod --config etc/mongo/
 ```
 
 ```bash
-docker run -d -it -p 27017:27019 -v /data/mongo/shard1:/data/db khezen/mongo:latest "mongod --port 27019 --shardsvr --replSet shard1 --dbpath /data/db --keyFile path/to/keyFile"
+docker run -d -it -p 27017:27017 -v /data/mongo/shard1:/data/db khezen/mongo:latest "mongod --port 27017 --shardsvr --replSet shard1 --dbpath /data/db"
 ```
 
 
