@@ -15,14 +15,23 @@ This image embed [`rocksdb`](http://rocksdb.org/) next to [`wiredTiger`](http://
 ---
 # How To Use
 
-## run
-```
+## run examples
+```bash
 docker run -d -p 27017:27017 khezen/mongo:latest
 ```   
 
-```
+```bash
 docker run -d -p 27017:27017 -v /data/mongo:/data/db -v /etc/mongo:/etc/mongo khezen/mongo:latest
 ```
+
+```bash
+docker run -d -it -p 27017:27017 khezen/mongo:latest "mongod --config etc/mongo/config.yml"
+```
+
+```bash
+docker run -d -it -p 27017:27019 -v /data/mongo/shard1:/data/db khezen/mongo:latest "mongod --port 27019 --shardsvr --replSet shard1 --dbpath /data/db --keyFile path/to/keyFile"
+```
+
 
 ## config
 start with this [config file](./config.yml) by default. For more configuration options have a look at the [documentation](http://docs.mongodb.org/manual/reference/configuration-options/)
