@@ -56,9 +56,8 @@ RUN cd /usr/local/go/src/${TOOLS_PKG} \
 &&  go build -o /usr/bin/mongorestore mongorestore/main/mongorestore.go \
 &&  go build -o /usr/bin/mongostat mongostat/main/mongostat.go \
 &&  go build -o /usr/bin/mongofiles mongofiles/main/mongofiles.go \
-&&  go build -o /usr/bin/mongooplog mongooplog/main/mongooplog.go \
 &&  go build -o /usr/bin/mongotop mongotop/main/mongotop.go \
-&&  go build -o /usr/bin/mongotop mongotop/main/mongoreplay.go
+&&  go build -o /usr/bin/mongoreplay mongoreplay/main/mongoreplay.go
 RUN strip /usr/bin/bsondump \
 &&  strip /usr/bin/mongoimport \
 &&  strip /usr/bin/mongoexport \
@@ -66,7 +65,6 @@ RUN strip /usr/bin/bsondump \
 &&  strip /usr/bin/mongorestore \
 &&  strip /usr/bin/mongostat \
 &&  strip /usr/bin/mongofiles \
-&&  strip /usr/bin/mongooplog \
 &&  strip /usr/bin/mongotop \
 &&  strip /usr/bin/mongoreplay
 

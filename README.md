@@ -40,7 +40,6 @@ The image embed the following binaries:
 * mongorestore
 * mongostat
 * mongofiles
-* mongooplog
 * mongotop
 * mongoreplay
 
