@@ -16,6 +16,9 @@ This image embed [`rocksdb`](http://rocksdb.org/) next to [`wiredTiger`](http://
 # How To Use
 
 ## run examples
+
+using config file 
+
 ```bash
 docker run -d -p 27017:27017 khezen/mongo:latest
 ```   
@@ -28,6 +31,7 @@ docker run -d -p 27017:27017 -v /data/mongo:/data/db -v /etc/mongo:/etc/mongo kh
 docker run -d -it -p 27017:27017 khezen/mongo:latest "mongod --config etc/mongo/config.yml"
 ```
 
+using command and options
 ```bash
 docker run -d -it -p 27017:27017 -v /data/mongo/shard1:/data/db khezen/mongo:latest "mongod --port 27017 --shardsvr --replSet shard1 --dbpath /data/db"
 ```
