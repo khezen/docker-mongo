@@ -70,7 +70,7 @@ RUN strip /usr/bin/bsondump \
 &&  strip /usr/bin/mongoreplay
 
 FROM debian:stretch-slim
-LABEL Descritpion="mongodb roccksdb mongo mongod mongos mongotools bsondump mongodump mongorestore mongoimport mongoexport mongostat mongofiles mongooplog mongotop mongoreplay"
+LABEL Description="mongodb roccksdb mongo mongod mongos mongotools bsondump mongodump mongorestore mongoimport mongoexport mongostat mongofiles mongooplog mongotop mongoreplay"
 RUN apt-get update && apt-get install -y libssl-dev
 RUN mkdir -p /data/db
 COPY --from=build /usr/bin/mongoperf /bin/mongoperf
