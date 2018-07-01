@@ -40,7 +40,7 @@ RUN strip /usr/bin/mongoperf \
 &&  strip /usr/bin/mongod \
 &&  strip /usr/bin/mongos
 # mongotools
-ENV GO_VERSION=1.9.1
+ENV GO_VERSION=1.10.3
 RUN wget https://storage.googleapis.com/golang/go$GO_VERSION.linux-amd64.tar.gz -P /usr/local \
 &&  tar -C /usr/local -xzf /usr/local/go$GO_VERSION.linux-amd64.tar.gz
 ENV PATH="${PATH}:/usr/local/go/bin"
