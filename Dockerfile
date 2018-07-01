@@ -1,6 +1,6 @@
 FROM debian:stretch-slim as build
-ENV MONGO_VERSION=3.6.2
-ENV ROCKSDB_VERSION=5.9.2
+ENV MONGO_VERSION=4.0.0
+ENV ROCKSDB_VERSION=5.13.4
 # misc
 RUN echo "deb http://ftp.us.debian.org/debian unstable main contrib non-free" > /etc/apt/sources.list.d/unstable.list \
 &&  apt-get update \
